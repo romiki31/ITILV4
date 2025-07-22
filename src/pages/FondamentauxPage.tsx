@@ -237,45 +237,49 @@ const FondamentauxPage: React.FC = () => {
                 <div className="pt-4">
                   <p className="text-gray-600 mb-4">{section.content.intro}</p>
 
-                  {section.id === 'concepts-cles' && (
-                    <div className="space-y-4">
-                      {section.content.items?.map((item, index) => (
-                        <div key={index} className="bg-gray-50 rounded-lg p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">{item.term}</h3>
-                          <p className="text-gray-700 mb-2">{item.definition}</p>
-                          <div className="space-y-2 text-sm">
-                            <div className="flex items-start space-x-2">
-                              <span className="text-green-600 font-medium">Exemple :</span>
-                              <span className="text-gray-600">{item.exemple}</span>
-                            </div>
-                            <div className="flex items-start space-x-2">
-                              <span className="text-red-600 font-medium">Attention :</span>
-                              <span className="text-gray-600">{item.piege}</span>
-                            </div>
-                          </div>
+            {section.id === 'concepts-cles' && (
+              <div className="space-y-4">
+                {section.content.items?.map((item, index) =>
+                  'term' in item ? (
+                    <div key={index} className="bg-gray-50 rounded-lg p-4">
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.term}</h3>
+                      <p className="text-gray-700 mb-2">{item.definition}</p>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-start space-x-2">
+                          <span className="text-green-600 font-medium">Exemple :</span>
+                          <span className="text-gray-600">{item.exemple}</span>
                         </div>
-                      ))}
+                        <div className="flex items-start space-x-2">
+                          <span className="text-red-600 font-medium">Attention :</span>
+                          <span className="text-gray-600">{item.piege}</span>
+                        </div>
+                      </div>
                     </div>
-                  )}
+                  ) : null
+                )}
+              </div>
+            )}
 
-                  {section.id === 'principes' && (
-                    <div className="space-y-3">
-                      {section.content.items?.map((item, index) => (
-                        <div key={index} className="border-l-4 border-green-500 pl-4 py-2">
-                          <h3 className="font-semibold text-gray-900">{index + 1}. {item.principe}</h3>
-                          <p className="text-gray-700 text-sm mt-1">{item.application}</p>
-                          <p className="text-gray-600 text-sm mt-1 italic">Ex: {item.exemple}</p>
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {item.motsClés?.map((mot, idx) => (
-                              <span key={idx} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">
-                                {mot}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+            {section.id === 'principes' && (
+              <div className="space-y-3">
+                {section.content.items?.map((item, index) =>
+                  'principe' in item ? (
+                    <div key={index} className="border-l-4 border-green-500 pl-4 py-2">
+                      <h3 className="font-semibold text-gray-900">{index + 1}. {item.principe}</h3>
+                      <p className="text-gray-700 text-sm mt-1">{item.application}</p>
+                      <p className="text-gray-600 text-sm mt-1 italic">Ex: {item.exemple}</p>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {item.motsClés.map((mot: string, idx: number) => (
+                          <span key={idx} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">
+                            {mot}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  )}
+                  ) : null
+                )}
+              </div>
+            )}
 
                   {section.id === 'dimensions' && (
                     <div className="space-y-4">
