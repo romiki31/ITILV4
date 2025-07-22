@@ -6,11 +6,12 @@ import { QuizQuestion } from '../types';
 interface QuizComponentProps {
   questions: QuizQuestion[];
   onComplete: (score: number, total: number) => void;
+  onRestart?: () => void;
   title?: string;
   timeLimit?: number; // in seconds
 }
 
-export function QuizComponent({ questions, onComplete, title = 'Quiz', timeLimit }: QuizComponentProps) {
+export function QuizComponent({ questions, onComplete, onRestart, title = 'Quiz', timeLimit }: QuizComponentProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(
     new Array(questions.length).fill(null)
@@ -18,6 +19,15 @@ export function QuizComponent({ questions, onComplete, title = 'Quiz', timeLimit
   const [showResults, setShowResults] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(timeLimit);
   const [isStarted, setIsStarted] = useState(false);
+
+  // Reset answers and state if questions change (by content, not just length)
+  useEffect(() => {
+    setSelectedAnswers(new Array(questions.length).fill(null));
+    setCurrentQuestionIndex(0);
+    setShowResults(false);
+    setTimeRemaining(timeLimit);
+    setIsStarted(false);
+  }, [questions.map(q => q.id).join(','), timeLimit]); // Dépend des IDs des questions
 
   // Timer effect
   useEffect(() => {
@@ -81,6 +91,10 @@ export function QuizComponent({ questions, onComplete, title = 'Quiz', timeLimit
   };
 
   const handleRestart = () => {
+    if (onRestart) {
+      // Appeler la fonction de rappel pour générer de nouvelles questions
+      onRestart();
+    }
     setCurrentQuestionIndex(0);
     setSelectedAnswers(new Array(questions.length).fill(null));
     setShowResults(false);

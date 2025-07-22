@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shuffle, RotateCcw } from 'lucide-react';
 import { FlashcardComponent } from '../components/FlashcardComponent';
-import { flashcards } from '../data/quiz';
+import { comprehensiveFlashcards as flashcards } from '../data/comprehensive-flashcards';
 import { Flashcard } from '../types';
 
 export function FlashcardsPage() {

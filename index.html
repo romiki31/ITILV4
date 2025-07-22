@@ -63,13 +63,16 @@
     </style>
   </head>
   <body>
+    <script>
+      // Redirection vers page de maintenance
+      window.location.href = '/maintenance.html';
+    </script>
     <div id="root">
       <!-- Loading fallback -->
       <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
         <div class="loading-spinner"></div>
-        <p style="margin-top: 20px; color: #666;">Chargement de votre guide ITIL v4...</p>
+        <p style="margin-top: 20px; color: #666;">Redirection en cours...</p>
       </div>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

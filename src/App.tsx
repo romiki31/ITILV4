@@ -8,12 +8,16 @@ import { ConceptCard } from './components/ConceptCard';
 import { DashboardPage } from './pages/DashboardPage';
 import { useProgress } from './hooks/useProgress';
 import { dimensions, chainActivities, practices } from './data/concepts';
-import { quizQuestions, examSimulationQuestions } from './data/quiz';
+import { generateRandomQuiz, generateExamSimulation } from './data/comprehensive-quiz';
 import { motion } from 'framer-motion';
 import { Clock, Target, Award, BookOpen, Users, Lightbulb } from 'lucide-react';
 
 function App() {
   const [activeSection, setActiveSection] = useState('dashboard');
+  const [quizQuestions, setQuizQuestions] = useState(generateRandomQuiz());
+  const [examQuestions, setExamQuestions] = useState(generateExamSimulation());
+  const [quizKey, setQuizKey] = useState(Date.now()); // Clé dynamique pour forcer la réinitialisation
+  
   const { 
     progress, 
     updateConceptStudied, 
@@ -31,6 +35,14 @@ function App() {
   const handleQuizComplete = (score: number, total: number) => {
     updateQuizScore(activeSection, Math.round((score / total) * 100));
     updateStreak();
+    
+    // Générer un nouveau quiz aléatoire après completion
+    if (activeSection === 'quiz') {
+      setQuizQuestions(generateRandomQuiz());
+      setQuizKey(Date.now()); // Forcer la réinitialisation du composant
+    } else if (activeSection === 'exam') {
+      setExamQuestions(generateExamSimulation());
+    }
   };
 
   const renderContent = () => {
@@ -142,16 +154,63 @@ function App() {
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 ❓ Quiz d'Entraînement
               </h1>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-2">
                 Testez vos connaissances avec ces questions d'entraînement.
+              </p>
+              <p className="text-sm text-blue-600 font-medium">
+                🎯 Plus de 100 questions disponibles • 10 nouvelles à chaque fois
               </p>
             </motion.div>
 
-            <QuizComponent 
-              questions={quizQuestions.slice(0, 10)}
-              onComplete={handleQuizComplete}
-              title="Quiz d'Entraînement"
-            />
+            <div className="space-y-6">
+              {/* Quiz Options */}
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="card bg-blue-50 border-blue-200">
+                  <h3 className="font-semibold text-blue-900 mb-2">Quiz Aléatoire</h3>
+                  <p className="text-sm text-blue-700 mb-3">
+                    10 questions variées sélectionnées parmi plus de 80 questions authentiques
+                  </p>
+                  <div className="text-xs text-blue-600">
+                    3 faciles • 5 moyennes • 2 difficiles
+                  </div>
+                </div>
+                <div className="card bg-green-50 border-green-200">
+                  <h3 className="font-semibold text-green-900 mb-2">Questions Récentes</h3>
+                  <p className="text-sm text-green-700 mb-3">
+                    Basées sur l'examen officiel 2024 avec explications détaillées
+                  </p>
+                  <div className="text-xs text-green-600">
+                    Difficulté progressive
+                  </div>
+                </div>
+                <div className="card bg-purple-50 border-purple-200">
+                  <h3 className="font-semibold text-purple-900 mb-2">Nouveau Quiz</h3>
+                  <p className="text-sm text-purple-700 mb-3">
+                    Chaque quiz vous propose 10 nouvelles questions différentes
+                  </p>
+                  <button
+                    onClick={() => {
+                      setQuizQuestions(generateRandomQuiz());
+                      setQuizKey(Date.now()); // Générer nouvelle clé pour forcer la réinitialisation
+                    }}
+                    className="text-sm bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium shadow-sm"
+                  >
+                    🎲 Générer nouveau quiz
+                  </button>
+                </div>
+              </div>
+
+              <QuizComponent 
+                key={`quiz-${quizKey}`} // Utiliser la clé dynamique
+                questions={quizQuestions}
+                onComplete={handleQuizComplete}
+                onRestart={() => {
+                  setQuizQuestions(generateRandomQuiz());
+                  setQuizKey(Date.now()); // Générer nouvelle clé pour forcer la réinitialisation
+                }}
+                title="Quiz d'Entraînement (10 questions)"
+              />
+            </div>
           </div>
         );
       
@@ -230,12 +289,31 @@ function App() {
                 Passez un examen blanc dans les conditions réelles : 40 questions en 60 minutes.
               </p>
               
-              <QuizComponent 
-                questions={examSimulationQuestions}
-                onComplete={handleQuizComplete}
-                title="Simulation d'Examen ITIL v4 Foundation"
-                timeLimit={3600} // 60 minutes
-              />
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h4 className="font-semibold">Conditions d'examen réelles</h4>
+                    <p className="text-sm text-gray-600">
+                      40 questions • Distribution officielle • 60 minutes chronométrées
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setExamQuestions(generateExamSimulation())}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm"
+                  >
+                    🎲 Nouvel examen
+                  </button>
+                </div>
+                
+                <QuizComponent 
+                  key={`exam-${Date.now()}`} // Force complète réinitialisation avec timestamp unique
+                  questions={examQuestions}
+                  onComplete={handleQuizComplete}
+                  onRestart={() => setExamQuestions(generateExamSimulation())}
+                  title="Simulation d'Examen ITIL v4 Foundation"
+                  timeLimit={3600} // 60 minutes
+                />
+              </div>
             </div>
           </div>
         );

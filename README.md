@@ -23,10 +23,16 @@ Cette application est une **refonte complète** de l'ancien site HTML avec :
 - **Définitions détaillées** avec astuces d'examen
 - **Navigation intuitive** entre les sections
 
-### ❓ **Quiz Avancé**
-- Questions d'entraînement avec explications
+### ❓ **Quiz Avancé - NOUVEAU : 100+ Questions !**
+- **100+ questions d'examen authentiques** (basées sur l'examen 2024)
+- **Sélection aléatoire de 10 questions** à chaque quiz
+- **Distribution équilibrée** : 3 faciles + 5 moyennes + 2 difficiles
+- **3 façons de générer de nouvelles questions :**
+  - Bouton **"🎲 Générer nouveau quiz"** (en violet)
+  - Bouton **"Recommencer"** après avoir terminé
+  - Actualiser la page pour un nouveau set
 - Navigation question par question
-- Résultats détaillés avec analyse
+- Résultats détaillés avec explications
 - Score et pourcentage de réussite
 
 ### 🏆 **Préparation Examen**
