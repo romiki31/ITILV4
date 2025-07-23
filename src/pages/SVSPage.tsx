@@ -370,6 +370,281 @@ const SVSPage: React.FC = () => {
           </li>
         </ul>
       </div>
+
+      {/* Section Gouvernance - Ajoutée pour couverture complète examen */}
+      <div className="mt-12 space-y-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Gouvernance du SVS</h2>
+        
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg p-4 mb-6">
+          <div className="flex items-start space-x-2">
+            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5" />
+            <div className="text-sm text-red-800 dark:text-red-200">
+              <strong>🎯 Crucial pour l'examen :</strong> La gouvernance est testée dans les questions sur le SVS. 
+              Comprendre son rôle de direction et de contrôle, distincte de la gestion opérationnelle.
+            </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="card">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+              <ShieldCheck className="h-5 w-5 text-blue-600 mr-2" />
+              Définition de la Gouvernance
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              <strong>Les moyens par lesquels une organisation est dirigée et contrôlée.</strong> 
+              Elle évalue, dirige et surveille les activités de l'organisation.
+            </p>
+            <div className="space-y-3">
+              <h4 className="font-medium text-gray-900 dark:text-gray-100">Composants clés :</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400"><strong>Évaluer :</strong> Performance, conformité, satisfaction des parties prenantes</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400"><strong>Diriger :</strong> Stratégies, politiques, plans de l'organisation</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400"><strong>Surveiller :</strong> Performance, risques, conformité</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="card">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+              <Target className="h-5 w-5 text-green-600 mr-2" />
+              Questions d'examen typiques
+            </h3>
+            <div className="space-y-3">
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                  Q: Différence gouvernance vs gestion ? → R: Gouvernance DIRIGE, gestion EXÉCUTE
+                </p>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                  Q: Que fait la gouvernance ? → R: Évalue, dirige, surveille
+                </p>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                  Q: Qui est responsable de la gouvernance ? → R: Conseil d'administration/direction
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-700">
+              <p className="text-sm text-red-800 dark:text-red-200">
+                <strong>⚠️ Piège :</strong> Gouvernance ≠ Gestion. Gouvernance = direction stratégique, Gestion = exécution opérationnelle
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Section Amélioration Continue - Modèle 7 étapes */}
+      <div className="mt-12 space-y-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Amélioration Continue - Modèle 7 Étapes</h2>
+        
+        <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg p-4 mb-6">
+          <div className="flex items-start space-x-2">
+            <AlertCircle className="h-5 w-5 text-orange-600 dark:text-orange-400 mt-0.5" />
+            <div className="text-sm text-orange-800 dark:text-orange-200">
+              <strong>📝 Important pour l'examen :</strong> Le modèle 7 étapes de l'amélioration continue est 
+              fréquemment testé. Connaître l'ordre des étapes et leur objectif spécifique.
+            </div>
+          </div>
+        </div>
+
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          L'amélioration continue suit un modèle structuré en 7 étapes pour identifier, 
+          prioriser et implémenter les améliorations de manière systématique.
+        </p>
+
+        <div className="grid gap-4">
+          {[
+            {
+              etape: 1,
+              titre: "Quelle est la vision ?",
+              description: "Définir la vision d'amélioration et aligner avec la stratégie business",
+              details: "Comprendre où l'organisation veut aller et pourquoi",
+              couleur: "bg-red-500"
+            },
+            {
+              etape: 2,
+              titre: "Où sommes-nous maintenant ?",
+              description: "Évaluer la situation actuelle et établir une baseline",
+              details: "Mesurer la performance actuelle avec des métriques objectives",
+              couleur: "bg-orange-500"
+            },
+            {
+              etape: 3,
+              titre: "Où voulons-nous être ?",
+              description: "Définir les objectifs d'amélioration mesurables",
+              details: "Établir des cibles SMART et des métriques de succès",
+              couleur: "bg-yellow-500"
+            },
+            {
+              etape: 4,
+              titre: "Comment y arrivons-nous ?",
+              description: "Planifier les actions d'amélioration et les ressources",
+              details: "Développer un plan détaillé avec timeline et responsabilités",
+              couleur: "bg-green-500"
+            },
+            {
+              etape: 5,
+              titre: "Agir",
+              description: "Implémenter les actions d'amélioration planifiées",
+              details: "Exécuter le plan avec suivi régulier et ajustements",
+              couleur: "bg-blue-500"
+            },
+            {
+              etape: 6,
+              titre: "Avons-nous atteint nos objectifs ?",
+              description: "Mesurer les résultats et évaluer le succès",
+              details: "Comparer performance actuelle vs objectifs définis",
+              couleur: "bg-indigo-500"
+            },
+            {
+              etape: 7,
+              titre: "Comment maintenir l'élan ?",
+              description: "Consolider les gains et identifier nouvelles opportunités",
+              details: "Intégrer les améliorations et relancer le cycle",
+              couleur: "bg-purple-500"
+            }
+          ].map((etape) => (
+            <div key={etape.etape} className="card">
+              <div className="flex items-start space-x-4">
+                <div className={`w-12 h-12 ${etape.couleur} rounded-full flex items-center justify-center flex-shrink-0`}>
+                  <span className="text-white font-bold">{etape.etape}</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                    {etape.titre}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-2">{etape.description}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-500 italic">{etape.details}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-4">
+            Questions d'examen sur le modèle 7 étapes
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div className="bg-green-100 dark:bg-green-800/30 rounded-lg p-3">
+                <p className="text-sm text-green-900 dark:text-green-100 font-medium">
+                  Q: Première étape d'amélioration ? → R: "Quelle est la vision ?"
+                </p>
+              </div>
+              <div className="bg-green-100 dark:bg-green-800/30 rounded-lg p-3">
+                <p className="text-sm text-green-900 dark:text-green-100 font-medium">
+                  Q: Étape de mesure baseline ? → R: "Où sommes-nous maintenant ?"
+                </p>
+              </div>
+              <div className="bg-green-100 dark:bg-green-800/30 rounded-lg p-3">
+                <p className="text-sm text-green-900 dark:text-green-100 font-medium">
+                  Q: Étape d'implémentation ? → R: "Agir" (étape 5)
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="bg-green-100 dark:bg-green-800/30 rounded-lg p-3">
+                <p className="text-sm text-green-900 dark:text-green-100 font-medium">
+                  Q: Dernière étape du modèle ? → R: "Comment maintenir l'élan ?"
+                </p>
+              </div>
+              <div className="bg-green-100 dark:bg-green-800/30 rounded-lg p-3">
+                <p className="text-sm text-green-900 dark:text-green-100 font-medium">
+                  Q: Étape de définition des objectifs ? → R: "Où voulons-nous être ?"
+                </p>
+              </div>
+              <div className="bg-green-100 dark:bg-green-800/30 rounded-lg p-3">
+                <p className="text-sm text-green-900 dark:text-green-100 font-medium">
+                  Q: Le modèle est-il cyclique ? → R: Oui, étape 7 relance le cycle
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 p-4 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+              <strong>💡 Astuce d'examen :</strong> Les 7 étapes suivent une logique : 
+              VISION → ÉTAT ACTUEL → OBJECTIFS → PLAN → ACTION → MESURE → CONSOLIDATION. 
+              Retenir cette séquence logique aide à mémoriser l'ordre.
+            </p>
+          </div>
+        </div>
+
+        {/* Registre d'Amélioration Continue (CIR) */}
+        <div className="card">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+            <RefreshCw className="h-5 w-5 text-blue-600 mr-2" />
+            Registre d'Amélioration Continue (CIR)
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-3">Définition et rôle</h4>
+              <p className="text-gray-600 dark:text-gray-400 mb-3">
+                Le <strong>Continual Improvement Register (CIR)</strong> est un référentiel centralisé 
+                qui capture et gère toutes les initiatives d'amélioration de l'organisation.
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400">Enregistre toutes les idées d'amélioration</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400">Priorise selon valeur et faisabilité</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400">Suit le statut de chaque initiative</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0" />
+                  <span className="text-gray-600 dark:text-gray-400">Mesure l'impact des améliorations</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-3">Questions d'examen CIR</h4>
+              <div className="space-y-2">
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                  <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                    Q: Qu'est-ce que le CIR ? → R: Registre centralisé des améliorations
+                  </p>
+                </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                  <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                    Q: Qui gère le CIR ? → R: Activité "Améliorer" de la CVS
+                  </p>
+                </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                  <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                    Q: Contenu du CIR ? → R: Idées, priorités, statuts, impacts des améliorations
+                  </p>
+                </div>
+              </div>
+              
+              <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-700">
+                <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                  <strong>💡 Retenir :</strong> CIR = mémoire organisationnelle de l'amélioration continue
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
