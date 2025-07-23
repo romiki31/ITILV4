@@ -208,7 +208,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
             {results.score}%
           </div>
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {results.score >= 80 ? 'Excellent !' : results.score >= 65 ? 'Réussi !' : 'À retravailler'}
           </h2>
 
@@ -220,33 +220,33 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
             <div>
-              <div className="text-2xl font-bold text-gray-900">{results.correctAnswers}/{results.totalQuestions}</div>
-              <div className="text-sm text-gray-600">Bonnes réponses</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{results.correctAnswers}/{results.totalQuestions}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Bonnes réponses</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{formatTime(results.timeSpent)}</div>
-              <div className="text-sm text-gray-600">Temps passé</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatTime(results.timeSpent)}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Temps passé</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {Math.round(results.timeSpent / results.totalQuestions)}s
               </div>
-              <div className="text-sm text-gray-600">Temps moyen/question</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Temps moyen/question</div>
             </div>
           </div>
 
           {/* Scores par catégorie */}
           {results.categoryScores && (
-            <div className="mt-6 border-t pt-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance par domaine</h3>
+            <div className="mt-6 border-t dark:border-gray-700 pt-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Performance par domaine</h3>
               <div className="space-y-2">
                 {Object.entries(results.categoryScores).map(([cat, scores]) => {
                   const percentage = Math.round((scores.correct / scores.total) * 100)
                   return (
                     <div key={cat} className="flex items-center justify-between text-sm">
-                      <span className="text-gray-700">{cat}</span>
+                      <span className="text-gray-700 dark:text-gray-300">{cat}</span>
                       <div className="flex items-center space-x-2">
-                        <div className="w-32 bg-gray-200 rounded-full h-2">
+                        <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                           <div 
                             className={`h-2 rounded-full ${
                               percentage >= 80 ? 'bg-green-500' : 
@@ -255,7 +255,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                             style={{ width: `${percentage}%` }}
                           />
                         </div>
-                        <span className="text-gray-600 w-12 text-right">{percentage}%</span>
+                        <span className="text-gray-600 dark:text-gray-400 w-12 text-right">{percentage}%</span>
                       </div>
                     </div>
                   )
@@ -278,7 +278,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
 
         {/* Révision des réponses */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Révision détaillée</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Révision détaillée</h3>
           {questions.map((question, index) => {
             const userAnswer = selectedAnswers[index]
             const isCorrect = userAnswer === question.correctAnswer
@@ -292,7 +292,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                     {index + 1}
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900 mb-3">{question.question}</h4>
+                    <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-3">{question.question}</h4>
                     
                     <div className="space-y-2">
                       {question.options.map((option, optionIndex) => {
@@ -304,15 +304,15 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                             key={optionIndex}
                             className={`p-3 rounded-lg border ${
                               isCorrectAnswer 
-                                ? 'bg-green-50 border-green-200 text-green-800' 
+                                ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 text-green-800 dark:text-green-200' 
                                 : isUserAnswer 
-                                  ? 'bg-red-50 border-red-200 text-red-800'
-                                  : 'bg-gray-50 border-gray-200'
+                                  ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200'
+                                  : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
                             }`}
                           >
                             <div className="flex items-center space-x-2">
-                              {isCorrectAnswer && <CheckCircle size={16} className="text-green-600" />}
-                              {isUserAnswer && !isCorrectAnswer && <X size={16} className="text-red-600" />}
+                              {isCorrectAnswer && <CheckCircle size={16} className="text-green-600 dark:text-green-400" />}
+                              {isUserAnswer && !isCorrectAnswer && <X size={16} className="text-red-600 dark:text-red-400" />}
                               <span>{option}</span>
                             </div>
                           </div>
@@ -321,14 +321,14 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                     </div>
 
                     {/* Explication */}
-                    <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
                       <div className="flex items-start space-x-2">
-                        <Lightbulb size={16} className="text-blue-600 mt-0.5" />
+                        <Lightbulb size={16} className="text-blue-600 dark:text-blue-400 mt-0.5" />
                         <div>
-                          <div className="font-medium text-blue-900 mb-1">Explication</div>
-                          <div className="text-blue-800 text-sm">{question.explanation}</div>
+                          <div className="font-medium text-blue-900 dark:text-blue-100 mb-1">Explication</div>
+                          <div className="text-blue-800 dark:text-blue-200 text-sm">{question.explanation}</div>
                           {question.examTip && (
-                            <div className="text-orange-700 text-sm mt-2 font-medium bg-orange-50 rounded p-2 border border-orange-200">
+                            <div className="text-orange-700 dark:text-orange-300 text-sm mt-2 font-medium bg-orange-50 dark:bg-orange-900/20 rounded p-2 border border-orange-200 dark:border-orange-700">
                               {question.examTip}
                             </div>
                           )}
@@ -346,14 +346,14 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
   }
 
   if (!currentQuestion) {
-    return <div className="text-center">Chargement des questions...</div>
+    return <div className="text-center text-gray-900 dark:text-gray-100">Chargement des questions...</div>
   }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Alerte 10 minutes */}
       {showWarning && (
-        <div className="fixed top-4 right-4 bg-orange-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 animate-pulse">
+        <div className="fixed top-4 right-4 bg-orange-500 dark:bg-orange-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 animate-pulse">
           <AlertTriangle size={20} />
           <span className="font-medium">Attention : plus que 10 minutes !</span>
         </div>
@@ -367,7 +367,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
               <X size={16} className="mr-2" />
               Quitter
             </button>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-gray-400">
               Question {currentQuestionIndex + 1} sur {questions.length}
             </div>
           </div>
@@ -386,8 +386,8 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
               onClick={toggleFlag}
               className={`p-2 rounded-lg transition-colors ${
                 flaggedQuestions.has(currentQuestionIndex) 
-                  ? 'bg-yellow-100 text-yellow-600' 
-                  : 'bg-gray-100 text-gray-400 hover:text-gray-600'
+                  ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400' 
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
               title={flaggedQuestions.has(currentQuestionIndex) ? "Question marquée" : "Marquer la question"}
             >
@@ -414,16 +414,16 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
               {currentQuestion.category.replace('-', ' ')}
             </span>
             <span className={`badge ${
-              currentQuestion.difficulty === 'easy' ? 'bg-green-100 text-green-700' :
-              currentQuestion.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-              'bg-red-100 text-red-700'
+              currentQuestion.difficulty === 'easy' ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' :
+              currentQuestion.difficulty === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300' :
+              'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'
             }`}>
               {currentQuestion.difficulty === 'easy' ? 'Facile' : 
                currentQuestion.difficulty === 'medium' ? 'Moyen' : 'Difficile'}
             </span>
           </div>
           
-          <h3 className="text-xl font-semibold text-gray-900">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
             {currentQuestion.question}
           </h3>
         </div>
@@ -441,7 +441,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                 <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                   selectedAnswers[currentQuestionIndex] === index 
                     ? 'border-primary-500 bg-primary-500' 
-                    : 'border-gray-300'
+                    : 'border-gray-300 dark:border-gray-600'
                 }`}>
                   {selectedAnswers[currentQuestionIndex] === index && (
                     <CheckCircle size={16} className="text-white" />
@@ -458,7 +458,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
       <div className="space-y-4">
         {/* Navigation par question */}
         <div className="card">
-          <h4 className="text-sm font-medium text-gray-700 mb-3">Navigation rapide</h4>
+          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Navigation rapide</h4>
           <div className="grid grid-cols-10 gap-2">
             {questions.map((_, index) => (
               <button
@@ -469,11 +469,11 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                     ? 'bg-primary-500 text-white'
                     : selectedAnswers[index] !== undefined
                       ? flaggedQuestions.has(index)
-                        ? 'bg-yellow-100 text-yellow-700 border-2 border-yellow-300'
-                        : 'bg-green-100 text-green-700'
+                        ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 border-2 border-yellow-300 dark:border-yellow-700'
+                        : 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300'
                       : flaggedQuestions.has(index)
-                        ? 'bg-yellow-50 text-yellow-600 border-2 border-yellow-200'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 border-2 border-yellow-200 dark:border-yellow-800'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
                 title={
                   flaggedQuestions.has(index) ? 'Question marquée' :
@@ -485,17 +485,17 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
               </button>
             ))}
           </div>
-          <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
+          <div className="flex items-center justify-between mt-3 text-xs text-gray-500 dark:text-gray-400">
             <span className="flex items-center">
-              <div className="w-3 h-3 bg-green-100 rounded mr-1"></div>
+              <div className="w-3 h-3 bg-green-100 dark:bg-green-900/50 rounded mr-1"></div>
               Répondue
             </span>
             <span className="flex items-center">
-              <div className="w-3 h-3 bg-yellow-100 border border-yellow-300 rounded mr-1"></div>
+              <div className="w-3 h-3 bg-yellow-100 dark:bg-yellow-900/50 border border-yellow-300 dark:border-yellow-700 rounded mr-1"></div>
               Marquée
             </span>
             <span className="flex items-center">
-              <div className="w-3 h-3 bg-gray-100 rounded mr-1"></div>
+              <div className="w-3 h-3 bg-gray-100 dark:bg-gray-700 rounded mr-1"></div>
               Non répondue
             </span>
           </div>
@@ -513,7 +513,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
           </button>
 
           <div className="text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               {Object.keys(selectedAnswers).length} / {questions.length} répondues
             </p>
           </div>
@@ -537,8 +537,8 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
 
       {/* Informations contextuelles */}
       {mode === 'trap-questions' && (
-        <div className="card bg-orange-50 border-orange-200">
-          <div className="text-sm text-orange-800">
+        <div className="card bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-700">
+          <div className="text-sm text-orange-800 dark:text-orange-200">
             <strong>⚠️ Mode Pièges :</strong> Attention aux mots absolus (TOUJOURS, JAMAIS, TOUS, AUCUN) 
             et aux distinctions subtiles. Lisez très attentivement !
           </div>

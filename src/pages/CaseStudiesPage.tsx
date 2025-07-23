@@ -314,19 +314,19 @@ const CaseStudiesPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Études de Cas ITIL v4</h1>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Études de Cas ITIL v4</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Découvrez comment les concepts ITIL s'appliquent dans des situations réelles. 
           Chaque cas inclut des questions types d'examen et les pièges à éviter.
         </p>
       </div>
 
       {/* Alerte */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-8">
         <div className="flex items-start space-x-2">
-          <Lightbulb className="h-5 w-5 text-blue-600 mt-0.5" />
-          <p className="text-sm text-blue-800">
+          <Lightbulb className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+          <p className="text-sm text-blue-800 dark:text-blue-200">
             <strong>Conseil :</strong> Ces études de cas illustrent l'application pratique des concepts ITIL. 
             À l'examen, on vous demandera d'identifier quelle pratique ou principe s'applique dans une situation donnée.
           </p>
@@ -340,10 +340,10 @@ const CaseStudiesPage: React.FC = () => {
           const sectionKey = (section: string) => `${caseStudy.id}-${section}`
           
           return (
-            <div key={caseStudy.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div key={caseStudy.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
               {/* Header du cas */}
               <div 
-                className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+                className="p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 onClick={() => toggleCase(caseStudy.id)}
               >
                 <div className="flex items-start justify-between">
@@ -352,8 +352,8 @@ const CaseStudiesPage: React.FC = () => {
                       <caseStudy.icon size={24} className="text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-1">{caseStudy.title}</h3>
-                      <p className="text-gray-600">{caseStudy.company} • {caseStudy.sector}</p>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">{caseStudy.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400">{caseStudy.company} • {caseStudy.sector}</p>
                       <div className="flex flex-wrap gap-2 mt-3">
                         {caseStudy.itilConcepts.map((concept, idx) => (
                           <span key={idx} className="badge badge-primary text-xs">
@@ -365,9 +365,9 @@ const CaseStudiesPage: React.FC = () => {
                   </div>
                   <div className="ml-4">
                     {isExpanded ? (
-                      <ChevronUp className="h-5 w-5 text-gray-400" />
+                      <ChevronUp className="h-5 w-5 text-gray-400 dark:text-gray-500" />
                     ) : (
-                      <ChevronDown className="h-5 w-5 text-gray-400" />
+                      <ChevronDown className="h-5 w-5 text-gray-400 dark:text-gray-500" />
                     )}
                   </div>
                 </div>
@@ -375,13 +375,13 @@ const CaseStudiesPage: React.FC = () => {
 
               {/* Contenu détaillé */}
               {isExpanded && (
-                <div className="border-t border-gray-200">
+                <div className="border-t border-gray-200 dark:border-gray-700">
                   {/* Contexte */}
-                  <div className="p-6 bg-gray-50">
-                    <h4 className="font-semibold text-gray-900 mb-3">Contexte</h4>
-                    <p className="text-gray-700">{caseStudy.context}</p>
-                    <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                      <p className="text-sm text-orange-800">
+                  <div className="p-6 bg-gray-50 dark:bg-gray-700">
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Contexte</h4>
+                    <p className="text-gray-700 dark:text-gray-300">{caseStudy.context}</p>
+                    <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg">
+                      <p className="text-sm text-orange-800 dark:text-orange-200">
                         <strong>Défi :</strong> {caseStudy.challenge}
                       </p>
                     </div>
@@ -393,25 +393,25 @@ const CaseStudiesPage: React.FC = () => {
                       className="flex items-center justify-between cursor-pointer mb-4"
                       onClick={() => toggleSection(caseStudy.id, 'solution')}
                     >
-                      <h4 className="font-semibold text-gray-900 flex items-center">
-                        <Settings className="h-5 w-5 mr-2 text-gray-600" />
+                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
+                        <Settings className="h-5 w-5 mr-2 text-gray-600 dark:text-gray-400" />
                         {caseStudy.solution.title}
                       </h4>
                       {expandedSection[sectionKey('solution')] ? (
-                        <ChevronUp className="h-4 w-4 text-gray-400" />
+                        <ChevronUp className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                       ) : (
-                        <ChevronDown className="h-4 w-4 text-gray-400" />
+                        <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                       )}
                     </div>
                     
                     {expandedSection[sectionKey('solution')] && (
                       <div className="space-y-3 mb-6">
-                        <p className="text-gray-700 mb-4">{caseStudy.solution.description}</p>
+                        <p className="text-gray-700 dark:text-gray-300 mb-4">{caseStudy.solution.description}</p>
                         <div className="space-y-2">
                           {caseStudy.solution.keyActions.map((action, idx) => (
                             <div key={idx} className="flex items-start">
-                              <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-gray-700">{action}</span>
+                              <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                              <span className="text-sm text-gray-700 dark:text-gray-300">{action}</span>
                             </div>
                           ))}
                         </div>
@@ -420,19 +420,19 @@ const CaseStudiesPage: React.FC = () => {
                   </div>
 
                   {/* Résultats */}
-                  <div className="p-6 bg-green-50">
+                  <div className="p-6 bg-green-50 dark:bg-green-900/20">
                     <div 
                       className="flex items-center justify-between cursor-pointer mb-4"
                       onClick={() => toggleSection(caseStudy.id, 'results')}
                     >
-                      <h4 className="font-semibold text-green-900 flex items-center">
+                      <h4 className="font-semibold text-green-900 dark:text-green-100 flex items-center">
                         <TrendingUp className="h-5 w-5 mr-2" />
                         Résultats obtenus
                       </h4>
                       {expandedSection[sectionKey('results')] ? (
-                        <ChevronUp className="h-4 w-4 text-green-700" />
+                        <ChevronUp className="h-4 w-4 text-green-700 dark:text-green-400" />
                       ) : (
-                        <ChevronDown className="h-4 w-4 text-green-700" />
+                        <ChevronDown className="h-4 w-4 text-green-700 dark:text-green-400" />
                       )}
                     </div>
                     
@@ -440,8 +440,8 @@ const CaseStudiesPage: React.FC = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {caseStudy.results.map((result, idx) => (
                           <div key={idx} className="flex items-start">
-                            <Target className="h-4 w-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-green-800">{result}</span>
+                            <Target className="h-4 w-4 text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-green-800 dark:text-green-200">{result}</span>
                           </div>
                         ))}
                       </div>
@@ -454,30 +454,30 @@ const CaseStudiesPage: React.FC = () => {
                       className="flex items-center justify-between cursor-pointer mb-4"
                       onClick={() => toggleSection(caseStudy.id, 'questions')}
                     >
-                      <h4 className="font-semibold text-gray-900 flex items-center">
-                        <BookOpen className="h-5 w-5 mr-2 text-primary-600" />
+                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
+                        <BookOpen className="h-5 w-5 mr-2 text-primary-600 dark:text-primary-400" />
                         Questions types d'examen
                       </h4>
                       {expandedSection[sectionKey('questions')] ? (
-                        <ChevronUp className="h-4 w-4 text-gray-400" />
+                        <ChevronUp className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                       ) : (
-                        <ChevronDown className="h-4 w-4 text-gray-400" />
+                        <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                       )}
                     </div>
                     
                     {expandedSection[sectionKey('questions')] && (
                       <div className="space-y-4">
                         {caseStudy.examQuestions.map((q, idx) => (
-                          <div key={idx} className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                            <p className="font-medium text-blue-900 mb-2">
+                          <div key={idx} className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-700">
+                            <p className="font-medium text-blue-900 dark:text-blue-100 mb-2">
                               Q{idx + 1}: {q.question}
                             </p>
-                            <p className="text-blue-800 text-sm mb-2">
+                            <p className="text-blue-800 dark:text-blue-200 text-sm mb-2">
                               <strong>Réponse :</strong> {q.answer}
                             </p>
                             {q.piege && (
-                              <p className="text-orange-700 text-sm bg-orange-50 rounded p-2 border border-orange-200">
-                                <AlertTriangle className="inline h-4 w-4 mr-1" />
+                              <p className="text-orange-700 dark:text-orange-200 text-sm bg-orange-50 dark:bg-orange-900/20 rounded p-2 border border-orange-200 dark:border-orange-700">
+                                <AlertTriangle className="inline h-4 w-4 mr-1 text-orange-700 dark:text-orange-400" />
                                 <strong>Piège :</strong> {q.piege}
                               </p>
                             )}
@@ -488,16 +488,16 @@ const CaseStudiesPage: React.FC = () => {
                   </div>
 
                   {/* Points clés */}
-                  <div className="p-6 bg-primary-50 border-t border-primary-200">
-                    <h4 className="font-semibold text-primary-900 mb-3 flex items-center">
-                      <Lightbulb className="h-5 w-5 mr-2" />
+                  <div className="p-6 bg-primary-50 dark:bg-primary-900/20 border-t border-primary-200 dark:border-primary-700">
+                    <h4 className="font-semibold text-primary-900 dark:text-primary-100 mb-3 flex items-center">
+                      <Lightbulb className="h-5 w-5 mr-2 text-primary-600 dark:text-primary-400" />
                       Points clés à retenir
                     </h4>
                     <div className="space-y-2">
                       {caseStudy.keyTakeaways.map((takeaway, idx) => (
                         <div key={idx} className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-primary-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-primary-800">{takeaway}</span>
+                          <CheckCircle className="h-4 w-4 text-primary-600 dark:text-primary-400 mr-2 mt-0.5 flex-shrink-0" />
+                          <span className="text-sm text-primary-800 dark:text-primary-200">{takeaway}</span>
                         </div>
                       ))}
                     </div>
@@ -510,49 +510,49 @@ const CaseStudiesPage: React.FC = () => {
       </div>
 
       {/* Conseils finaux */}
-      <div className="mt-12 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-8 border border-blue-200">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="mt-12 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-lg p-8 border border-blue-200 dark:border-blue-700">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Comment utiliser ces études de cas pour l'examen
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-medium text-gray-900 mb-2">À l'examen, on vous demandera :</h4>
-            <ul className="space-y-2 text-sm text-gray-700">
+            <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">À l'examen, on vous demandera :</h4>
+            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li className="flex items-start">
-                <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
                 Quel principe directeur s'applique dans cette situation ?
               </li>
               <li className="flex items-start">
-                <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
                 Quelle pratique ITIL est illustrée ici ?
               </li>
               <li className="flex items-start">
-                <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
                 Quelle dimension a été négligée/appliquée ?
               </li>
               <li className="flex items-start">
-                <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
                 Comment la valeur est-elle créée/mesurée ?
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-medium text-gray-900 mb-2">Méthode pour répondre :</h4>
-            <ul className="space-y-2 text-sm text-gray-700">
+            <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Méthode pour répondre :</h4>
+            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li className="flex items-start">
-                <Target className="h-4 w-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" />
+                <Target className="h-4 w-4 text-primary-500 dark:text-primary-400 mr-2 mt-0.5 flex-shrink-0" />
                 Identifiez les mots-clés du scénario
               </li>
               <li className="flex items-start">
-                <Target className="h-4 w-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" />
+                <Target className="h-4 w-4 text-primary-500 dark:text-primary-400 mr-2 mt-0.5 flex-shrink-0" />
                 Reliez-les aux concepts ITIL appropriés
               </li>
               <li className="flex items-start">
-                <Target className="h-4 w-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" />
+                <Target className="h-4 w-4 text-primary-500 dark:text-primary-400 mr-2 mt-0.5 flex-shrink-0" />
                 Méfiez-vous des distracteurs et pièges
               </li>
               <li className="flex items-start">
-                <Target className="h-4 w-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" />
+                <Target className="h-4 w-4 text-primary-500 dark:text-primary-400 mr-2 mt-0.5 flex-shrink-0" />
                 Choisissez la réponse la plus spécifique
               </li>
             </ul>

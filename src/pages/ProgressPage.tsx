@@ -170,10 +170,10 @@ const ProgressPage: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'excellent': return 'text-green-600 bg-green-50'
-      case 'good': return 'text-yellow-600 bg-yellow-50'
-      case 'needs-work': return 'text-red-600 bg-red-50'
-      default: return 'text-gray-600 bg-gray-50'
+      case 'excellent': return 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20'
+      case 'good': return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20'
+      case 'needs-work': return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+      default: return 'text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800'
     }
   }
 
@@ -191,8 +191,8 @@ const ProgressPage: React.FC = () => {
       {/* Header avec stats principales */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Votre Progression</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Votre Progression</h1>
+          <p className="text-gray-600 dark:text-gray-400">
             Suivez vos performances et identifiez les domaines à améliorer
           </p>
         </div>
@@ -211,7 +211,7 @@ const ProgressPage: React.FC = () => {
           
           <div className="text-center">
             <div className="text-2xl font-bold text-primary-600">{overallStats.readinessScore}%</div>
-            <div className="text-sm text-gray-600">Prêt pour l'examen</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Prêt pour l'examen</div>
           </div>
         </div>
       </div>
@@ -224,10 +224,10 @@ const ProgressPage: React.FC = () => {
               <BookOpen size={24} className="text-blue-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {overallStats.conceptsMastered}/{overallStats.totalConcepts}
               </div>
-              <div className="text-sm text-gray-600">Concepts maîtrisés</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Concepts maîtrisés</div>
             </div>
           </div>
           <div className="mt-4">
@@ -246,11 +246,11 @@ const ProgressPage: React.FC = () => {
               <Target size={24} className="text-green-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{overallStats.averageQuizScore}%</div>
-              <div className="text-sm text-gray-600">Score moyen quiz</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{overallStats.averageQuizScore}%</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Score moyen quiz</div>
             </div>
           </div>
-          <div className="mt-2 text-xs text-gray-500">
+          <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             {overallStats.totalQuizzes} quiz complétés
           </div>
         </div>
@@ -261,8 +261,8 @@ const ProgressPage: React.FC = () => {
               <CreditCard size={24} className="text-purple-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{overallStats.flashcardsReviewed}</div>
-              <div className="text-sm text-gray-600">Cartes révisées</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{overallStats.flashcardsReviewed}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Cartes révisées</div>
             </div>
           </div>
           <div className="mt-2 text-xs text-green-600">
@@ -276,11 +276,11 @@ const ProgressPage: React.FC = () => {
               <div className="text-xl">🔥</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{overallStats.studyStreak}</div>
-              <div className="text-sm text-gray-600">Jours de suite</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{overallStats.studyStreak}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Jours de suite</div>
             </div>
           </div>
-          <div className="mt-2 text-xs text-gray-500">
+          <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             {overallStats.totalStudyTime}h cette semaine
           </div>
         </div>
@@ -288,14 +288,14 @@ const ProgressPage: React.FC = () => {
 
       {/* Progression par catégorie */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Progression par domaine</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Progression par domaine</h2>
         <div className="space-y-4">
           {categoryProgress.map((item, index) => (
             <div key={index} className="card">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="font-semibold text-gray-900">{item.category}</h3>
-                  <p className="text-sm text-gray-600">
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">{item.category}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {item.mastered}/{item.total} concepts • Score moyen: {item.averageScore}%
                   </p>
                 </div>
@@ -315,7 +315,7 @@ const ProgressPage: React.FC = () => {
                     />
                   </div>
                 </div>
-                <div className="text-sm font-medium text-gray-600 min-w-0">
+                <div className="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-0">
                   {item.progress}%
                 </div>
               </div>
@@ -328,11 +328,11 @@ const ProgressPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Activité hebdomadaire */}
         <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Activité cette semaine</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Activité cette semaine</h3>
           <div className="space-y-3">
             {weeklyData.map((day, index) => (
               <div key={index} className="flex items-center space-x-3">
-                <div className="w-8 text-sm text-gray-600">{day.day}</div>
+                <div className="w-8 text-sm text-gray-600 dark:text-gray-400">{day.day}</div>
                 <div className="flex-1 flex items-center space-x-2">
                   <div className="flex-1 bg-gray-100 rounded-full h-6 flex items-center">
                     <div 
@@ -344,7 +344,7 @@ const ProgressPage: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 w-16">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 w-16">
                     {day.quizzes} quiz
                   </div>
                 </div>
@@ -352,7 +352,7 @@ const ProgressPage: React.FC = () => {
             ))}
           </div>
           <div className="mt-4 text-center">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-gray-400">
               Objectif hebdomadaire: {overallStats.weeklyGoal}h
             </div>
             <div className="progress-bar mt-1">
@@ -366,24 +366,24 @@ const ProgressPage: React.FC = () => {
 
         {/* Achievements */}
         <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Achievements</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Achievements</h3>
           <div className="space-y-3">
             {achievements.map((achievement) => (
               <div 
                 key={achievement.id} 
                 className={`flex items-center space-x-3 p-3 rounded-lg border ${
                   achievement.unlocked 
-                    ? 'bg-green-50 border-green-200' 
-                    : 'bg-gray-50 border-gray-200 opacity-50'
+                    ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700' 
+                    : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 opacity-50'
                 }`}
               >
                 <div className="text-2xl">{achievement.icon}</div>
                 <div className="flex-1">
-                  <div className="font-medium text-gray-900">{achievement.title}</div>
-                  <div className="text-sm text-gray-600">{achievement.description}</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{achievement.title}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">{achievement.description}</div>
                 </div>
                 {achievement.unlocked && achievement.date && (
-                  <div className="text-xs text-gray-500">{achievement.date}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{achievement.date}</div>
                 )}
               </div>
             ))}
@@ -393,20 +393,20 @@ const ProgressPage: React.FC = () => {
 
       {/* Activité récente */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Activité récente</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Activité récente</h2>
         <div className="space-y-3">
           {recentActivity.map((activity, index) => {
             const Icon = getActivityIcon(activity.type)
             return (
               <div key={index} className="card">
                 <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Icon size={20} className="text-gray-600" />
+                  <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <Icon size={20} className="text-gray-600 dark:text-gray-400" />
                   </div>
                   
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{activity.title}</h4>
-                    <div className="flex items-center space-x-4 text-sm text-gray-600">
+                    <h4 className="font-medium text-gray-900 dark:text-gray-100">{activity.title}</h4>
+                    <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
                       {'score' in activity && (
                         <span>Score: {activity.score}%</span>
                       )}
@@ -420,7 +420,7 @@ const ProgressPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
                     {activity.date}
                   </div>
                 </div>

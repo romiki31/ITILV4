@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { BookOpen, Menu, X } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../hooks/useTheme'
+import ITILLogo from './ITILLogo'
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   const navItems = [
     { path: '/fondamentaux', label: 'Fondamentaux', color: 'fondamentaux' },
@@ -63,7 +66,7 @@ const Header: React.FC = () => {
           {/* Logo et titre */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-              <BookOpen size={20} className="text-white" />
+              <ITILLogo size={20} className="text-white" />
             </div>
             <div>
               <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100">ITIL v4</h1>
@@ -72,7 +75,7 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Navigation desktop */}
-          <nav className="hidden md:flex space-x-2">
+          <nav className="hidden md:flex space-x-2 items-center">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -82,16 +85,37 @@ const Header: React.FC = () => {
                 {item.label}
               </Link>
             ))}
+            
+            {/* Theme toggle button */}
+            <button
+              onClick={toggleTheme}
+              className="ml-4 p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
           </nav>
 
-          {/* Bouton menu mobile */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile navigation */}
+          <div className="flex items-center md:hidden space-x-2">
+            {/* Theme toggle button mobile */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+            
+            {/* Bouton menu mobile */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Menu mobile */}

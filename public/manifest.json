@@ -1,0 +1,33 @@
+{
+  "name": "ITIL v4 Foundation - Guide de Révision",
+  "short_name": "ITIL v4 Guide",
+  "description": "Guide de révision interactif pour réussir l'examen ITIL v4 Foundation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "Page d'accueil du guide ITIL v4"
+    }
+  ]
+}

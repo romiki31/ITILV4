@@ -26,9 +26,9 @@ const ConceptsPage: React.FC = () => {
 
   const difficulties = [
     { id: 'all', label: 'Toutes difficultés' },
-    { id: 'easy', label: 'Facile', color: 'bg-green-100 text-green-700' },
-    { id: 'medium', label: 'Moyen', color: 'bg-yellow-100 text-yellow-700' },
-    { id: 'hard', label: 'Difficile', color: 'bg-red-100 text-red-700' }
+    { id: 'easy', label: 'Facile', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
+    { id: 'medium', label: 'Moyen', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
+    { id: 'hard', label: 'Difficile', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' }
   ]
 
   // Données d'exemple (seront remplacées par les vraies données)
@@ -82,9 +82,9 @@ const ConceptsPage: React.FC = () => {
 
   const getDifficultyBadge = (difficulty: string) => {
     const difficultyConfig = {
-      easy: { label: 'Facile', color: 'bg-green-100 text-green-700' },
-      medium: { label: 'Moyen', color: 'bg-yellow-100 text-yellow-700' },
-      hard: { label: 'Difficile', color: 'bg-red-100 text-red-700' }
+      easy: { label: 'Facile', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
+      medium: { label: 'Moyen', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' },
+      hard: { label: 'Difficile', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' }
     }
     const config = difficultyConfig[difficulty as keyof typeof difficultyConfig]
     return <span className={`badge ${config.color}`}>{config.label}</span>
@@ -205,7 +205,7 @@ const ConceptsPage: React.FC = () => {
             <div className="flex justify-between items-start mb-4">
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900">{concept.title}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{concept.title}</h3>
                   <button className={`text-yellow-500 hover:text-yellow-600 ${concept.isFavorite ? 'fill-current' : ''}`}>
                     <Star size={18} />
                   </button>
@@ -282,7 +282,7 @@ const ConceptsPage: React.FC = () => {
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Search size={24} className="text-gray-400" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun concept trouvé</h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Aucun concept trouvé</h3>
           <p className="text-gray-500">
             Essayez de modifier vos critères de recherche ou de filtrage
           </p>

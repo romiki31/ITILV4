@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FileText, ChevronRight, Building, Users, TrendingUp, AlertCircle } from 'lucide-react'
+import { FileText, ChevronDown, ChevronUp, Building, Users, TrendingUp, AlertCircle } from 'lucide-react'
 
 const EtudeCasPage: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<number | null>(null)
@@ -94,47 +94,49 @@ const EtudeCasPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Études de Cas ITIL 4</h1>
-        <p className="text-gray-600">
-          Découvrez comment les principes et pratiques ITIL 4 sont appliqués dans des 
-          situations réelles pour résoudre des défis organisationnels complexes.
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Études de Cas ITIL 4</h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Découvrez comment les concepts ITIL s'appliquent dans des situations réelles. 
+          Chaque cas inclut des questions types d'examen et les pièges à éviter.
         </p>
       </div>
 
       <div className="grid gap-6">
         {etudeCas.map((cas) => (
-          <div key={cas.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div key={cas.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <div 
-              className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+              className="p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               onClick={() => setSelectedCase(selectedCase === cas.id ? null : cas.id)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <div className="bg-primary-100 p-3 rounded-lg">
-                    <cas.icon className="h-6 w-6 text-primary-600" />
+                  <div className="bg-primary-100 dark:bg-primary-900/20 p-3 rounded-lg">
+                    <cas.icon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900">{cas.titre}</h3>
-                    <p className="text-gray-600 mt-1">{cas.contexte}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{cas.titre}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">{cas.contexte}</p>
                   </div>
                 </div>
-                <ChevronRight className={`h-5 w-5 text-gray-400 transform transition-transform ${
-                  selectedCase === cas.id ? 'rotate-90' : ''
-                }`} />
+                {selectedCase === cas.id ? (
+                  <ChevronUp className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+                )}
               </div>
             </div>
 
             {selectedCase === cas.id && (
-              <div className="border-t border-gray-200 p-6 bg-gray-50">
+              <div className="border-t border-gray-200 dark:border-gray-700 p-6 bg-gray-50 dark:bg-gray-700">
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
-                      <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center">
+                      <AlertCircle className="h-5 w-5 text-red-500 dark:text-red-400 mr-2" />
                       Défis rencontrés
                     </h4>
                     <ul className="space-y-2">
                       {cas.defis.map((defi, index) => (
-                        <li key={index} className="text-sm text-gray-600 flex items-start">
+                        <li key={index} className="text-sm text-gray-600 dark:text-gray-400 flex items-start">
                           <span className="text-red-500 mr-2">•</span>
                           {defi}
                         </li>
@@ -143,24 +145,24 @@ const EtudeCasPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
-                      <FileText className="h-5 w-5 text-blue-500 mr-2" />
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center">
+                      <FileText className="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2" />
                       Solution ITIL 4
                     </h4>
                     <div className="space-y-3">
                       <div>
-                        <h5 className="text-sm font-medium text-gray-700 mb-1">Principes appliqués :</h5>
+                        <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Principes appliqués :</h5>
                         <ul className="space-y-1">
                           {cas.solution.principes.map((principe, index) => (
-                            <li key={index} className="text-sm text-gray-600">• {principe}</li>
+                            <li key={index} className="text-sm text-gray-600 dark:text-gray-400">• {principe}</li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <h5 className="text-sm font-medium text-gray-700 mb-1">Pratiques utilisées :</h5>
+                        <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pratiques utilisées :</h5>
                         <ul className="space-y-1">
                           {cas.solution.pratiques.map((pratique, index) => (
-                            <li key={index} className="text-sm text-gray-600">• {pratique}</li>
+                            <li key={index} className="text-sm text-gray-600 dark:text-gray-400">• {pratique}</li>
                           ))}
                         </ul>
                       </div>
@@ -168,13 +170,13 @@ const EtudeCasPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
-                      <TrendingUp className="h-5 w-5 text-green-500 mr-2" />
+                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center">
+                      <TrendingUp className="h-5 w-5 text-green-500 dark:text-green-400 mr-2" />
                       Résultats obtenus
                     </h4>
                     <ul className="space-y-2">
                       {cas.solution.resultats.map((resultat, index) => (
-                        <li key={index} className="text-sm text-gray-600 flex items-start">
+                        <li key={index} className="text-sm text-gray-600 dark:text-gray-400 flex items-start">
                           <span className="text-green-500 mr-2">✓</span>
                           {resultat}
                         </li>
@@ -183,9 +185,9 @@ const EtudeCasPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                  <h5 className="font-medium text-blue-900 mb-2">Leçon clé</h5>
-                  <p className="text-sm text-blue-800">
+                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <h5 className="font-medium text-blue-900 dark:text-blue-100 mb-2">Leçon clé</h5>
+                  <p className="text-sm text-blue-800 dark:text-blue-200">
                     L'application cohérente des principes ITIL 4, combinée aux pratiques appropriées, 
                     permet de transformer les défis en opportunités d'amélioration et de création de valeur.
                   </p>

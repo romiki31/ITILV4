@@ -98,38 +98,38 @@ const ConseilsExamenPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Conseils pour l'Examen ITIL 4 Foundation</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Conseils pour l'Examen ITIL 4 Foundation</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Préparez-vous efficacement pour réussir votre certification ITIL 4 Foundation 
           avec ces conseils pratiques et stratégies éprouvées.
         </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
             <Award className="h-6 w-6 text-primary-600 mr-2" />
             Informations sur l'examen
           </h2>
           <dl className="space-y-3">
             {Object.entries(informationsExamen).map(([key, value]) => (
-              <div key={key} className="flex justify-between py-2 border-b border-gray-100">
-                <dt className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()} :</dt>
-                <dd className="font-medium text-gray-900">{value}</dd>
+              <div key={key} className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                <dt className="text-gray-600 dark:text-gray-400 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()} :</dt>
+                <dd className="font-medium text-gray-900 dark:text-gray-100">{value}</dd>
               </div>
             ))}
           </dl>
         </div>
 
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-yellow-900 mb-3 flex items-center">
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-100 mb-3 flex items-center">
             <AlertTriangle className="h-5 w-5 mr-2" />
             Erreurs courantes à éviter
           </h3>
           <ul className="space-y-2">
             {erreursCourantes.map((erreur, index) => (
-              <li key={index} className="text-yellow-800 flex items-start">
-                <span className="text-yellow-600 mr-2">⚠</span>
+              <li key={index} className="text-yellow-800 dark:text-yellow-200 flex items-start">
+                <span className="text-yellow-600 dark:text-yellow-400 mr-2">⚠</span>
                 {erreur}
               </li>
             ))}
@@ -138,14 +138,14 @@ const ConseilsExamenPage: React.FC = () => {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Stratégies de révision</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Stratégies de révision</h2>
         <div className="grid gap-4">
           {strategiesRevision.map((strategie, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">{strategie.titre}</h3>
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">{strategie.titre}</h3>
               <ul className="grid md:grid-cols-2 gap-2">
                 {strategie.points.map((point, idx) => (
-                  <li key={idx} className="text-gray-600 flex items-start">
+                  <li key={idx} className="text-gray-600 dark:text-gray-400 flex items-start">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                     {point}
                   </li>
@@ -157,15 +157,15 @@ const ConseilsExamenPage: React.FC = () => {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Conseils pour le jour J</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Conseils pour le jour J</h2>
         <div className="grid md:grid-cols-2 gap-4">
           {conseilsJourJ.map((conseil, index) => (
-            <div key={index} className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+            <div key={index} className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
               <div className="flex items-start space-x-3">
                 <conseil.icon className="h-6 w-6 text-blue-600 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-blue-900">{conseil.titre}</h4>
-                  <p className="text-sm text-blue-800 mt-1">{conseil.conseil}</p>
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-100">{conseil.titre}</h4>
+                  <p className="text-sm text-blue-800 dark:text-blue-200 mt-1">{conseil.conseil}</p>
                 </div>
               </div>
             </div>
@@ -173,26 +173,26 @@ const ConseilsExamenPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
           <BookOpen className="h-6 w-6 text-primary-600 mr-2" />
           Types de questions à l'examen
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-medium text-gray-900">Type</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-900">Exemple</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-900">Approche recommandée</th>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-gray-100">Type</th>
+                <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-gray-100">Exemple</th>
+                <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-gray-100">Approche recommandée</th>
               </tr>
             </thead>
             <tbody>
               {typesQuestions.map((question, index) => (
-                <tr key={index} className="border-b border-gray-100">
-                  <td className="py-3 px-4 text-gray-800 font-medium">{question.type}</td>
-                  <td className="py-3 px-4 text-gray-600 text-sm italic">{question.exemple}</td>
-                  <td className="py-3 px-4 text-gray-600 text-sm">{question.approche}</td>
+                <tr key={index} className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 text-gray-800 dark:text-gray-200 font-medium">{question.type}</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-400 text-sm italic">{question.exemple}</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-400 text-sm">{question.approche}</td>
                 </tr>
               ))}
             </tbody>
@@ -200,12 +200,12 @@ const ConseilsExamenPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center">
+      <div className="mt-8 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-2 flex items-center">
           <TrendingUp className="h-5 w-5 mr-2" />
           Conseil final
         </h3>
-        <p className="text-green-800">
+        <p className="text-green-800 dark:text-green-200">
           La clé du succès est la compréhension, pas la mémorisation pure. 
           ITIL 4 est conçu pour être pratique et flexible. Pensez toujours en termes 
           de création de valeur et d'amélioration continue. Si vous comprenez vraiment 

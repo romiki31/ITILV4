@@ -116,14 +116,14 @@ const ExamenPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Préparer l'Examen ITIL 4 Foundation</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Préparer l'Examen ITIL 4 Foundation</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Tout ce qu'il faut savoir pour réussir l'examen du premier coup.
         </p>
       </div>
 
       <div className="mb-6">
-        <div className="flex space-x-1 border-b border-gray-200">
+        <div className="flex space-x-1 border-b border-gray-200 dark:border-gray-700">
           {(['format', 'strategie', 'pieges', 'simulation'] as const).map((tab) => (
             <button
               key={tab}
@@ -131,7 +131,7 @@ const ExamenPage: React.FC = () => {
               className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
                 activeTab === tab
                   ? 'text-primary-600 border-primary-600'
-                  : 'text-gray-600 border-transparent hover:text-gray-900'
+                  : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-100'
               }`}
             >
               {tab === 'format' && 'Format & Structure'}
@@ -145,44 +145,44 @@ const ExamenPage: React.FC = () => {
 
       {activeTab === 'format' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
               <Award className="h-6 w-6 text-primary-600 mr-2" />
               Format de l'examen
             </h2>
             <dl className="grid md:grid-cols-2 gap-4">
               {Object.entries(formatExamen).map(([key, value]) => (
-                <div key={key} className="bg-gray-50 rounded-lg p-4">
-                  <dt className="text-sm font-medium text-gray-600 capitalize mb-1">
+                <div key={key} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                  <dt className="text-sm font-medium text-gray-600 dark:text-gray-400 capitalize mb-1">
                     {key.replace(/([A-Z])/g, ' $1').trim()}
                   </dt>
-                  <dd className="text-lg font-semibold text-gray-900">{value}</dd>
+                  <dd className="text-lg font-semibold text-gray-900 dark:text-gray-100">{value}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
               <Calculator className="h-5 w-5 text-primary-600 mr-2" />
               Répartition des questions
             </h3>
             <div className="space-y-3">
               {repartitionQuestions.map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{item.domaine}</h4>
-                    <p className="text-sm text-gray-600 mt-1">{item.conseil}</p>
+                    <h4 className="font-medium text-gray-900 dark:text-gray-100">{item.domaine}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.conseil}</p>
                   </div>
                   <div className="text-right ml-4">
                     <p className="text-2xl font-bold text-primary-600">{item.nombre}</p>
-                    <p className="text-sm text-gray-500">questions</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">questions</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm text-blue-800">
+            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
                 <strong>Note importante :</strong> Cette répartition est indicative. 
                 L'examen réel peut varier légèrement mais reste dans ces proportions.
               </p>
@@ -194,8 +194,8 @@ const ExamenPage: React.FC = () => {
       {activeTab === 'strategie' && (
         <div className="space-y-6">
           {strategiesReponse.map((strategie, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
                 <Target className="h-5 w-5 text-green-600 mr-2" />
                 {strategie.titre}
               </h3>
@@ -203,27 +203,27 @@ const ExamenPage: React.FC = () => {
                 {strategie.techniques.map((technique, idx) => (
                   <li key={idx} className="flex items-start space-x-2">
                     <ArrowRight className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{technique}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{technique}</span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
 
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6 border border-blue-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Stratégie globale recommandée</h3>
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">Stratégie globale recommandée</h3>
             <ol className="space-y-2">
               <li className="flex items-start">
-                <span className="font-bold text-primary-600 mr-2">1.</span>
-                <span className="text-gray-700">Premier passage rapide : répondez aux questions faciles (30 min)</span>
+                <span className="font-bold text-blue-600 dark:text-blue-400 mr-2">1.</span>
+                <span className="text-gray-700 dark:text-gray-300">Premier passage rapide : répondez aux questions faciles (30 min)</span>
               </li>
               <li className="flex items-start">
-                <span className="font-bold text-primary-600 mr-2">2.</span>
-                <span className="text-gray-700">Deuxième passage : questions marquées (20 min)</span>
+                <span className="font-bold text-blue-600 dark:text-blue-400 mr-2">2.</span>
+                <span className="text-gray-700 dark:text-gray-300">Deuxième passage : questions marquées (20 min)</span>
               </li>
               <li className="flex items-start">
-                <span className="font-bold text-primary-600 mr-2">3.</span>
-                <span className="text-gray-700">Révision finale : vérifiez toutes les réponses (10 min)</span>
+                <span className="font-bold text-blue-600 dark:text-blue-400 mr-2">3.</span>
+                <span className="text-gray-700 dark:text-gray-300">Révision finale : vérifiez toutes les réponses (10 min)</span>
               </li>
             </ol>
           </div>
@@ -233,16 +233,16 @@ const ExamenPage: React.FC = () => {
       {activeTab === 'pieges' && (
         <div className="space-y-6">
           {piegesFrequents.map((categorie, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
                 <AlertTriangle className="h-5 w-5 text-red-600 mr-2" />
                 {categorie.type}
               </h3>
               <div className="space-y-3">
                 {categorie.exemples.map((exemple, idx) => (
-                  <div key={idx} className="bg-red-50 rounded-lg p-4 border border-red-200">
-                    <p className="font-medium text-red-900 mb-1">{exemple.piege}</p>
-                    <p className="text-sm text-red-700">
+                  <div key={idx} className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 border border-red-200 dark:border-red-700">
+                    <p className="font-medium text-red-900 dark:text-red-100 mb-1">{exemple.piege}</p>
+                    <p className="text-sm text-red-700 dark:text-red-200">
                       <CheckCircle className="inline h-4 w-4 mr-1" />
                       {exemple.rappel}
                     </p>
@@ -252,9 +252,9 @@ const ExamenPage: React.FC = () => {
             </div>
           ))}
 
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-yellow-900 mb-2">Conseil anti-piège</h3>
-            <p className="text-yellow-800">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-100 mb-2">Conseil anti-piège</h3>
+            <p className="text-yellow-800 dark:text-yellow-200">
               Quand vous voyez des mots absolus (TOUJOURS, JAMAIS, TOUS, AUCUN), 
               soyez très vigilant. ITIL 4 est flexible et contextuel, donc ces affirmations 
               sont souvent fausses.
@@ -265,18 +265,18 @@ const ExamenPage: React.FC = () => {
 
       {activeTab === 'simulation' && (
         <div className="space-y-6">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <p className="text-sm text-blue-800">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-6">
+            <p className="text-sm text-blue-800 dark:text-blue-200">
               <Brain className="inline h-4 w-4 mr-1" />
               Entraînez-vous avec ces questions types. Essayez de répondre en moins de 90 secondes !
             </p>
           </div>
 
           {questionsTypes.map((q, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <div className="mb-4">
-                <span className="text-sm text-gray-500">Question {index + 1}</span>
-                <h3 className="text-lg font-medium text-gray-900 mt-1">{q.question}</h3>
+                <span className="text-sm text-gray-500 dark:text-gray-400">Question {index + 1}</span>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mt-1">{q.question}</h3>
               </div>
               
               <div className="space-y-2 mb-6">
@@ -285,15 +285,15 @@ const ExamenPage: React.FC = () => {
                     key={idx}
                     className={`p-3 rounded-lg border ${
                       idx === q.reponse 
-                        ? 'border-green-400 bg-green-50' 
-                        : 'border-gray-200 bg-gray-50'
+                        ? 'border-green-400 dark:border-green-400 bg-green-50 dark:bg-green-900/30' 
+                        : 'border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700'
                     }`}
                   >
                     <div className="flex items-center">
-                      <span className="font-medium text-gray-700 mr-2">
+                      <span className="font-medium text-gray-700 dark:text-gray-300 mr-2">
                         {String.fromCharCode(65 + idx)}.
                       </span>
-                      <span className="text-gray-800">{option}</span>
+                      <span className="text-gray-800 dark:text-gray-200">{option}</span>
                       {idx === q.reponse && (
                         <CheckCircle className="h-5 w-5 text-green-600 ml-auto" />
                       )}
@@ -302,17 +302,17 @@ const ExamenPage: React.FC = () => {
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600">
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   <strong>Explication :</strong> {q.explication}
                 </p>
               </div>
             </div>
           ))}
 
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-green-900 mb-2">Pour aller plus loin</h3>
-            <p className="text-green-800">
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-2">Pour aller plus loin</h3>
+            <p className="text-green-800 dark:text-green-200">
               Utilisez la section Quiz pour vous entraîner avec 100+ questions. 
               Le mode "Simulation d'examen" reproduit les conditions réelles avec 
               40 questions en 60 minutes.
@@ -321,46 +321,46 @@ const ExamenPage: React.FC = () => {
         </div>
       )}
 
-      <div className="mt-8 bg-gradient-to-r from-primary-50 to-purple-50 rounded-lg p-6 border border-primary-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-          <TrendingUp className="h-6 w-6 text-primary-600 mr-2" />
+      <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3 flex items-center">
+          <TrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-2" />
           Checklist pré-examen
         </h3>
         <div className="grid md:grid-cols-2 gap-4">
           <ul className="space-y-2">
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Maîtriser les 7 principes directeurs</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Maîtriser les 7 principes directeurs</span>
             </li>
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Comprendre les 4 dimensions + PESTLE</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Comprendre les 4 dimensions + PESTLE</span>
             </li>
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Connaître le SVS et ses composants</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Connaître le SVS et ses composants</span>
             </li>
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Distinguer les 6 activités de la CVS</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Distinguer les 6 activités de la CVS</span>
             </li>
           </ul>
           <ul className="space-y-2">
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Objectif des 15 pratiques Foundation</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Objectif des 15 pratiques Foundation</span>
             </li>
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Différencier concepts similaires</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Différencier concepts similaires</span>
             </li>
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">S'entraîner avec 40+ questions</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">S'entraîner avec 40+ questions</span>
             </li>
             <li className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <span className="text-gray-700">Réviser les pièges fréquents</span>
+              <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-gray-700 dark:text-gray-300">Réviser les pièges fréquents</span>
             </li>
           </ul>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import FondamentauxPage from './pages/FondamentauxPage'
@@ -12,8 +13,9 @@ import CaseStudiesPage from './pages/CaseStudiesPage'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Routes>
+    <ThemeProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="fondamentaux" element={<FondamentauxPage />} />
@@ -25,7 +27,8 @@ function App() {
           <Route path="etudes-cas" element={<CaseStudiesPage />} />
         </Route>
       </Routes>
-    </div>
+      </div>
+    </ThemeProvider>
   )
 }
 

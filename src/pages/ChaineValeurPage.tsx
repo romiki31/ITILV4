@@ -136,7 +136,7 @@ const ChaineValeurPage: React.FC = () => {
         </p>
       </div>
 
-      <div className="mb-8 bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+      <div className="mb-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-yellow-900 mb-2">Concept Clé</h3>
         <p className="text-yellow-800">
           La CVS est flexible et non linéaire. Les activités interagissent entre elles 
@@ -149,14 +149,14 @@ const ChaineValeurPage: React.FC = () => {
       
       <div className="grid gap-6 mb-8">
         {activites.map((activite) => (
-          <div key={activite.id} className="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div key={activite.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="p-6">
               <div className="flex items-start space-x-4">
                 <div className="bg-primary-100 p-3 rounded-lg">
                   <activite.icon className="h-6 w-6 text-primary-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     {activite.nom}
                   </h3>
                   <p className="text-gray-600 mb-2">{activite.description}</p>
@@ -165,7 +165,7 @@ const ChaineValeurPage: React.FC = () => {
                   </p>
                   
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                       <h4 className="font-medium text-gray-800 mb-2 flex items-center">
                         <ArrowRight className="h-4 w-4 mr-1 text-green-600" />
                         Entrées typiques
@@ -178,7 +178,7 @@ const ChaineValeurPage: React.FC = () => {
                         ))}
                       </ul>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                       <h4 className="font-medium text-gray-800 mb-2 flex items-center">
                         <ArrowRight className="h-4 w-4 mr-1 text-blue-600" />
                         Sorties typiques
@@ -203,7 +203,7 @@ const ChaineValeurPage: React.FC = () => {
         <h3 className="text-lg font-semibold text-blue-900 mb-4">Principes des Flux de Valeur</h3>
         <div className="grid md:grid-cols-2 gap-4">
           {principesFlux.map((principe, index) => (
-            <div key={index} className="bg-white rounded-lg p-4">
+            <div key={index} className="bg-white dark:bg-gray-700 rounded-lg p-4">
               <h4 className="font-medium text-gray-800 mb-1">{principe.titre}</h4>
               <p className="text-sm text-gray-600">{principe.description}</p>
             </div>

@@ -193,17 +193,17 @@ const FondamentauxPage: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Fondamentaux ITIL 4</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Fondamentaux ITIL 4</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Maîtrisez les concepts essentiels pour réussir l'examen. Ces fondamentaux représentent 
           environ 40% des questions de l'examen.
         </p>
       </div>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+      <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mb-6">
         <div className="flex items-start space-x-2">
-          <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5" />
-          <div className="text-sm text-yellow-800">
+          <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+          <div className="text-sm text-yellow-800 dark:text-yellow-200">
             <strong>Conseil d'apprentissage :</strong> Concentrez-vous sur la compréhension, pas sur la mémorisation. 
             ITIL 4 teste votre capacité à appliquer les concepts dans des situations pratiques.
           </div>
@@ -212,46 +212,46 @@ const FondamentauxPage: React.FC = () => {
 
       <div className="space-y-4">
         {sections.map((section) => (
-          <div key={section.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div key={section.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <button
               onClick={() => toggleSection(section.id)}
-              className={`w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors ${
-                activeSection === section.id ? 'bg-gray-50' : ''
+              className={`w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                activeSection === section.id ? 'bg-gray-50 dark:bg-gray-700' : ''
               }`}
             >
               <div className="flex items-center space-x-3">
                 <div className={`p-2 rounded-lg bg-${section.color}-100`}>
                   <section.icon className={`h-5 w-5 text-${section.color}-600`} />
                 </div>
-                <h2 className="text-lg font-semibold text-gray-900">{section.title}</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{section.title}</h2>
               </div>
               {activeSection === section.id ? (
-                <ChevronUp className="h-5 w-5 text-gray-400" />
+                <ChevronUp className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               ) : (
-                <ChevronDown className="h-5 w-5 text-gray-400" />
+                <ChevronDown className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               )}
             </button>
 
             {activeSection === section.id && (
               <div className="px-6 pb-6 border-t border-gray-100">
                 <div className="pt-4">
-                  <p className="text-gray-600 mb-4">{section.content.intro}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">{section.content.intro}</p>
 
             {section.id === 'concepts-cles' && (
               <div className="space-y-4">
                 {section.content.items?.map((item, index) =>
                   'term' in item ? (
-                    <div key={index} className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="font-semibold text-gray-900 mb-2">{item.term}</h3>
-                      <p className="text-gray-700 mb-2">{item.definition}</p>
+                    <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{item.term}</h3>
+                      <p className="text-gray-700 dark:text-gray-300 mb-2">{item.definition}</p>
                       <div className="space-y-2 text-sm">
                         <div className="flex items-start space-x-2">
                           <span className="text-green-600 font-medium">Exemple :</span>
-                          <span className="text-gray-600">{item.exemple}</span>
+                          <span className="text-gray-600 dark:text-gray-400">{item.exemple}</span>
                         </div>
                         <div className="flex items-start space-x-2">
                           <span className="text-red-600 font-medium">Attention :</span>
-                          <span className="text-gray-600">{item.piege}</span>
+                          <span className="text-gray-600 dark:text-gray-400">{item.piege}</span>
                         </div>
                       </div>
                     </div>
@@ -265,12 +265,12 @@ const FondamentauxPage: React.FC = () => {
                 {section.content.items?.map((item, index) =>
                   'principe' in item ? (
                     <div key={index} className="border-l-4 border-green-500 pl-4 py-2">
-                      <h3 className="font-semibold text-gray-900">{index + 1}. {item.principe}</h3>
-                      <p className="text-gray-700 text-sm mt-1">{item.application}</p>
-                      <p className="text-gray-600 text-sm mt-1 italic">Ex: {item.exemple}</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">{index + 1}. {item.principe}</h3>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm mt-1">{item.application}</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 italic">Ex: {item.exemple}</p>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {item.motsClés.map((mot: string, idx: number) => (
-                          <span key={idx} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">
+                          <span key={idx} className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded">
                             {mot}
                           </span>
                         ))}
@@ -285,22 +285,22 @@ const FondamentauxPage: React.FC = () => {
                     <div className="space-y-4">
                       <div className="grid md:grid-cols-2 gap-4">
                         {section.content.dimensions?.map((dim, index) => (
-                          <div key={index} className="bg-purple-50 rounded-lg p-4">
-                            <h3 className="font-semibold text-purple-900 mb-2">{dim.nom}</h3>
-                            <p className="text-purple-700 text-sm mb-2">{dim.focus}</p>
+                          <div key={index} className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+                            <h3 className="font-semibold text-purple-900 dark:text-purple-100 mb-2">{dim.nom}</h3>
+                            <p className="text-purple-700 dark:text-purple-300 text-sm mb-2">{dim.focus}</p>
                             <div className="space-y-1">
                               {dim.questions.map((q, idx) => (
-                                <p key={idx} className="text-purple-600 text-xs">• {q}</p>
+                                <p key={idx} className="text-purple-600 dark:text-purple-400 text-xs">• {q}</p>
                               ))}
                             </div>
-                            <p className="text-purple-800 text-sm mt-2 font-medium">
+                            <p className="text-purple-800 dark:text-purple-200 text-sm mt-2 font-medium">
                               Exemple : {dim.exemple}
                             </p>
                           </div>
                         ))}
                       </div>
-                      <div className="bg-gray-100 rounded-lg p-3 mt-4">
-                        <p className="text-sm text-gray-700">
+                      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 mt-4">
+                        <p className="text-sm text-gray-700 dark:text-gray-300">
                           <strong>Facteurs externes :</strong> {section.content.facteurs}
                         </p>
                       </div>
@@ -311,30 +311,30 @@ const FondamentauxPage: React.FC = () => {
                     <div className="space-y-4">
                       {section.content.elements?.map((element, index) => (
                         <div key={index} className="border rounded-lg p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">{element.concept}</h3>
+                          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{element.concept}</h3>
                           {element.types && (
                             <ul className="space-y-1 mb-2">
                               {element.types.map((type, idx) => (
-                                <li key={idx} className="text-sm text-gray-700">• {type}</li>
+                                <li key={idx} className="text-sm text-gray-700 dark:text-gray-300">• {type}</li>
                               ))}
                             </ul>
                           )}
                           {element.definition && (
-                            <p className="text-gray-700 text-sm mb-2">{element.definition}</p>
+                            <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">{element.definition}</p>
                           )}
                           {element.exemple && (
-                            <p className="text-gray-600 text-sm italic">Exemple : {element.exemple}</p>
+                            <p className="text-gray-600 dark:text-gray-400 text-sm italic">Exemple : {element.exemple}</p>
                           )}
                           {element.piege && (
                             <p className="text-red-600 text-sm mt-2">⚠️ {element.piege}</p>
                           )}
                           {element.principe && (
-                            <p className="text-gray-700 text-sm">{element.principe}</p>
+                            <p className="text-gray-700 dark:text-gray-300 text-sm">{element.principe}</p>
                           )}
                           {element.exemples && (
                             <ul className="mt-2 space-y-1">
                               {element.exemples.map((ex, idx) => (
-                                <li key={idx} className="text-sm text-gray-600">• {ex}</li>
+                                <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">• {ex}</li>
                               ))}
                             </ul>
                           )}
@@ -361,24 +361,24 @@ const FondamentauxPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">Points clés pour l'examen</h3>
+      <div className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Points clés pour l'examen</h3>
         <ul className="space-y-2">
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">Les 7 principes s'appliquent à TOUTES les situations</span>
+            <span className="text-gray-700 dark:text-gray-300">Les 7 principes s'appliquent à TOUTES les situations</span>
           </li>
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">Les 4 dimensions doivent TOUTES être considérées</span>
+            <span className="text-gray-700 dark:text-gray-300">Les 4 dimensions doivent TOUTES être considérées</span>
           </li>
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">La valeur est toujours co-créée avec le client</span>
+            <span className="text-gray-700 dark:text-gray-300">La valeur est toujours co-créée avec le client</span>
           </li>
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">Focus sur les outcomes (résultats) pas juste les outputs (livrables)</span>
+            <span className="text-gray-700 dark:text-gray-300">Focus sur les outcomes (résultats) pas juste les outputs (livrables)</span>
           </li>
         </ul>
       </div>

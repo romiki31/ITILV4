@@ -370,7 +370,7 @@ const PratiquesPage: React.FC = () => {
                         </span>
                       </div>
                       <p className="text-gray-600 dark:text-gray-400 mb-2">{pratique.objectif}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         <strong>Importance :</strong> {pratique.importance}
                       </p>
                     </div>

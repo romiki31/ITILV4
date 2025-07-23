@@ -95,14 +95,14 @@ const PrincipesPage: React.FC = () => {
 
       <div className="grid gap-6">
         {principes.map((principe) => (
-          <div key={principe.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div key={principe.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <div className="p-6">
               <div className="flex items-start space-x-4">
                 <div className="bg-primary-100 p-3 rounded-lg">
                   <principe.icon className="h-6 w-6 text-primary-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     {principe.id}. {principe.titre}
                   </h3>
                   <p className="text-gray-600 mb-4">{principe.description}</p>
@@ -122,9 +122,9 @@ const PrincipesPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-blue-900 mb-2">Application des principes</h3>
-        <p className="text-blue-800">
+      <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">Application des principes</h3>
+        <p className="text-blue-800 dark:text-blue-200">
           Ces principes sont universels et s'appliquent à toutes les initiatives. 
           Ils doivent être considérés à chaque étape de toute amélioration, 
           qu'il s'agisse d'un projet, d'un programme ou d'un changement organisationnel.

@@ -173,20 +173,20 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
             <CheckCircle size={32} className="text-primary-600" />
           </div>
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Session terminée !</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Session terminée !</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <div className="text-3xl font-bold text-gray-900">{sessionResults.length}</div>
-              <div className="text-sm text-gray-600">Cartes révisées</div>
+              <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">{sessionResults.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Cartes révisées</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-green-600">{correctAnswers}</div>
-              <div className="text-sm text-gray-600">Réponses correctes</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Réponses correctes</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-blue-600">{formatTime(totalTime)}</div>
-              <div className="text-sm text-gray-600">Temps total</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Temps total</div>
             </div>
           </div>
 
@@ -204,10 +204,10 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
 
         {/* Détail des résultats */}
         <div className="card">
-          <h3 className="font-semibold text-gray-900 mb-4">Statistiques détaillées</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Statistiques détaillées</h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <div className="text-gray-600">Taux de réussite</div>
+              <div className="text-gray-600 dark:text-gray-400">Taux de réussite</div>
               <div className="font-bold text-lg">
                 {sessionResults.length > 0 
                   ? Math.round((correctAnswers / sessionResults.length) * 100) 
@@ -215,17 +215,17 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
               </div>
             </div>
             <div>
-              <div className="text-gray-600">Temps moyen par carte</div>
+              <div className="text-gray-600 dark:text-gray-400">Temps moyen par carte</div>
               <div className="font-bold text-lg">{averageTime}s</div>
             </div>
             <div>
-              <div className="text-gray-600">Cartes correctes</div>
+              <div className="text-gray-600 dark:text-gray-400">Cartes correctes</div>
               <div className="font-bold text-lg text-green-600">
                 {sessionResults.filter(r => r.wasCorrect).length}
               </div>
             </div>
             <div>
-              <div className="text-gray-600">À revoir</div>
+              <div className="text-gray-600 dark:text-gray-400">À revoir</div>
               <div className="font-bold text-lg text-red-600">
                 {sessionResults.filter(r => !r.wasCorrect).length}
               </div>
@@ -250,7 +250,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
               <X size={16} className="mr-2" />
               Quitter
             </button>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-gray-400">
               Carte {currentCardIndex + 1} sur {cards.length}
             </div>
           </div>
@@ -258,7 +258,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
           <div className="flex items-center space-x-4">
             {timeRemaining !== null && (
               <div className={`flex items-center space-x-2 ${
-                timeRemaining < 60 ? 'text-red-600' : 'text-gray-600'
+                timeRemaining < 60 ? 'text-red-600 dark:text-red-400' : 'text-gray-600 dark:text-gray-400'
               }`}>
                 <Clock size={16} />
                 <span className="font-mono font-medium">
@@ -283,32 +283,32 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
       </div>
 
       {/* Flashcard */}
-      <div className="relative h-80">
+      <div className="relative h-80 sm:h-80 md:h-96">
         <div className={`flip-card w-full h-full ${isFlipped ? 'flipped' : ''}`}>
           <div className="flip-card-inner">
             {/* Front */}
-            <div className="flip-card-front card bg-white border-2 border-primary-400 flex items-center justify-center p-8">
+            <div className="flip-card-front card bg-white dark:bg-gray-800 border-2 border-primary-400 dark:border-primary-600 flex items-center justify-center p-8">
               <div className="text-center">
-                <div className="text-sm text-primary-600 font-medium mb-4">Question {currentCardIndex + 1}/{cards.length}</div>
-                <div className="text-xl font-medium leading-relaxed text-gray-900">
+                <div className="text-sm text-primary-600 dark:text-primary-400 font-medium mb-4">Question {currentCardIndex + 1}/{cards.length}</div>
+                <div className="text-xl font-medium leading-relaxed text-gray-900 dark:text-gray-100">
                   {currentCard.front}
                 </div>
-                <div className="text-sm text-gray-500 mt-6">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mt-6">
                   Cliquez pour révéler la réponse
                 </div>
               </div>
             </div>
 
             {/* Back */}
-            <div className="flip-card-back card bg-gray-50 border-2 border-gray-300 flex items-center justify-center p-8 overflow-y-auto">
-              <div className="w-full">
-                <div className="text-sm text-gray-600 font-medium mb-4 text-center">Réponse</div>
-                <div className="text-base leading-relaxed text-gray-800 whitespace-pre-wrap text-left">
+            <div className="flip-card-back card bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 flex items-start justify-center p-4 sm:p-8">
+              <div className="w-full max-h-full overflow-y-auto">
+                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-4 text-center">Réponse</div>
+                <div className="text-base leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap text-left break-words">
                   {currentCard.back}
                 </div>
                 {currentCard.examTip && (
-                  <div className="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
-                    <p className="text-sm text-yellow-800 font-medium">💡 Conseil examen</p>
+                  <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg">
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">💡 Conseil examen</p>
                   </div>
                 )}
               </div>
@@ -330,7 +330,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
         {isFlipped && (
           <div className="card bg-gray-50">
             <div className="text-center mb-4">
-              <div className="text-sm font-medium text-gray-700 mb-3">
+              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 Avez-vous trouvé la bonne réponse ?
               </div>
               <div className="flex justify-center space-x-3">
@@ -408,8 +408,8 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
       </div>
 
       {/* Aide */}
-      <div className="card bg-blue-50 border-blue-200">
-        <div className="text-sm text-blue-800">
+      <div className="card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700">
+        <div className="text-sm text-blue-800 dark:text-blue-200">
           <strong>💡 Astuce :</strong> Formulez votre réponse mentalement AVANT de retourner la carte. 
           {mode === 'pieges' && ' Attention aux mots-clés comme TOUJOURS, JAMAIS, TOUS !'}
           {mode === 'theme' && ' Concentrez-vous sur les distinctions clés de ce domaine.'}

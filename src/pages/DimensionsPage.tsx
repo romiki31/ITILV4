@@ -101,14 +101,14 @@ const DimensionsPage: React.FC = () => {
 
       <div className="grid gap-6 mb-8">
         {dimensions.map((dimension) => (
-          <div key={dimension.id} className="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div key={dimension.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="p-6">
               <div className="flex items-start space-x-4">
                 <div className="bg-primary-100 p-3 rounded-lg">
                   <dimension.icon className="h-6 w-6 text-primary-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     {dimension.titre}
                   </h3>
                   <p className="text-gray-600 mb-4">{dimension.description}</p>
@@ -158,15 +158,15 @@ const DimensionsPage: React.FC = () => {
         </p>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Facteurs Externes</h3>
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Facteurs Externes</h3>
         <div className="grid md:grid-cols-2 gap-6">
           {facteursCles.map((facteur, index) => (
             <div key={index}>
               <h4 className="font-medium text-gray-800 mb-2">{facteur.titre}</h4>
               <div className="flex flex-wrap gap-2">
                 {facteur.exemples.map((exemple, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-white border border-gray-300 rounded-full text-sm text-gray-700">
+                  <span key={idx} className="px-3 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-full text-sm text-gray-700 dark:text-gray-300">
                     {exemple}
                   </span>
                 ))}

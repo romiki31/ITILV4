@@ -355,7 +355,7 @@ const FlashcardsPage: React.FC = () => {
           {categories.map((category) => (
             <div 
               key={category.id}
-              className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow cursor-pointer"
               onClick={() => startSession('theme', category.id)}
             >
               <div className="flex items-center justify-between">
@@ -364,7 +364,7 @@ const FlashcardsPage: React.FC = () => {
                     <category.icon className="h-6 w-6 text-primary-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{category.name}</h3>
                     <p className="text-gray-600 text-sm mt-1">{category.description}</p>
                     <p className="text-primary-600 font-medium text-sm mt-2">{category.count} cartes</p>
                   </div>
@@ -380,17 +380,17 @@ const FlashcardsPage: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Révision avec Flashcards</h1>
-        <p className="text-gray-600">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Révision avec Flashcards</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Mémorisez efficacement les concepts clés et pièges de l'examen ITIL v4 Foundation
         </p>
       </div>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8">
+      <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mb-8">
         <div className="flex items-start space-x-2">
-          <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
-          <div className="text-sm text-yellow-800">
+          <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+          <div className="text-sm text-yellow-800 dark:text-yellow-200">
             <strong>Conseil :</strong> Concentrez-vous sur les distinctions (incident vs problème, SLA vs OLA) 
             et les pièges fréquents. Ce sont les questions les plus courantes à l'examen !
           </div>
@@ -401,7 +401,7 @@ const FlashcardsPage: React.FC = () => {
         {modes.map((mode) => (
           <div 
             key={mode.id} 
-            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer relative"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow cursor-pointer relative"
             onClick={() => mode.action === 'start' ? startSession(mode.id) : setSelectedMode(mode.id)}
           >
             {mode.recommended && (
@@ -416,8 +416,8 @@ const FlashcardsPage: React.FC = () => {
                   <mode.icon size={24} className="text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{mode.title}</h3>
-                  <p className="text-gray-600">{mode.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">{mode.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{mode.description}</p>
                 </div>
               </div>
               <ArrowRight className="h-5 w-5 text-gray-400" />
@@ -426,35 +426,35 @@ const FlashcardsPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-blue-900 mb-3">
+      <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
           💡 Comment utiliser les flashcards efficacement
         </h3>
-        <div className="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+        <div className="grid md:grid-cols-2 gap-4 text-sm text-blue-800 dark:text-blue-200">
           <ul className="space-y-2">
             <li className="flex items-start">
-              <CheckCircle className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+              <CheckCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
               Lisez la question et formulez votre réponse AVANT de retourner
             </li>
             <li className="flex items-start">
-              <CheckCircle className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+              <CheckCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
               Marquez "À revoir" les cartes avec pièges importants
             </li>
           </ul>
           <ul className="space-y-2">
             <li className="flex items-start">
-              <CheckCircle className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+              <CheckCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
               Faites le mode "Pièges" avant l'examen
             </li>
             <li className="flex items-start">
-              <CheckCircle className="h-4 w-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+              <CheckCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
               Révisez 15-20 minutes par jour, pas 2h d'un coup
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="mt-6 text-center text-sm text-gray-500">
+      <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
         <CreditCard className="h-5 w-5 inline mr-2" />
         {flashcards.length} flashcards disponibles couvrant tous les domaines de l'examen
       </div>

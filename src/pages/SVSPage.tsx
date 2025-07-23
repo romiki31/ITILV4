@@ -194,41 +194,41 @@ const SVSPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Système de Valeur des Services (SVS)</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Système de Valeur des Services (SVS)</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Le SVS est le modèle opérationnel d'ITIL 4. Comprendre comment ses composants interagissent 
           est essentiel pour l'examen (environ 30% des questions).
         </p>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold text-blue-900 mb-3 flex items-center">
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3 flex items-center">
           <GitBranch className="h-6 w-6 mr-2" />
           Vue d'ensemble du SVS
         </h2>
-        <p className="text-blue-800 mb-4">
+        <p className="text-blue-800 dark:text-blue-200 mb-4">
           Le SVS permet à une organisation de créer de la valeur pour ses parties prenantes. 
           Il est composé de plusieurs éléments interconnectés qui travaillent ensemble de manière flexible.
         </p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
           {composantsSVS.map((composant, index) => (
-            <div key={index} className="bg-white rounded-lg p-3 border border-blue-200">
-              <h4 className="font-semibold text-gray-900 text-sm">{composant.nom}</h4>
-              <p className="text-xs text-gray-600 mt-1">{composant.description}</p>
-              <p className="text-xs text-blue-600 mt-1 font-medium">→ {composant.role}</p>
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-blue-200 dark:border-blue-700">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{composant.nom}</h4>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{composant.description}</p>
+              <p className="text-xs text-blue-600 dark:text-blue-400 mt-1 font-medium">→ {composant.role}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">La Chaîne de Valeur des Services (CVS)</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">La Chaîne de Valeur des Services (CVS)</h2>
       
-      <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div className="mb-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4">
         <div className="flex items-start space-x-2">
-          <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5" />
+          <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
           <div>
-            <p className="text-sm text-yellow-800 font-medium">Point crucial pour l'examen :</p>
-            <p className="text-sm text-yellow-700">
+            <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">Point crucial pour l'examen :</p>
+            <p className="text-sm text-yellow-700 dark:text-yellow-300">
               La CVS n'est PAS linéaire ! Les activités peuvent être combinées dans n'importe quel ordre 
               pour créer des flux de valeur adaptés à chaque situation.
             </p>
@@ -240,10 +240,10 @@ const SVSPage: React.FC = () => {
         {activitesCVS.map((activite) => (
           <div 
             key={activite.id} 
-            className={`bg-white rounded-lg shadow-sm border-2 transition-all cursor-pointer ${
+            className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border-2 transition-all cursor-pointer ${
               selectedActivity === activite.id 
                 ? `border-${activite.couleur}-400 shadow-md` 
-                : 'border-gray-200 hover:border-gray-300'
+                : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
             }`}
             onClick={() => setSelectedActivity(selectedActivity === activite.id ? null : activite.id)}
           >
@@ -254,9 +254,9 @@ const SVSPage: React.FC = () => {
                     <activite.icon className={`h-6 w-6 text-${activite.couleur}-600`} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900">{activite.nom}</h3>
-                    <p className="text-gray-600 mt-1">{activite.description}</p>
-                    <p className="text-sm text-gray-500 mt-2">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{activite.nom}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">{activite.description}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                       <Target className="inline h-4 w-4 mr-1" />
                       {activite.objectifPrincipal}
                     </p>
@@ -268,16 +268,16 @@ const SVSPage: React.FC = () => {
               </div>
 
               {selectedActivity === activite.id && (
-                <div className="mt-6 pt-6 border-t border-gray-100">
+                <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-medium text-gray-800 mb-3 flex items-center">
+                      <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-3 flex items-center">
                         <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                         Entrées principales
                       </h4>
                       <ul className="space-y-2">
                         {activite.entreesCles.map((entree, index) => (
-                          <li key={index} className="text-sm text-gray-600 flex items-start">
+                          <li key={index} className="text-sm text-gray-600 dark:text-gray-400 flex items-start">
                             <ArrowRight className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                             {entree}
                           </li>
@@ -285,13 +285,13 @@ const SVSPage: React.FC = () => {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-800 mb-3 flex items-center">
+                      <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-3 flex items-center">
                         <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
                         Sorties principales
                       </h4>
                       <ul className="space-y-2">
                         {activite.sortiesCles.map((sortie, index) => (
-                          <li key={index} className="text-sm text-gray-600 flex items-start">
+                          <li key={index} className="text-sm text-gray-600 dark:text-gray-400 flex items-start">
                             <ArrowRight className="h-4 w-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
                             {sortie}
                           </li>
@@ -300,17 +300,17 @@ const SVSPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 bg-purple-50 rounded-lg p-4">
-                    <h4 className="font-medium text-purple-900 mb-2">Questions types d'examen :</h4>
+                  <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+                    <h4 className="font-medium text-purple-900 dark:text-purple-100 mb-2">Questions types d'examen :</h4>
                     <ul className="space-y-1">
                       {activite.questionsExamen.map((question, index) => (
-                        <li key={index} className="text-sm text-purple-700">• {question}</li>
+                        <li key={index} className="text-sm text-purple-700 dark:text-purple-300">• {question}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="mt-4 bg-red-50 rounded-lg p-3">
-                    <p className="text-sm text-red-700">
+                  <div className="mt-4 bg-red-50 dark:bg-red-900/20 rounded-lg p-3">
+                    <p className="text-sm text-red-700 dark:text-red-300">
                       <AlertCircle className="inline h-4 w-4 mr-1" />
                       <strong>Piège fréquent :</strong> {activite.piege}
                     </p>
@@ -322,19 +322,19 @@ const SVSPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Exemples de Flux de Valeur</h3>
-        <p className="text-gray-600 mb-4">
+      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mb-8">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Exemples de Flux de Valeur</h3>
+        <p className="text-gray-600 dark:text-gray-400 mb-4">
           Voici comment les activités se combinent dans des situations réelles :
         </p>
         <div className="space-y-4">
           {fluxValeurExemples.map((exemple, index) => (
-            <div key={index} className="bg-white rounded-lg p-4 border border-gray-200">
-              <h4 className="font-medium text-gray-800 mb-2">{exemple.scenario}</h4>
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+              <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">{exemple.scenario}</h4>
               <div className="flex items-center space-x-2 mb-2">
                 {exemple.flux.map((activite, idx) => (
                   <React.Fragment key={idx}>
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300 rounded-full text-sm">
                       {activite}
                     </span>
                     {idx < exemple.flux.length - 1 && (
@@ -343,30 +343,30 @@ const SVSPage: React.FC = () => {
                   </React.Fragment>
                 ))}
               </div>
-              <p className="text-sm text-gray-600 italic">{exemple.explication}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 italic">{exemple.explication}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6 border border-blue-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">Points clés pour l'examen</h3>
+      <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Points clés pour l'examen</h3>
         <ul className="space-y-2">
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">La CVS est flexible et non-séquentielle</span>
+            <span className="text-gray-700 dark:text-gray-300">La CVS est flexible et non-séquentielle</span>
           </li>
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">"Améliorer" est présente dans TOUS les flux de valeur</span>
+            <span className="text-gray-700 dark:text-gray-300">"Améliorer" est présente dans TOUS les flux de valeur</span>
           </li>
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">"Concevoir et faire la transition" est UNE seule activité</span>
+            <span className="text-gray-700 dark:text-gray-300">"Concevoir et faire la transition" est UNE seule activité</span>
           </li>
           <li className="flex items-start space-x-2">
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            <span className="text-gray-700">Les pratiques ITIL supportent les activités de la CVS</span>
+            <span className="text-gray-700 dark:text-gray-300">Les pratiques ITIL supportent les activités de la CVS</span>
           </li>
         </ul>
       </div>
