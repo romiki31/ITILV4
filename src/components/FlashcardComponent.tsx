@@ -169,8 +169,8 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
     return (
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="card text-center">
-          <div className="w-20 h-20 mx-auto bg-primary-100 rounded-full flex items-center justify-center mb-4">
-            <CheckCircle size={32} className="text-primary-600" />
+          <div className="w-20 h-20 mx-auto bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
+            <CheckCircle size={32} className="text-primary-600 dark:text-primary-400" />
           </div>
           
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Session terminée !</h2>
@@ -282,33 +282,34 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
         </div>
       </div>
 
-      {/* Flashcard */}
-      <div className="relative h-80 sm:h-80 md:h-96">
+      {/* Flashcard responsive */}
+      <div className="relative min-h-[320px] sm:min-h-[360px] md:min-h-[400px] max-h-[600px]">
         <div className={`flip-card w-full h-full ${isFlipped ? 'flipped' : ''}`}>
           <div className="flip-card-inner">
             {/* Front */}
-            <div className="flip-card-front card bg-white dark:bg-gray-800 border-2 border-primary-400 dark:border-primary-600 flex items-center justify-center p-8">
-              <div className="text-center">
+            <div className="flip-card-front card bg-white dark:bg-gray-800 border-2 border-primary-400 dark:border-primary-600 flex items-center justify-center p-4 sm:p-6 md:p-8 min-h-[320px] sm:min-h-[360px] md:min-h-[400px]">
+              <div className="text-center w-full">
                 <div className="text-sm text-primary-600 dark:text-primary-400 font-medium mb-4">Question {currentCardIndex + 1}/{cards.length}</div>
-                <div className="text-xl font-medium leading-relaxed text-gray-900 dark:text-gray-100">
+                <div className="text-lg sm:text-xl font-medium leading-relaxed text-gray-900 dark:text-gray-100 break-words">
                   {currentCard.front}
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400 mt-6">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mt-4 sm:mt-6">
                   Cliquez pour révéler la réponse
                 </div>
               </div>
             </div>
 
             {/* Back */}
-            <div className="flip-card-back card bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 flex items-start justify-center p-4 sm:p-8">
-              <div className="w-full max-h-full overflow-y-auto">
+            <div className="flip-card-back card bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 flex flex-col p-4 sm:p-6 md:p-8 min-h-[320px] sm:min-h-[360px] md:min-h-[400px] max-h-[600px]">
+              <div className="flex-1 overflow-y-auto">
                 <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-4 text-center">Réponse</div>
-                <div className="text-base leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap text-left break-words">
+                <div className="text-sm sm:text-base leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap text-left break-words">
                   {currentCard.back}
                 </div>
                 {currentCard.examTip && (
                   <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg">
                     <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">💡 Conseil examen</p>
+                    <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-1">{currentCard.examTip}</p>
                   </div>
                 )}
               </div>
@@ -326,24 +327,24 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
 
       {/* Contrôles */}
       <div className="space-y-4">
-        {/* Évaluation (seulement si la carte est retournée) */}
+        {/* Évaluation responsive (seulement si la carte est retournée) */}
         {isFlipped && (
-          <div className="card bg-gray-50">
+          <div className="card bg-gray-50 dark:bg-gray-700">
             <div className="text-center mb-4">
               <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 Avez-vous trouvé la bonne réponse ?
               </div>
-              <div className="flex justify-center space-x-3">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:space-x-3">
                 <button 
                   onClick={markAsCorrect}
-                  className="btn bg-green-500 text-white hover:bg-green-600 px-6 py-2"
+                  className="btn bg-green-500 text-white hover:bg-green-600 px-6 py-3 sm:py-2 min-h-[44px] flex items-center justify-center"
                 >
                   <CheckCircle size={18} className="mr-2" />
                   Correct
                 </button>
                 <button 
                   onClick={markAsIncorrect}
-                  className="btn bg-red-500 text-white hover:bg-red-600 px-6 py-2"
+                  className="btn bg-red-500 text-white hover:bg-red-600 px-6 py-3 sm:py-2 min-h-[44px] flex items-center justify-center"
                 >
                   <XCircle size={18} className="mr-2" />
                   À revoir
@@ -353,41 +354,59 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
           </div>
         )}
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center">
-          <button 
-            onClick={previousCard}
-            disabled={currentCardIndex === 0}
-            className="btn btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronLeft size={16} className="mr-2" />
-            Précédente
-          </button>
-
-          <div className="flex space-x-2">
-            <button onClick={skipCard} className="btn btn-secondary text-sm">
+        {/* Navigation responsive */}
+        <div className="space-y-3">
+          {/* Contrôles centraux sur mobile */}
+          <div className="flex justify-center space-x-2 sm:hidden">
+            <button onClick={skipCard} className="btn btn-secondary text-sm px-4 py-2 min-h-[44px]">
               Passer
             </button>
             {!isFlipped && (
-              <button onClick={flipCard} className="btn btn-primary">
-                Révéler la réponse
+              <button onClick={flipCard} className="btn btn-primary px-4 py-2 min-h-[44px]">
+                Révéler
               </button>
             )}
           </div>
 
-          {currentCardIndex === cards.length - 1 ? (
-            <button onClick={finishSession} className="btn btn-primary">
-              Terminer
-            </button>
-          ) : (
+          {/* Navigation précédent/suivant */}
+          <div className="flex justify-between items-center">
             <button 
-              onClick={() => nextCard()}
-              className="btn btn-secondary"
+              onClick={previousCard}
+              disabled={currentCardIndex === 0}
+              className="btn btn-secondary disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 min-h-[44px] flex items-center"
             >
-              Suivante
-              <ChevronRight size={16} className="ml-2" />
+              <ChevronLeft size={16} className="mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Précédente</span>
+              <span className="sm:hidden">Préc.</span>
             </button>
-          )}
+
+            {/* Contrôles centraux sur desktop */}
+            <div className="hidden sm:flex space-x-2">
+              <button onClick={skipCard} className="btn btn-secondary text-sm px-4 py-2 min-h-[44px]">
+                Passer
+              </button>
+              {!isFlipped && (
+                <button onClick={flipCard} className="btn btn-primary px-4 py-2 min-h-[44px]">
+                  Révéler la réponse
+                </button>
+              )}
+            </div>
+
+            {currentCardIndex === cards.length - 1 ? (
+              <button onClick={finishSession} className="btn btn-primary px-4 py-2 min-h-[44px] flex items-center">
+                Terminer
+              </button>
+            ) : (
+              <button 
+                onClick={() => nextCard()}
+                className="btn btn-secondary px-4 py-2 min-h-[44px] flex items-center"
+              >
+                <span className="hidden sm:inline">Suivante</span>
+                <span className="sm:hidden">Suiv.</span>
+                <ChevronRight size={16} className="ml-1 sm:ml-2" />
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

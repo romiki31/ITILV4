@@ -1,5 +1,6 @@
 import React from 'react'
 import { ArrowRight, Package, Truck, Settings, ShieldCheck, Wrench, RefreshCw } from 'lucide-react'
+import LearningNavigation from '../components/LearningNavigation'
 
 const ChaineValeurPage: React.FC = () => {
   const activites = [
@@ -127,65 +128,67 @@ const ChaineValeurPage: React.FC = () => {
   ]
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div>
+      <LearningNavigation />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">La Chaîne de Valeur des Services</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">La Chaîne de Valeur des Services</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           La chaîne de valeur des services (CVS) est un modèle opérationnel qui définit 
           les activités clés nécessaires pour répondre à la demande et faciliter la réalisation de valeur.
         </p>
       </div>
 
       <div className="mb-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-yellow-900 mb-2">Concept Clé</h3>
-        <p className="text-yellow-800">
+        <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-100 mb-2">Concept Clé</h3>
+        <p className="text-yellow-800 dark:text-yellow-200">
           La CVS est flexible et non linéaire. Les activités interagissent entre elles 
           et peuvent être combinées de nombreuses façons pour créer des flux de valeur 
           adaptés à des scénarios spécifiques.
         </p>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Les 6 Activités de la Chaîne de Valeur</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Les 6 Activités de la Chaîne de Valeur</h2>
       
       <div className="grid gap-6 mb-8">
         {activites.map((activite) => (
           <div key={activite.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="p-6">
               <div className="flex items-start space-x-4">
-                <div className="bg-primary-100 p-3 rounded-lg">
-                  <activite.icon className="h-6 w-6 text-primary-600" />
+                <div className="bg-primary-100 dark:bg-primary-900/20 p-3 rounded-lg">
+                  <activite.icon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     {activite.nom}
                   </h3>
-                  <p className="text-gray-600 mb-2">{activite.description}</p>
-                  <p className="text-sm text-gray-500 mb-4">
+                  <p className="text-gray-600 dark:text-gray-400 mb-2">{activite.description}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                     <strong>Objectif :</strong> {activite.objectif}
                   </p>
                   
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                      <h4 className="font-medium text-gray-800 mb-2 flex items-center">
-                        <ArrowRight className="h-4 w-4 mr-1 text-green-600" />
+                      <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2 flex items-center">
+                        <ArrowRight className="h-4 w-4 mr-1 text-green-600 dark:text-green-400" />
                         Entrées typiques
                       </h4>
                       <ul className="space-y-1">
                         {activite.entrees.map((entree, index) => (
-                          <li key={index} className="text-sm text-gray-600">
+                          <li key={index} className="text-sm text-gray-600 dark:text-gray-400">
                             • {entree}
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                      <h4 className="font-medium text-gray-800 mb-2 flex items-center">
-                        <ArrowRight className="h-4 w-4 mr-1 text-blue-600" />
+                      <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2 flex items-center">
+                        <ArrowRight className="h-4 w-4 mr-1 text-blue-600 dark:text-blue-400" />
                         Sorties typiques
                       </h4>
                       <ul className="space-y-1">
                         {activite.sorties.map((sortie, index) => (
-                          <li key={index} className="text-sm text-gray-600">
+                          <li key={index} className="text-sm text-gray-600 dark:text-gray-400">
                             • {sortie}
                           </li>
                         ))}
@@ -199,17 +202,18 @@ const ChaineValeurPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-blue-900 mb-4">Principes des Flux de Valeur</h3>
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">Principes des Flux de Valeur</h3>
         <div className="grid md:grid-cols-2 gap-4">
           {principesFlux.map((principe, index) => (
-            <div key={index} className="bg-white dark:bg-gray-700 rounded-lg p-4">
-              <h4 className="font-medium text-gray-800 mb-1">{principe.titre}</h4>
-              <p className="text-sm text-gray-600">{principe.description}</p>
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-4">
+              <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-1">{principe.titre}</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{principe.description}</p>
             </div>
           ))}
         </div>
       </div>
+    </div>
     </div>
   )
 }

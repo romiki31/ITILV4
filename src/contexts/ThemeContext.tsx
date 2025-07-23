@@ -30,7 +30,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return 'dark';
     }
     
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {

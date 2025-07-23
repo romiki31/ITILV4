@@ -47,3 +47,14 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Development files
+screen/
+screenshot/
+*.md
+!README.md
+!CHANGELOG.md
+claude.md
+recapquestionexamblanc.md
+QuestionsExamBlanc.md
+parsed_questions_exam_blanc.json

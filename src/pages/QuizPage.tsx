@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import QuizComponent from '../components/QuizComponent'
 import ExamPracticeComponent from '../components/ExamPracticeComponent'
 import { 
@@ -11,12 +11,19 @@ import {
   GraduationCap
 } from 'lucide-react'
 import type { ExamPracticeSession } from '@/types'
+import { useAutoScroll } from '../hooks/useAutoScroll'
 
 const QuizPage: React.FC = () => {
   const [showQuiz, setShowQuiz] = useState(false)
   const [showExamPractice, setShowExamPractice] = useState(false)
   const [quizMode, setQuizMode] = useState<string>('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const { scrollToTop } = useAutoScroll({ delay: 150 })
+
+  // Autoscroll vers le haut lors de l'arrivée sur la page
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   const quizModes = [
     {
@@ -54,14 +61,6 @@ const QuizPage: React.FC = () => {
       icon: BookOpen,
       color: 'bg-blue-500',
       action: 'choose-category'
-    },
-    {
-      id: 'trap-questions',
-      title: 'Questions pièges',
-      description: 'Focus sur les difficultés et distinctions de l\'examen',
-      icon: AlertTriangle,
-      color: 'bg-orange-500',
-      action: 'start'
     }
   ]
 
@@ -99,6 +98,7 @@ const QuizPage: React.FC = () => {
   ]
 
   const startQuiz = (mode: string, category?: string) => {
+    scrollToTop() // Autoscroll vers le haut lors du démarrage d'un quiz
     if (mode === 'exam-practice') {
       setShowExamPractice(true)
     } else {
@@ -112,10 +112,12 @@ const QuizPage: React.FC = () => {
     // On pourrait ici ajouter une logique pour afficher les résultats
     // ou rediriger vers une page de résultats spécifique
     console.log('Session d\'examen pratique terminée:', session)
+    scrollToTop() // Autoscroll vers le haut à la fin de la session
   }
 
   const handleExamPracticeExit = () => {
     setShowExamPractice(false)
+    scrollToTop() // Autoscroll vers le haut lors de la sortie
   }
 
   // Affichage du mode examen pratique
@@ -139,10 +141,12 @@ const QuizPage: React.FC = () => {
           onComplete={() => {
             setShowQuiz(false)
             setSelectedCategory('')
+            scrollToTop() // Autoscroll vers le haut à la fin du quiz
           }}
           onExit={() => {
             setShowQuiz(false)
             setSelectedCategory('')
+            scrollToTop() // Autoscroll vers le haut lors de la sortie
           }}
         />
       </div>
@@ -155,7 +159,10 @@ const QuizPage: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <button 
-            onClick={() => setQuizMode('')}
+            onClick={() => {
+              setQuizMode('')
+              scrollToTop() // Autoscroll vers le haut lors du retour
+            }}
             className="text-primary-600 hover:text-primary-700 flex items-center mb-4"
           >
             <ArrowRight className="h-4 w-4 mr-1 rotate-180" />
@@ -251,7 +258,7 @@ const QuizPage: React.FC = () => {
         <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
           Répartition des questions à l'examen officiel
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
           <div>
             <span className="font-medium text-blue-900 dark:text-blue-200">Concepts clés :</span>
             <span className="text-blue-700 dark:text-blue-300"> 7 questions (18%)</span>
@@ -287,7 +294,7 @@ const QuizPage: React.FC = () => {
         <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-3">
           Stratégies pour réussir
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-800 dark:text-green-200">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm text-green-800 dark:text-green-200">
           <ul className="space-y-2">
             <li className="flex items-start">
               <CheckCircle size={16} className="text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />

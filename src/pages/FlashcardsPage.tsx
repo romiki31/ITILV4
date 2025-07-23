@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FlashcardComponent from '../components/FlashcardComponent'
 import type { Flashcard } from '@/types'
 import { 
-  CreditCard, 
   Brain,
   AlertTriangle,
   BookOpen,
@@ -11,11 +10,18 @@ import {
   CheckCircle,
   ArrowRight
 } from 'lucide-react'
+import { useAutoScroll } from '../hooks/useAutoScroll'
 
 const FlashcardsPage: React.FC = () => {
   const [selectedMode, setSelectedMode] = useState<string>('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [showFlashcards, setShowFlashcards] = useState(false)
+  const { scrollToTop } = useAutoScroll({ delay: 150 })
+
+  // Autoscroll vers le haut lors de l'arrivée sur la page
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   const modes = [
     {
@@ -294,6 +300,7 @@ const FlashcardsPage: React.FC = () => {
   const startSession = (mode: string, category?: string) => {
     setSelectedMode(mode)
     if (category) setSelectedCategory(category)
+    scrollToTop() // Autoscroll vers le haut lors du démarrage d'une session
     
     let cardsToUse = [...flashcards]
     
@@ -326,10 +333,12 @@ const FlashcardsPage: React.FC = () => {
           onComplete={() => {
             setShowFlashcards(false)
             setSelectedCategory('')
+            scrollToTop() // Autoscroll vers le haut à la fin de la session
           }}
           onExit={() => {
             setShowFlashcards(false)
             setSelectedCategory('')
+            scrollToTop() // Autoscroll vers le haut lors de la sortie
           }}
         />
       </div>
@@ -341,14 +350,17 @@ const FlashcardsPage: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         <div className="mb-8">
           <button 
-            onClick={() => setSelectedMode('')}
-            className="text-primary-600 hover:text-primary-700 flex items-center mb-4"
+            onClick={() => {
+              setSelectedMode('')
+              scrollToTop() // Autoscroll vers le haut lors du retour
+            }}
+            className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center mb-4"
           >
             <ArrowRight className="h-4 w-4 mr-1 rotate-180" />
             Retour aux modes
           </button>
-          <h2 className="text-2xl font-bold text-gray-900">Choisissez un thème</h2>
-          <p className="text-gray-600 mt-2">Sélectionnez le domaine que vous souhaitez réviser</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Choisissez un thème</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Sélectionnez le domaine que vous souhaitez réviser</p>
         </div>
 
         <div className="grid gap-4">
@@ -360,13 +372,13 @@ const FlashcardsPage: React.FC = () => {
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-primary-100 p-3 rounded-lg">
-                    <category.icon className="h-6 w-6 text-primary-600" />
+                  <div className="bg-primary-100 dark:bg-primary-900/20 p-3 rounded-lg">
+                    <category.icon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{category.name}</h3>
-                    <p className="text-gray-600 text-sm mt-1">{category.description}</p>
-                    <p className="text-primary-600 font-medium text-sm mt-2">{category.count} cartes</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{category.description}</p>
+                    <p className="text-primary-600 dark:text-primary-400 font-medium text-sm mt-2">{category.count} cartes</p>
                   </div>
                 </div>
                 <ArrowRight className="h-5 w-5 text-gray-400" />
@@ -454,10 +466,6 @@ const FlashcardsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-        <CreditCard className="h-5 w-5 inline mr-2" />
-        {flashcards.length} flashcards disponibles couvrant tous les domaines de l'examen
-      </div>
     </div>
   )
 }

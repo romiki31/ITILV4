@@ -1,5 +1,6 @@
 import React from 'react'
 import { ArrowRight, Target, Users, TrendingUp, Lightbulb, Repeat, GitBranch, CheckCircle } from 'lucide-react'
+import LearningNavigation from '../components/LearningNavigation'
 
 const PrincipesPage: React.FC = () => {
   const principes = [
@@ -83,10 +84,12 @@ const PrincipesPage: React.FC = () => {
   ]
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div>
+      <LearningNavigation />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Les 7 Principes Directeurs</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Les 7 Principes Directeurs</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Les principes directeurs d'ITIL 4 sont des recommandations qui guident les organisations 
           dans toutes les circonstances, indépendamment des changements dans leurs objectifs, 
           stratégies, type de travail ou structure de gestion.
@@ -98,20 +101,20 @@ const PrincipesPage: React.FC = () => {
           <div key={principe.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <div className="p-6">
               <div className="flex items-start space-x-4">
-                <div className="bg-primary-100 p-3 rounded-lg">
-                  <principe.icon className="h-6 w-6 text-primary-600" />
+                <div className="bg-primary-100 dark:bg-primary-900/20 p-3 rounded-lg">
+                  <principe.icon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     {principe.id}. {principe.titre}
                   </h3>
-                  <p className="text-gray-600 mb-4">{principe.description}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">{principe.description}</p>
                   
                   <div className="space-y-2">
                     {principe.points.map((point, index) => (
                       <div key={index} className="flex items-start space-x-2">
-                        <ArrowRight className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-700">{point}</span>
+                        <ArrowRight className="h-4 w-4 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm text-gray-700 dark:text-gray-300">{point}</span>
                       </div>
                     ))}
                   </div>
@@ -129,6 +132,7 @@ const PrincipesPage: React.FC = () => {
           Ils doivent être considérés à chaque étape de toute amélioration, 
           qu'il s'agisse d'un projet, d'un programme ou d'un changement organisationnel.
         </p>
+      </div>
       </div>
     </div>
   )

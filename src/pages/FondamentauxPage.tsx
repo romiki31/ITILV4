@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BookOpen, Target, Users, Package, Shield, TrendingUp, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { useAutoScroll } from '../hooks/useAutoScroll'
 
 const FondamentauxPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null)
+  const { scrollToElement } = useAutoScroll({ offset: 100, delay: 200 })
+
+  // Autoscroll when expanding a section
+  useEffect(() => {
+    if (activeSection) {
+      scrollToElement(`section-${activeSection}`)
+    }
+  }, [activeSection, scrollToElement])
 
   const sections = [
     {
@@ -212,7 +221,7 @@ const FondamentauxPage: React.FC = () => {
 
       <div className="space-y-4">
         {sections.map((section) => (
-          <div key={section.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div key={section.id} id={`section-${section.id}`} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <button
               onClick={() => toggleSection(section.id)}
               className={`w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${

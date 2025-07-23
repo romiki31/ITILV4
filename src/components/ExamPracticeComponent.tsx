@@ -11,6 +11,8 @@ import {
   Target,
   BookOpen
 } from 'lucide-react'
+import { useAutoScroll } from '../hooks/useAutoScroll'
+import { useExamPracticeProgress } from '../hooks/useExamPracticeProgress'
 import type { 
   ExamPracticeQuestion, 
   ExamPracticeSession,
@@ -33,6 +35,9 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
   onComplete, 
   onExit 
 }) => {
+  const { scrollToTop } = useAutoScroll({ delay: 150 })
+  const examPracticeProgress = useExamPracticeProgress()
+  
   // États principaux
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number | null>(null)
   const [questions, setQuestions] = useState<ExamPracticeQuestion[]>([])
@@ -66,6 +71,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
     setQuestions(selectedQuestions)
     setCurrentQuestionIndex(0)
     setQuestionStartTime(Date.now())
+    scrollToTop() // Autoscroll vers le haut lors du démarrage
   }
 
   // Gestion de la sélection de réponse
@@ -93,6 +99,19 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
     setSessionAnswers(prev => [...prev, answer])
     addAnsweredQuestion(currentQuestion.id)
     setShowResult(true)
+    
+    // Auto-scroll vers le bloc résultat après validation (avec espace au-dessus)
+    setTimeout(() => {
+      const resultBlock = document.querySelector('.result-block')
+      if (resultBlock) {
+        const rect = resultBlock.getBoundingClientRect()
+        const offset = 80 // Espace au-dessus pour l'esthétique
+        window.scrollTo({
+          top: window.pageYOffset + rect.top - offset,
+          behavior: 'smooth'
+        })
+      }
+    }, 200)
   }
 
   // Passer à la question suivante
@@ -114,6 +133,19 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
           )
         )
       }
+      
+      // Auto-scroll vers le bloc de la nouvelle question (avec espace au-dessus)
+      setTimeout(() => {
+        const questionElement = document.querySelector('.question-block')
+        if (questionElement) {
+          const rect = questionElement.getBoundingClientRect()
+          const offset = 60 // Espace au-dessus pour l'esthétique
+          window.scrollTo({
+            top: window.pageYOffset + rect.top - offset,
+            behavior: 'smooth'
+          })
+        }
+      }, 100)
     } else {
       // Fin de session
       handleEndSession()
@@ -185,6 +217,24 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
 
         {/* Statistiques */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">
+              Progression des questions d'examen blanc
+            </h3>
+            {answeredCount > 0 && (
+              <button
+                onClick={() => {
+                  examPracticeProgress.resetProgress()
+                  setTimeout(() => window.location.reload(), 100)
+                }}
+                className="flex items-center space-x-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors"
+                title="Réinitialiser toutes les questions vues"
+              >
+                <RotateCcw size={14} />
+                <span>Réinitialiser</span>
+              </button>
+            )}
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
@@ -244,12 +294,14 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
               </p>
               <button
                 onClick={() => {
-                  localStorage.removeItem('examPracticeAnswered')
-                  window.location.reload()
+                  examPracticeProgress.resetProgress()
+                  // Recharger après un petit délai pour permettre au hook de se mettre à jour
+                  setTimeout(() => window.location.reload(), 100)
                 }}
-                className="mt-2 text-sm text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100 underline"
+                className="mt-2 flex items-center space-x-2 text-sm text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100 transition-colors"
               >
-                Réinitialiser ma progression
+                <RotateCcw size={14} />
+                <span>Réinitialiser ma progression</span>
               </button>
             </div>
           )}
@@ -298,7 +350,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
               <RotateCcw size={16} className="mr-2" />
               Nouvelle session
             </button>
-            <button onClick={onExit} className="btn btn-secondary flex-1">
+            <button onClick={() => { onExit(); scrollToTop(); }} className="btn btn-secondary flex-1">
               <Home size={16} className="mr-2" />
               Menu principal
             </button>
@@ -315,7 +367,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
       <div className="card">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <button onClick={onExit} className="btn btn-secondary">
+            <button onClick={() => { onExit(); scrollToTop(); }} className="btn btn-secondary">
               <X size={16} className="mr-2" />
               Quitter
             </button>
@@ -340,7 +392,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
       </div>
 
       {/* Question */}
-      <div className="card">
+      <div className="question-block card">
         <div className="mb-6">
           <div className="flex items-center space-x-2 mb-4">
             <span className="badge badge-primary">
@@ -407,7 +459,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
         </div>
 
         {/* Bouton de validation ou résultat */}
-        <div className="mt-6 pt-6 border-t dark:border-gray-700">
+        <div className="results-container mt-6 pt-6 border-t dark:border-gray-700">
           {!showResult ? (
             <button
               onClick={handleValidateAnswer}
@@ -420,7 +472,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
           ) : (
             <div className="space-y-4">
               {/* Résultat immédiat */}
-              <div className={`p-4 rounded-lg border ${
+              <div className={`result-block p-4 rounded-lg border ${
                 currentAnswer?.isCorrect
                   ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700'
                   : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700'  
@@ -447,7 +499,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
               </div>
 
               {/* Explications */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+              <div className="explanation-section bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
                 <div className="flex items-start space-x-2">
                   <Lightbulb size={16} className="text-blue-600 dark:text-blue-400 mt-0.5" />
                   <div className="flex-1">

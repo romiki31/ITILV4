@@ -179,3 +179,32 @@ export interface ExamPracticeProgress {
   strongQuestions: number[]
   lastSessionDate: Date
 }
+
+// Types pour le suivi des examens blancs
+export interface ExamWhiteSession {
+  id: string
+  startTime: Date
+  endTime?: Date
+  mode: 'exam-simulation' | 'exam-difficult'
+  questionsTotal: number
+  questionsAnswered: number
+  correctAnswers: number
+  score: number // pourcentage
+  timeSpent: number // en secondes
+  answers: ExamWhiteAnswer[]
+}
+
+export interface ExamWhiteAnswer {
+  questionId: string
+  selectedAnswer: number
+  isCorrect: boolean
+  timeSpent: number // en secondes
+}
+
+export interface ExamWhiteProgress {
+  questionsAnswered: Set<string>
+  sessionsCompleted: ExamWhiteSession[]
+  totalQuestionsAnswered: number
+  averageScore: number
+  lastSessionDate: Date
+}

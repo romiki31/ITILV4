@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
   Users, 
   Settings, 
@@ -17,10 +17,13 @@ import {
   Zap,
   Scale
 } from 'lucide-react'
+import LearningNavigation from '../components/LearningNavigation'
+import { useAutoScroll } from '../hooks/useAutoScroll'
 
 const DimensionsPage: React.FC = () => {
   const [expandedDimension, setExpandedDimension] = useState<number | null>(null)
   const [expandedPestle, setExpandedPestle] = useState<string | null>(null)
+  const { scrollToElement } = useAutoScroll({ offset: 100, delay: 200 })
 
   const dimensions = [
     {
@@ -42,9 +45,9 @@ const DimensionsPage: React.FC = () => {
         "Les relations avec les parties prenantes externes"
       ],
       questionsExamen: [
-        "Q: Que couvre la dimension 'Organisations et Personnes' ? → R: Structures, rôles, culture, compétences",
-        "Q: Que comprend cette dimension ? → R: Rôles, responsabilités, autorité, culture, compétences",
-        "Q: Focus principal de cette dimension ? → R: Comment les personnes travaillent ensemble"
+        "Q : Que couvre la dimension 'Organisations et Personnes' ?→ R : Structures, rôles, culture, compétences",
+        "Q : Que comprend cette dimension ?→ R : Rôles, responsabilités, autorité, culture, compétences",
+        "Q : Focus principal de cette dimension ?→ R : Comment les personnes travaillent ensemble"
       ],
       piege: "PIÈGE: Cette dimension ne couvre pas QUE les RH - inclut structure, autorité et culture",
       examTip: "Retenir: RÔLES + CULTURE + COMPÉTENCES + STRUCTURE ORGANISATIONNELLE"
@@ -68,9 +71,9 @@ const DimensionsPage: React.FC = () => {
         "Innovations technologiques disponibles"
       ],
       questionsExamen: [
-        "Q: Que couvre 'Information et Technologie' ? → R: Informations nécessaires + technologies requises",
-        "Q: Inclut-elle la gestion des connaissances ? → R: Oui, informations ET connaissances",
-        "Q: Uniquement la technologie ? → R: Non, aussi les INFORMATIONS et CONNAISSANCES"
+        "Q : Que couvre 'Information et Technologie' ?→ R : Informations nécessaires + technologies requises",
+        "Q : Inclut-elle la gestion des connaissances ?→ R : Oui, informations ET connaissances",
+        "Q : Uniquement la technologie ?→ R : Non, aussi les INFORMATIONS et CONNAISSANCES"
       ],
       piege: "PIÈGE: Ce n'est pas QUE la technologie - inclut aussi INFORMATIONS et CONNAISSANCES",
       examTip: "Retenir: INFORMATIONS + CONNAISSANCES + TECHNOLOGIES (les 3 ensemble)"
@@ -94,9 +97,9 @@ const DimensionsPage: React.FC = () => {
         "Culture et façons de travailler compatibles"
       ],
       questionsExamen: [
-        "Q: Que couvre 'Partenaires et Fournisseurs' ? → R: Relations avec autres organisations",
-        "Q: Inclut-elle les fournisseurs internes ? → R: Non, uniquement organisations EXTERNES",
-        "Q: Que gère cette dimension ? → R: Relations, contrats, intégration avec externes"
+        "Q : Que couvre 'Partenaires et Fournisseurs' ?→ R : Relations avec autres organisations",
+        "Q : Inclut-elle les fournisseurs internes ?→ R : Non, uniquement organisations EXTERNES",
+        "Q : Que gère cette dimension ?→ R : Relations, contrats, intégration avec externes"
       ],
       piege: "PIÈGE: Uniquement organisations EXTERNES - les équipes internes sont dans 'Organisations et Personnes'",
       examTip: "Retenir: EXTERNE seulement - autres organisations impliquées dans les services"
@@ -120,9 +123,9 @@ const DimensionsPage: React.FC = () => {
         "Points d'intégration et de transfert"
       ],
       questionsExamen: [
-        "Q: Que couvre 'Flux de Valeur et Processus' ? → R: Comment les activités travaillent ensemble",
-        "Q: Focus de cette dimension ? → R: Coordination des activités pour créer de la valeur",
-        "Q: Inclut-elle la chaîne de valeur ? → R: Oui, activités CVS et leur coordination"
+        "Q : Que couvre 'Flux de Valeur et Processus' ?→ R : Comment les activités travaillent ensemble",
+        "Q : Focus de cette dimension ?→ R : Coordination des activités pour créer de la valeur",
+        "Q : Inclut-elle la chaîne de valeur ?→ R : Oui, activités CVS et leur coordination"
       ],
       piege: "PIÈGE: Pas seulement les processus - aussi les FLUX DE VALEUR et coordination",
       examTip: "Retenir: COMMENT les composants travaillent ENSEMBLE pour créer valeur"
@@ -151,9 +154,9 @@ const DimensionsPage: React.FC = () => {
         'Restrictions géographiques sur les données'
       ],
       questionsExamen: [
-        'Q: Exemple de facteur politique ? → R: Réglementations, lois, politiques gouvernementales',
-        'Q: Impact sur services IT ? → R: Conformité, audit, restrictions géographiques',
-        'Q: RGPD est quel type de facteur ? → R: Politique (réglementation)'
+        'Q : Exemple de facteur politique ?→ R : Réglementations, lois, politiques gouvernementales',
+        'Q : Impact sur services IT ?→ R : Conformité, audit, restrictions géographiques',
+        'Q : RGPD est quel type de facteur ?→ R : Politique (réglementation)'
       ],
       examTip: 'Politique = tout ce qui vient du GOUVERNEMENT (lois, règlements, politiques)'
     },
@@ -177,9 +180,9 @@ const DimensionsPage: React.FC = () => {
         'Sourcing géographique basé sur coûts'
       ],
       questionsExamen: [
-        'Q: Exemple de facteur économique ? → R: Taux d\'intérêt, inflation, récession',
-        'Q: Impact sur services ? → R: Budgets, coûts fournisseurs, investissements',
-        'Q: Budget IT réduit = quel facteur ? → R: Économique'
+        'Q : Exemple de facteur économique ?→ R : Taux d\'intérêt, inflation, récession',
+        'Q : Impact sur services ?→ R : Budgets, coûts fournisseurs, investissements',
+        'Q : Budget IT réduit = quel facteur ?→ R : Économique'
       ],
       examTip: 'Économique = tout ce qui concerne l\'ARGENT et les CONDITIONS FINANCIÈRES'
     },
@@ -203,9 +206,9 @@ const DimensionsPage: React.FC = () => {
         'Demande pour services de collaboration'
       ],
       questionsExamen: [
-        'Q: Exemple de facteur social ? → R: Démographie, culture, modes de vie',
-        'Q: Télétravail est quel facteur ? → R: Social (changement mode de vie)',
-        'Q: Impact sur services IT ? → R: Attentes mobilité, self-service, collaboration'
+        'Q : Exemple de facteur social ?→ R : Démographie, culture, modes de vie',
+        'Q : Télétravail est quel facteur ?→ R : Social (changement mode de vie)',
+        'Q : Impact sur services IT ?→ R : Attentes mobilité, self-service, collaboration'
       ],
       examTip: 'Social = COMPORTEMENTS et ATTENTES des PERSONNES dans la société'
     },
@@ -229,9 +232,9 @@ const DimensionsPage: React.FC = () => {
         'Pression concurrentielle technologique'
       ],
       questionsExamen: [
-        'Q: Exemple de facteur technologique ? → R: IA, cloud, automation, nouvelles technologies',
-        'Q: Cloud computing = quel facteur ? → R: Technologique',
-        'Q: Impact sur services ? → R: Modernisation, obsolescence, nouveaux risques'
+        'Q : Exemple de facteur technologique ?→ R : IA, cloud, automation, nouvelles technologies',
+        'Q : Cloud computing = quel facteur ?→ R : Technologique',
+        'Q : Impact sur services ?→ R : Modernisation, obsolescence, nouveaux risques'
       ],
       examTip: 'Technologique = INNOVATIONS et ÉVOLUTIONS de la technologie disponible'
     },
@@ -255,9 +258,9 @@ const DimensionsPage: React.FC = () => {
         'Audit et documentation légale requise'
       ],
       questionsExamen: [
-        'Q: Différence facteur politique vs légal ? → R: Politique = gouvernement, Légal = lois spécifiques',
-        'Q: RGPD est-il politique ou légal ? → R: Peut être les deux selon contexte',
-        'Q: Licences logiciels = quel facteur ? → R: Légal (propriété intellectuelle)'
+        'Q : Différence facteur politique vs légal ?→ R : Politique = gouvernement, Légal = lois spécifiques',
+        'Q : RGPD est-il politique ou légal ?→ R : Peut être les deux selon contexte',
+        'Q : Licences logiciels = quel facteur ?→ R : Légal (propriété intellectuelle)'
       ],
       examTip: 'Légal = LOIS SPÉCIFIQUES et OBLIGATIONS JURIDIQUES (plus précis que politique)'
     },
@@ -281,9 +284,9 @@ const DimensionsPage: React.FC = () => {
         'Reporting environnemental et RSE'
       ],
       questionsExamen: [
-        'Q: Exemple de facteur environnemental ? → R: Énergie, climat, durabilité, déchets',
-        'Q: Efficacité énergétique data center = quel facteur ? → R: Environnemental',
-        'Q: Impact sur services IT ? → R: Choix technologiques verts, recyclage'
+        'Q : Exemple de facteur environnemental ?→ R : Énergie, climat, durabilité, déchets',
+        'Q : Efficacité énergétique data center = quel facteur ?→ R : Environnemental',
+        'Q : Impact sur services IT ?→ R : Choix technologiques verts, recyclage'
       ],
       examTip: 'Environnemental = DURABILITÉ, ÉNERGIE, CLIMAT et impact écologique'
     }
@@ -297,8 +300,23 @@ const DimensionsPage: React.FC = () => {
     setExpandedPestle(expandedPestle === id ? null : id)
   }
 
+  // Autoscroll when expanding dimensions or PESTLE factors
+  useEffect(() => {
+    if (expandedDimension) {
+      scrollToElement(`dimension-${expandedDimension}`)
+    }
+  }, [expandedDimension, scrollToElement])
+
+  useEffect(() => {
+    if (expandedPestle) {
+      scrollToElement(`pestle-${expandedPestle}`)
+    }
+  }, [expandedPestle, scrollToElement])
+
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div>
+      <LearningNavigation />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -332,7 +350,7 @@ const DimensionsPage: React.FC = () => {
           const IconComponent = dimension.icon
           
           return (
-            <div key={dimension.id} className="card card-hover">
+            <div key={dimension.id} id={`dimension-${dimension.id}`} className="card card-hover">
               {/* En-tête de dimension */}
               <div 
                 className="flex justify-between items-start cursor-pointer"
@@ -396,13 +414,19 @@ const DimensionsPage: React.FC = () => {
                       Questions typiques d'examen
                     </h4>
                     <div className="space-y-2">
-                      {dimension.questionsExamen.map((qa, index) => (
-                        <div key={index} className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
-                          <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
-                            {qa}
-                          </p>
-                        </div>
-                      ))}
+                      {dimension.questionsExamen.map((qa, index) => {
+                        const [question, reponse] = qa.split('→ R : ')
+                        return (
+                          <div key={index} className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                            <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                              {question}
+                            </p>
+                            <p className="text-sm text-blue-900 dark:text-blue-100 font-medium mt-1">
+                              → R : {reponse}
+                            </p>
+                          </div>
+                        )
+                      })}
                     </div>
                   </div>
 
@@ -493,7 +517,7 @@ const DimensionsPage: React.FC = () => {
           const IconComponent = factor.icon
           
           return (
-            <div key={factor.id} className="card card-hover">
+            <div key={factor.id} id={`pestle-${factor.id}`} className="card card-hover">
               {/* En-tête facteur PESTLE */}
               <div 
                 className="flex justify-between items-start cursor-pointer"
@@ -559,7 +583,7 @@ const DimensionsPage: React.FC = () => {
                     <div className="space-y-2">
                       {factor.questionsExamen.map((qa, index) => (
                         <div key={index} className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
-                          <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
+                          <p className="text-sm text-blue-900 dark:text-blue-100 font-medium whitespace-pre-line">
                             {qa}
                           </p>
                         </div>
@@ -621,6 +645,7 @@ const DimensionsPage: React.FC = () => {
             Toujours penser ÉQUILIBRE et HOLISME.
           </p>
         </div>
+      </div>
       </div>
     </div>
   )

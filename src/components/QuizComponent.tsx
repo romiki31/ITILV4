@@ -11,7 +11,7 @@ import {
   Home,
   AlertTriangle
 } from 'lucide-react'
-import type { QuizQuestion } from '@/types'
+import type { QuizQuestion, ExamWhiteSession, ExamWhiteAnswer } from '@/types'
 import { 
   examQuestions, 
   getQuestionsByCategory, 
@@ -20,6 +20,7 @@ import {
   getDifficultExamQuestions,
   getRandomQuestions 
 } from '@/data/examQuestions'
+import { useExamWhiteProgress } from '../hooks/useExamWhiteProgress'
 
 interface QuizComponentProps {
   mode: string
@@ -55,6 +56,10 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
   const [results, setResults] = useState<QuizResults | null>(null)
   const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
   const [showWarning, setShowWarning] = useState(false)
+  
+  // Hook pour le suivi des examens blancs
+  const examWhiteProgress = useExamWhiteProgress()
+  const isExamWhiteMode = mode === 'exam-simulation' || mode === 'exam-difficult'
 
   useEffect(() => {
     // Charger les questions selon le mode
@@ -82,8 +87,19 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
         setTimeRemaining(1200) // 20 minutes
     }
     
+    // Pour les examens blancs, prioriser les questions non vues
+    if (isExamWhiteMode && examWhiteProgress.progress && !examWhiteProgress.isLoading) {
+      const unseenQuestions = examWhiteProgress.getUnseenQuestions(loadedQuestions)
+      // Si on a assez de questions non vues, les utiliser, sinon prendre toutes les questions
+      if (unseenQuestions.length >= 40) {
+        loadedQuestions = unseenQuestions.slice(0, 40)
+      }
+      // Mélanger pour éviter les patterns
+      loadedQuestions = loadedQuestions.sort(() => Math.random() - 0.5)
+    }
+    
     setQuestions(loadedQuestions)
-  }, [mode, category])
+  }, [mode, category, examWhiteProgress.progress, examWhiteProgress.isLoading, isExamWhiteMode])
 
   useEffect(() => {
     // Timer avec alerte à 10 minutes
@@ -183,6 +199,31 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
     const quizResults = calculateResults()
     setResults(quizResults)
     setShowResults(true)
+    
+    // Sauvegarder la session pour les examens blancs
+    if (isExamWhiteMode && examWhiteProgress.progress) {
+      const examWhiteAnswers: ExamWhiteAnswer[] = questions.map((question, index) => ({
+        questionId: question.id,
+        selectedAnswer: selectedAnswers[index] ?? -1,
+        isCorrect: selectedAnswers[index] === question.correctAnswer,
+        timeSpent: 30 // Placeholder pour le temps par question
+      }))
+      
+      const session: ExamWhiteSession = {
+        id: Date.now().toString(),
+        startTime: new Date(startTime),
+        endTime: new Date(),
+        mode: mode as 'exam-simulation' | 'exam-difficult',
+        questionsTotal: questions.length,
+        questionsAnswered: Object.keys(selectedAnswers).length,
+        correctAnswers: quizResults.correctAnswers,
+        score: quizResults.score,
+        timeSpent: quizResults.timeSpent,
+        answers: examWhiteAnswers
+      }
+      
+      examWhiteProgress.saveSession(session)
+    }
   }
 
   const restartQuiz = () => {
@@ -404,6 +445,47 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
             />
           </div>
         </div>
+        
+        {/* Affichage du suivi pour les examens blancs */}
+        {isExamWhiteMode && examWhiteProgress.progress && (
+          <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="flex space-x-6 text-sm">
+                <div>
+                  <span className="font-medium text-blue-900 dark:text-blue-100">
+                    {(() => {
+                      const baseQuestions = mode === 'exam-simulation' ? 
+                        getExamSimulationQuestions() : getDifficultExamQuestions()
+                      return baseQuestions.length
+                    })()} Questions totales
+                  </span>
+                </div>
+                <div>
+                  <span className="font-medium text-blue-700 dark:text-blue-300">
+                    {examWhiteProgress.progress.totalQuestionsAnswered} Déjà vues
+                  </span>
+                </div>
+                <div>
+                  <span className="font-medium text-green-700 dark:text-green-300">
+                    {(() => {
+                      const baseQuestions = mode === 'exam-simulation' ? 
+                        getExamSimulationQuestions() : getDifficultExamQuestions()
+                      return baseQuestions.length - examWhiteProgress.progress.totalQuestionsAnswered
+                    })()} Restantes
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={examWhiteProgress.resetProgress}
+                className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                title="Réinitialiser les questions vues"
+              >
+                <RotateCcw size={14} />
+                <span>Réinitialiser</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Question */}
@@ -459,12 +541,12 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
         {/* Navigation par question */}
         <div className="card">
           <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Navigation rapide</h4>
-          <div className="grid grid-cols-10 gap-2">
+          <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-2">
             {questions.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToQuestion(index)}
-                className={`h-10 rounded text-sm font-medium transition-colors ${
+                className={`h-10 sm:h-12 rounded text-xs sm:text-sm font-medium transition-colors min-h-[44px] flex items-center justify-center ${
                   index === currentQuestionIndex 
                     ? 'bg-primary-500 text-white'
                     : selectedAnswers[index] !== undefined

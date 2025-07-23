@@ -93,7 +93,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95;
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95 min-h-[44px] touch-manipulation;
   }
 
   .btn-primary {
@@ -113,12 +113,28 @@
     @apply transition-all duration-300 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1;
   }
 
+  .learning-card {
+    @apply card card-hover;
+  }
+
+  .learning-card-header {
+    @apply flex items-center justify-between mb-3;
+  }
+
+  .learning-card-title {
+    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 flex-1 pr-2;
+  }
+
+  .learning-card-content {
+    @apply text-gray-600 dark:text-gray-400 text-sm leading-relaxed;
+  }
+
   .input {
     @apply w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400;
   }
 
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap;
   }
 
   .badge-primary {
@@ -143,7 +159,7 @@
   }
 
   .quiz-option {
-    @apply p-4 border border-gray-300 rounded-lg cursor-pointer transition-all dark:border-gray-600 dark:bg-gray-800;
+    @apply p-4 border border-gray-300 rounded-lg cursor-pointer transition-all dark:border-gray-600 dark:bg-gray-800 min-h-[44px] touch-manipulation;
   }
 
   .quiz-option:hover {
@@ -174,6 +190,39 @@
     }
   }
 
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   @keyframes pulse {
     0%, 100% { 
       opacity: 1; 
@@ -201,8 +250,55 @@
     }
   }
 
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes rotateGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
   .animate-fadeInUp {
     animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-fadeInLeft {
+    animation: fadeInLeft 0.8s ease-out;
+  }
+
+  .animate-fadeInRight {
+    animation: fadeInRight 0.8s ease-out;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.5s ease-out;
   }
 
   .animate-pulse-slow {
@@ -210,7 +306,71 @@
   }
 
   .animate-bounce-gentle {
-    animation: bounce 1s;
+    animation: bounce-gentle 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-gradient {
+    background-size: 400% 400%;
+    animation: rotateGradient 6s ease infinite;
+  }
+
+  @keyframes bounce-gentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Effet parallaxe */
+  .parallax-element {
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Effet de particules flottantes */
+  .floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+  }
+
+  @keyframes floatParticle {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
   }
 
   /* Améliorations des transitions de thème */
@@ -246,8 +406,62 @@
     text-wrap: balance;
   }
 
+  /* Utilitaires responsive pour les cibles tactiles */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+
+  .tap-highlight-none {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Utilitaires pour éviter les débordements */
+  .safe-area-mobile {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-responsive {
+    @apply max-w-7xl mx-auto safe-area-mobile;
+  }
+
+  /* Amélioration du texte responsive */
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .text-responsive-small {
+    @apply text-xs sm:text-sm;
+  }
+
   .gradient-primary {
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  }
+
+  .smooth-page-gradient {
+    background: linear-gradient(135deg, 
+      rgb(249, 250, 251) 0%, 
+      rgba(219, 234, 254, 0.15) 30%, 
+      rgba(237, 233, 254, 0.1) 50%, 
+      rgba(219, 234, 254, 0.12) 70%, 
+      rgb(249, 250, 251) 100%
+    );
+  }
+
+  .dark .smooth-page-gradient {
+    background: linear-gradient(135deg, 
+      rgb(17, 24, 39) 0%, 
+      rgba(30, 64, 175, 0.05) 30%, 
+      rgba(88, 28, 135, 0.03) 50%, 
+      rgba(30, 64, 175, 0.04) 70%, 
+      rgb(17, 24, 39) 100%
+    );
+  }
+
+  /* Fond pleine largeur */
+  .full-width-bg {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
   }
 
 

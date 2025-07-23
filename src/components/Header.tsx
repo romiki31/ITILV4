@@ -10,13 +10,10 @@ const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme()
 
   const navItems = [
-    { path: '/fondamentaux', label: 'Fondamentaux', color: 'fondamentaux' },
-    { path: '/svs', label: 'SVS', color: 'svs' },
-    { path: '/pratiques', label: 'Pratiques', color: 'pratiques' },
-    { path: '/etudes-cas', label: 'Cas', color: 'etudecas' },
+    { path: '/learn', label: 'Apprentissage', color: 'fondamentaux' },
     { path: '/flashcards', label: 'Révision', color: 'revision' },
-    { path: '/quiz', label: 'Quiz', color: 'quiz' },
-    { path: '/examen', label: 'Examen', color: 'quiz' }
+    { path: '/quiz', label: 'Entraînement', color: 'quiz' },
+    { path: '/astuces-conseils', label: 'Astuces & Conseils', color: 'etudecas' }
   ]
 
   const getNavLinkClass = (path: string, color: string) => {
@@ -74,22 +71,23 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-          {/* Navigation desktop */}
-          <nav className="hidden md:flex space-x-2 items-center">
+          {/* Navigation desktop/tablette */}
+          <nav className="hidden md:flex space-x-1 lg:space-x-2 items-center">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className={getNavLinkClass(item.path, item.color)}
               >
-                {item.label}
+                <span className="hidden lg:inline">{item.label}</span>
+                <span className="lg:hidden text-xs">{item.label.split(' ')[0]}</span>
               </Link>
             ))}
             
             {/* Theme toggle button */}
             <button
               onClick={toggleTheme}
-              className="ml-4 p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="ml-2 lg:ml-4 p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -101,7 +99,7 @@ const Header: React.FC = () => {
             {/* Theme toggle button mobile */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -110,7 +108,7 @@ const Header: React.FC = () => {
             {/* Bouton menu mobile */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -126,7 +124,7 @@ const Header: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block ${getNavLinkClass(item.path, item.color)}`}
+                className={`block ${getNavLinkClass(item.path, item.color)} min-h-[44px] flex items-center`}
               >
                 {item.label}
               </Link>

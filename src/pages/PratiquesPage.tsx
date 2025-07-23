@@ -1,9 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Shield, AlertCircle, GitBranch, Zap, Package, Users, Settings, FileText, TrendingUp, CheckCircle, Activity, Database, Wrench, ChevronRight, BookOpen, AlertTriangle } from 'lucide-react'
+import LearningNavigation from '../components/LearningNavigation'
+import { useAutoScroll } from '../hooks/useAutoScroll'
 
 const PratiquesPage: React.FC = () => {
   const [selectedPratique, setSelectedPratique] = useState<number | null>(null)
   const [activeTab, setActiveTab] = useState<'examinables' | 'objectif'>('examinables')
+  const { scrollToElement } = useAutoScroll({ offset: 100, delay: 200 })
+
+  // Autoscroll when expanding a practice
+  useEffect(() => {
+    if (selectedPratique) {
+      scrollToElement(`pratique-${selectedPratique}`)
+    }
+  }, [selectedPratique, scrollToElement])
 
   // Pratiques examinables en détail (7) - À connaître en profondeur pour l'examen
   const pratiquesExaminablesDetail = [
@@ -262,7 +272,9 @@ const PratiquesPage: React.FC = () => {
   )
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div>
+      <LearningNavigation />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Pratiques ITIL 4</h1>
         <p className="text-gray-600 dark:text-gray-400">
@@ -316,7 +328,7 @@ const PratiquesPage: React.FC = () => {
             </div>
             
             {pratiquesExaminablesDetail.map((pratique) => (
-              <div key={pratique.id} className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div key={pratique.id} id={`pratique-${pratique.id}`} className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                 <div 
                   onClick={() => setSelectedPratique(selectedPratique === pratique.id ? null : pratique.id)}
                   className="cursor-pointer p-5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -406,6 +418,7 @@ const PratiquesPage: React.FC = () => {
             </ul>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )
