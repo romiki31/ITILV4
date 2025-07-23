@@ -133,3 +133,49 @@ export enum MasteryLevel {
   REVIEWING = 'reviewing',
   MASTERED = 'mastered'
 }
+
+// Types spécifiques pour le mode d'examen pratique
+export interface ExamPracticeQuestion {
+  id: number
+  examId: string
+  question: string
+  options: {
+    A: string
+    B: string
+    C: string
+    D: string
+  }
+  correctAnswer: 'A' | 'B' | 'C' | 'D'
+  explanation: string
+  simplifiedExplanation: string
+  relatedCourseSection?: string
+}
+
+export interface ExamPracticeSession {
+  id: string
+  startTime: Date
+  endTime?: Date
+  questionsRequested: number
+  questionsAnswered: number
+  correctAnswers: number
+  answers: ExamPracticeAnswer[]
+  score: number // pourcentage
+}
+
+export interface ExamPracticeAnswer {
+  questionId: number
+  selectedAnswer: 'A' | 'B' | 'C' | 'D'
+  isCorrect: boolean
+  timeSpent: number // en secondes
+  viewedExplanation: boolean
+}
+
+export interface ExamPracticeProgress {
+  questionsAnswered: Set<number>
+  sessionsCompleted: ExamPracticeSession[]
+  totalQuestionsAnswered: number
+  averageScore: number
+  weakQuestions: number[]
+  strongQuestions: number[]
+  lastSessionDate: Date
+}

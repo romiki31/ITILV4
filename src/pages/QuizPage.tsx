@@ -1,20 +1,34 @@
 import React, { useState } from 'react'
 import QuizComponent from '../components/QuizComponent'
+import ExamPracticeComponent from '../components/ExamPracticeComponent'
 import { 
   Play, 
   Target, 
   BookOpen,
   AlertTriangle,
   CheckCircle,
-  ArrowRight
+  ArrowRight,
+  GraduationCap
 } from 'lucide-react'
+import type { ExamPracticeSession } from '@/types'
 
 const QuizPage: React.FC = () => {
   const [showQuiz, setShowQuiz] = useState(false)
+  const [showExamPractice, setShowExamPractice] = useState(false)
   const [quizMode, setQuizMode] = useState<string>('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
 
   const quizModes = [
+    {
+      id: 'exam-practice',
+      title: 'Questions d\'examen blanc',
+      description: '80 questions authentiques avec validation immédiate et explications',
+      icon: GraduationCap,
+      color: 'bg-green-500',
+      action: 'exam-practice',
+      badge: 'Nouveau',
+      isNew: true
+    },
     {
       id: 'exam-simulation',
       title: 'Simulation d\'examen',
@@ -85,9 +99,35 @@ const QuizPage: React.FC = () => {
   ]
 
   const startQuiz = (mode: string, category?: string) => {
-    setQuizMode(mode)
-    if (category) setSelectedCategory(category)
-    setShowQuiz(true)
+    if (mode === 'exam-practice') {
+      setShowExamPractice(true)
+    } else {
+      setQuizMode(mode)
+      if (category) setSelectedCategory(category)
+      setShowQuiz(true)
+    }
+  }
+
+  const handleExamPracticeComplete = (session: ExamPracticeSession) => {
+    // On pourrait ici ajouter une logique pour afficher les résultats
+    // ou rediriger vers une page de résultats spécifique
+    console.log('Session d\'examen pratique terminée:', session)
+  }
+
+  const handleExamPracticeExit = () => {
+    setShowExamPractice(false)
+  }
+
+  // Affichage du mode examen pratique
+  if (showExamPractice) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <ExamPracticeComponent 
+          onComplete={handleExamPracticeComplete}
+          onExit={handleExamPracticeExit}
+        />
+      </div>
+    )
   }
 
   if (showQuiz) {
@@ -174,15 +214,18 @@ const QuizPage: React.FC = () => {
           <div 
             key={mode.id} 
             className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow cursor-pointer relative"
-            onClick={() => mode.action === 'start' ? startQuiz(mode.id) : setQuizMode(mode.id)}
+            onClick={() => mode.action === 'exam-practice' ? startQuiz('exam-practice') : mode.action === 'start' ? startQuiz(mode.id) : setQuizMode(mode.id)}
           >
-            {mode.recommended && (
+            {mode.recommended && !mode.badge && (
               <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full font-medium">
                 Recommandé
               </div>
             )}
             {mode.badge && (
-              <div className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs px-3 py-1 rounded-full font-medium">
+              <div className={`absolute -top-2 -right-2 text-white text-xs px-3 py-1 rounded-full font-medium ${
+                mode.badge === 'Nouveau' ? 'bg-green-500' : 
+                mode.badge === 'Challenge' ? 'bg-purple-500' : 'bg-gray-500'
+              }`}>
                 {mode.badge}
               </div>
             )}
