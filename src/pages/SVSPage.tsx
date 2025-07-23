@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GitBranch, Package, Truck, Settings, ShieldCheck, Wrench, RefreshCw, ArrowRight, AlertCircle, Target } from 'lucide-react'
+import { GitBranch, Package, Truck, Settings, ShieldCheck, Wrench, RefreshCw, ArrowRight, ChevronRight, AlertCircle, Target } from 'lucide-react'
 
 const SVSPage: React.FC = () => {
   const [selectedActivity, setSelectedActivity] = useState<number | null>(null)
@@ -262,7 +262,7 @@ const SVSPage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className={`h-5 w-5 text-gray-400 transform transition-transform ${
+                <ChevronRight className={`h-5 w-5 text-svs-500 transform transition-transform duration-200 ${
                   selectedActivity === activite.id ? 'rotate-90' : ''
                 }`} />
               </div>

@@ -1,10 +1,63 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { BookOpen } from 'lucide-react'
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { BookOpen, Menu, X } from 'lucide-react'
 
 const Header: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
+
+  const navItems = [
+    { path: '/fondamentaux', label: 'Fondamentaux', color: 'fondamentaux' },
+    { path: '/svs', label: 'SVS', color: 'svs' },
+    { path: '/pratiques', label: 'Pratiques', color: 'pratiques' },
+    { path: '/etudes-cas', label: 'Cas', color: 'etudecas' },
+    { path: '/flashcards', label: 'Révision', color: 'revision' },
+    { path: '/quiz', label: 'Quiz', color: 'quiz' },
+    { path: '/examen', label: 'Examen', color: 'quiz' }
+  ]
+
+  const getNavLinkClass = (path: string, color: string) => {
+    const isActive = location.pathname === path
+    const baseClass = 'px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200'
+    
+    // Classes statiques pour que Tailwind puisse les détecter
+    const colorClasses = {
+      fondamentaux: {
+        active: 'bg-fondamentaux-100 text-fondamentaux-700 dark:bg-fondamentaux-900/20 dark:text-fondamentaux-400',
+        hover: 'hover:bg-fondamentaux-50 hover:text-fondamentaux-700 dark:hover:bg-fondamentaux-900/10 dark:hover:text-fondamentaux-400'
+      },
+      svs: {
+        active: 'bg-svs-100 text-svs-700 dark:bg-svs-900/20 dark:text-svs-400',
+        hover: 'hover:bg-svs-50 hover:text-svs-700 dark:hover:bg-svs-900/10 dark:hover:text-svs-400'
+      },
+      pratiques: {
+        active: 'bg-pratiques-100 text-pratiques-700 dark:bg-pratiques-900/20 dark:text-pratiques-400',
+        hover: 'hover:bg-pratiques-50 hover:text-pratiques-700 dark:hover:bg-pratiques-900/10 dark:hover:text-pratiques-400'
+      },
+      etudecas: {
+        active: 'bg-etudecas-100 text-etudecas-700 dark:bg-etudecas-900/20 dark:text-etudecas-400',
+        hover: 'hover:bg-etudecas-50 hover:text-etudecas-700 dark:hover:bg-etudecas-900/10 dark:hover:text-etudecas-400'
+      },
+      revision: {
+        active: 'bg-revision-100 text-revision-700 dark:bg-revision-900/20 dark:text-revision-400',
+        hover: 'hover:bg-revision-50 hover:text-revision-700 dark:hover:bg-revision-900/10 dark:hover:text-revision-400'
+      },
+      quiz: {
+        active: 'bg-quiz-100 text-quiz-700 dark:bg-quiz-900/20 dark:text-quiz-400',
+        hover: 'hover:bg-quiz-50 hover:text-quiz-700 dark:hover:bg-quiz-900/10 dark:hover:text-quiz-400'
+      }
+    }
+    
+    const colorConfig = colorClasses[color as keyof typeof colorClasses] || colorClasses.fondamentaux
+    
+    if (isActive) {
+      return `${baseClass} ${colorConfig.active}`
+    }
+    
+    return `${baseClass} text-gray-700 dark:text-gray-300 ${colorConfig.hover}`
+  }
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
+    <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo et titre */}
@@ -13,57 +66,49 @@ const Header: React.FC = () => {
               <BookOpen size={20} className="text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-gray-900">ITIL v4</h1>
-              <p className="text-xs text-gray-500 -mt-1">Foundation</p>
+              <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100">ITIL v4</h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">Foundation</p>
             </div>
           </Link>
 
-          {/* Navigation principale */}
-          <nav className="flex space-x-3 md:space-x-4">
-            <Link 
-              to="/fondamentaux" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              Fondamentaux
-            </Link>
-            <Link 
-              to="/svs" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              SVS
-            </Link>
-            <Link 
-              to="/pratiques" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              Pratiques
-            </Link>
-            <Link 
-              to="/etudes-cas" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              Cas
-            </Link>
-            <Link 
-              to="/flashcards" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              Révision
-            </Link>
-            <Link 
-              to="/quiz" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              Quiz
-            </Link>
-            <Link 
-              to="/examen" 
-              className="text-gray-700 hover:text-primary-500 px-2 md:px-3 py-2 text-sm font-medium"
-            >
-              Examen
-            </Link>
+          {/* Navigation desktop */}
+          <nav className="hidden md:flex space-x-2">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={getNavLinkClass(item.path, item.color)}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
+
+          {/* Bouton menu mobile */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Menu mobile */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden pb-4 space-y-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block ${getNavLinkClass(item.path, item.color)}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        )}
       </div>
     </header>
   )

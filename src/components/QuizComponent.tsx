@@ -17,6 +17,7 @@ import {
   getQuestionsByCategory, 
   getTrapQuestions,
   getExamSimulationQuestions,
+  getDifficultExamQuestions,
   getRandomQuestions 
 } from '@/data/examQuestions'
 
@@ -62,6 +63,10 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
     switch (mode) {
       case 'exam-simulation':
         loadedQuestions = getExamSimulationQuestions()
+        setTimeRemaining(3600) // 60 minutes
+        break
+      case 'exam-difficult':
+        loadedQuestions = getDifficultExamQuestions()
         setTimeRemaining(3600) // 60 minutes
         break
       case 'category':

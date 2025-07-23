@@ -25,6 +25,15 @@ const QuizPage: React.FC = () => {
       action: 'start'
     },
     {
+      id: 'exam-difficult',
+      title: 'Examen difficile',
+      description: '40 questions challengeantes (50% difficiles) en 60 minutes',
+      icon: AlertTriangle,
+      color: 'bg-purple-500',
+      action: 'start',
+      badge: 'Challenge'
+    },
+    {
       id: 'category',
       title: 'Quiz thématique',
       description: 'Révisez un domaine spécifique du syllabus',
@@ -170,6 +179,11 @@ const QuizPage: React.FC = () => {
             {mode.recommended && (
               <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full font-medium">
                 Recommandé
+              </div>
+            )}
+            {mode.badge && (
+              <div className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs px-3 py-1 rounded-full font-medium">
+                {mode.badge}
               </div>
             )}
             

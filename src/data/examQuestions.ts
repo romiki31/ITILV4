@@ -935,6 +935,36 @@ export const examQuestions: QuizQuestion[] = [
     difficulty: 'medium',
     category: 'pieges',
     examTip: "🎯 TOUJOURS + automatisation = faux (optimiser d'abord!)"
+  },
+  // Questions SVS supplémentaires pour atteindre 40 questions d'examen
+  {
+    id: 'svs-11',
+    question: "Quelle est la différence majeure entre la chaîne de valeur ITIL 4 et le cycle de vie ITIL v3 ?",
+    options: [
+      "ITIL 4 a plus d'étapes",
+      "ITIL 4 est flexible et non-séquentiel, v3 était rigide et linéaire",
+      "Il n'y a pas de différence significative",
+      "ITIL v3 était plus flexible"
+    ],
+    correctAnswer: 1,
+    explanation: "La chaîne de valeur ITIL 4 est flexible, permettant multiples flux adaptés au contexte, contrairement au cycle de vie rigide et séquentiel d'ITIL v3.",
+    difficulty: 'medium',
+    category: 'systeme-valeur',
+    examTip: "ITIL 4 = Flexibilité et adaptation | ITIL v3 = Rigidité et séquence"
+  },
+  {
+    id: 'svs-12',
+    question: "Comment le SVS d'ITIL 4 supporte-t-il les approches Agile et DevOps ?",
+    options: [
+      "Il ne les supporte pas",
+      "Par sa flexibilité permettant des flux de valeur adaptés et itératifs",
+      "En les remplaçant par des processus ITIL",
+      "En imposant des contrôles stricts"
+    ],
+    correctAnswer: 1,
+    explanation: "Le SVS est conçu pour être flexible et supporter diverses approches incluant Agile, DevOps, Lean, etc. Il ne prescrit pas de chemin unique.",
+    difficulty: 'hard',
+    category: 'systeme-valeur'
   }
 ]
 
@@ -967,6 +997,56 @@ export function getRandomQuestions(count: number, category?: string): QuizQuesti
   return shuffled.slice(0, count)
 }
 
+// Fonction helper pour obtenir des questions avec pondération par difficulté
+export function getWeightedQuestions(
+  count: number, 
+  category?: string,
+  difficultyDistribution?: { easy: number, medium: number, hard: number }
+): QuizQuestion[] {
+  // Distribution par défaut si non spécifiée
+  const distribution = difficultyDistribution || { easy: 0.2, medium: 0.5, hard: 0.3 }
+  
+  let pool = category ? getQuestionsByCategory(category) : examQuestions
+  
+  // Séparer les questions par difficulté
+  const easyQuestions = pool.filter(q => q.difficulty === 'easy')
+  const mediumQuestions = pool.filter(q => q.difficulty === 'medium')
+  const hardQuestions = pool.filter(q => q.difficulty === 'hard')
+  
+  // Calculer le nombre de questions par difficulté
+  const hardCount = Math.ceil(count * distribution.hard)
+  const mediumCount = Math.ceil(count * distribution.medium)
+  const easyCount = count - hardCount - mediumCount
+  
+  // Sélectionner les questions
+  const selectedQuestions: QuizQuestion[] = []
+  
+  // Prioriser les questions difficiles
+  const shuffledHard = [...hardQuestions].sort(() => Math.random() - 0.5)
+  const hardSelected = shuffledHard.slice(0, Math.min(hardCount, shuffledHard.length))
+  selectedQuestions.push(...hardSelected)
+  
+  // Puis les moyennes
+  const shuffledMedium = [...mediumQuestions].sort(() => Math.random() - 0.5)
+  const mediumSelected = shuffledMedium.slice(0, Math.min(mediumCount, shuffledMedium.length))
+  selectedQuestions.push(...mediumSelected)
+  
+  // Enfin les faciles
+  const shuffledEasy = [...easyQuestions].sort(() => Math.random() - 0.5)
+  const easySelected = shuffledEasy.slice(0, Math.min(easyCount, shuffledEasy.length))
+  selectedQuestions.push(...easySelected)
+  
+  // Si on n'a pas assez de questions, compléter avec ce qui est disponible
+  if (selectedQuestions.length < count) {
+    const remainingPool = pool.filter(q => !selectedQuestions.includes(q))
+    const shuffledRemaining = [...remainingPool].sort(() => Math.random() - 0.5)
+    const additionalNeeded = count - selectedQuestions.length
+    selectedQuestions.push(...shuffledRemaining.slice(0, additionalNeeded))
+  }
+  
+  return selectedQuestions
+}
+
 // Fonction helper pour une simulation d'examen (40 questions selon la répartition officielle)
 export function getExamSimulationQuestions(): QuizQuestion[] {
   const distribution = {
@@ -977,13 +1057,65 @@ export function getExamSimulationQuestions(): QuizQuestion[] {
     'pratiques': 9
   }
   
+  // Distribution de difficulté pour le mode examen : 30% difficile, 50% moyen, 20% facile
+  const difficultyDistribution = { easy: 0.2, medium: 0.5, hard: 0.3 }
+  
   let examQuestions: QuizQuestion[] = []
   
   for (const [category, count] of Object.entries(distribution)) {
-    const questions = getRandomQuestions(count, category)
+    const questions = getWeightedQuestions(count, category, difficultyDistribution)
     examQuestions = [...examQuestions, ...questions]
   }
   
   // Mélanger toutes les questions
   return examQuestions.sort(() => Math.random() - 0.5)
 }
+
+// Nouveau mode examen difficile (50% difficile, 40% moyen, 10% facile)
+export function getDifficultExamQuestions(): QuizQuestion[] {
+  const distribution = {
+    'concepts-fondamentaux': 7,
+    'principes-directeurs': 8,
+    'dimensions': 4,
+    'systeme-valeur': 12,
+    'pratiques': 9
+  }
+  
+  // Distribution pour le mode difficile
+  const difficultyDistribution = { easy: 0.1, medium: 0.4, hard: 0.5 }
+  
+  let examQuestions: QuizQuestion[] = []
+  
+  for (const [category, count] of Object.entries(distribution)) {
+    const questions = getWeightedQuestions(count, category, difficultyDistribution)
+    examQuestions = [...examQuestions, ...questions]
+  }
+  
+  // Mélanger toutes les questions
+  return examQuestions.sort(() => Math.random() - 0.5)
+}
+
+// Fonction de test pour vérifier le nombre de questions
+export function testExamQuestionCount() {
+  console.log('=== TEST MODE EXAMEN ===')
+  const examQuestions = getExamSimulationQuestions()
+  console.log(`Mode examen standard: ${examQuestions.length} questions`)
+  
+  const difficultExamQuestions = getDifficultExamQuestions()
+  console.log(`Mode examen difficile: ${difficultExamQuestions.length} questions`)
+  
+  // Vérifier la distribution par catégorie
+  const categories = ['concepts-fondamentaux', 'principes-directeurs', 'dimensions', 'systeme-valeur', 'pratiques']
+  categories.forEach(cat => {
+    const countStandard = examQuestions.filter(q => q.category === cat).length
+    const countDifficult = difficultExamQuestions.filter(q => q.category === cat).length
+    console.log(`${cat}: standard=${countStandard}, difficile=${countDifficult}`)
+  })
+  
+  return {
+    standard: examQuestions.length,
+    difficult: difficultExamQuestions.length
+  }
+}
+
+// Pour tester manuellement, appelez testExamQuestionCount() dans la console

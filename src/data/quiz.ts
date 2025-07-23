@@ -1443,6 +1443,488 @@ export const quizQuestions: QuizQuestion[] = [
     difficulty: 'medium',
     category: 'Pratiques ITIL',
     examTip: 'ITIL 4 = Adoption adaptée au contexte, pas implementation "big bang"'
+  },
+
+  // ========== NOUVELLES QUESTIONS EXAM (34 questions) ==========
+  // Questions additionnelles pour renforcer la difficulté
+  {
+    id: 'EX001',
+    question: 'Quelle pratique est responsable du déplacement des composants vers les environnements de production ?',
+    options: [
+      'L\'habilitation des changements',
+      'La gestion des mises en production',
+      'La gestion des actifs informatiques',
+      'La gestion des déploiements'
+    ],
+    correctAnswer: 3,
+    explanation: 'La gestion des déploiements est responsable du déplacement technique des composants nouveaux ou modifiés vers les environnements de production.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX002',
+    question: 'Quelle pratique inclut la classification et la propriété des questions et des demandes des utilisateurs ?',
+    options: [
+      'Le centre de services',
+      'La gestion des incidents',
+      'L\'habilitation des changements',
+      'La gestion des niveaux de service'
+    ],
+    correctAnswer: 0,
+    explanation: 'Le centre de services est responsable de la classification initiale, de l\'attribution de la propriété et du routage des questions et demandes des utilisateurs.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX003',
+    question: 'Quelle pratique identifie les métriques qui reflètent l\'expérience d\'un service pour le client ?',
+    options: [
+      'L\'amélioration continue',
+      'Le centre de services',
+      'La gestion des niveaux de service',
+      'La gestion des problèmes'
+    ],
+    correctAnswer: 2,
+    explanation: 'La gestion des niveaux de service identifie et définit les métriques qui reflètent vraiment l\'expérience client, pas seulement la performance technique.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL',
+    examTip: 'Les métriques doivent refléter la PERCEPTION de valeur du client'
+  },
+  {
+    id: 'EX004',
+    question: 'Quelle est l\'utilisation PRINCIPALE d\'un calendrier des changements ?',
+    options: [
+      'Pour supporter la gestion des incidents et la planification d\'améliorations',
+      'Pour gérer les changements urgents',
+      'Pour planifier les changements et éviter les conflits',
+      'Pour gérer les changements standard'
+    ],
+    correctAnswer: 2,
+    explanation: 'Le calendrier des changements sert principalement à planifier et coordonner les changements pour éviter les conflits et optimiser les ressources.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX005',
+    question: 'Quelle dimension de la gestion des services est axée sur les activités et la façon dont elles sont coordonnées ?',
+    options: [
+      'Organisations et personnes',
+      'Information et technologie',
+      'Partenaires et fournisseurs',
+      'Flux de valeur et processus'
+    ],
+    correctAnswer: 3,
+    explanation: 'La dimension "Flux de valeur et processus" se concentre sur la coordination et l\'intégration des activités pour créer de la valeur.',
+    difficulty: 'easy',
+    category: '4 Dimensions'
+  },
+  {
+    id: 'EX006',
+    question: 'De quelle façon la catégorisation des incidents assiste-t-elle la pratique de gestion des incidents ?',
+    options: [
+      'Elle permet de diriger l\'incident vers la zone de support appropriée',
+      'Elle détermine la priorité assignée à l\'incident',
+      'Elle s\'assure que les incidents sont résolus dans les délais convenus',
+      'Elle détermine la façon dont le fournisseur de services est perçu'
+    ],
+    correctAnswer: 0,
+    explanation: 'La catégorisation permet d\'acheminer efficacement l\'incident vers l\'équipe ou l\'expert approprié pour une résolution plus rapide.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX007',
+    question: 'Identifiez le ou les mots manquants : Un service est un moyen qui permet la co-création de valeur en facilitant [?] que les clients veulent atteindre.',
+    options: [
+      'la garantie',
+      'les résultats',
+      'l\'utilité',
+      'les livrables'
+    ],
+    correctAnswer: 1,
+    explanation: 'Un service facilite les RÉSULTATS (outcomes) que les clients veulent atteindre, pas juste des livrables ou des outputs.',
+    difficulty: 'easy',
+    category: 'Concepts fondamentaux'
+  },
+  {
+    id: 'EX008',
+    question: 'Laquelle des options suivantes est une recommandation de la pratique d\'amélioration continue ?',
+    options: [
+      'Il devrait y avoir au moins une petite équipe qui se consacre à la conduite des efforts d\'amélioration continue',
+      'Toutes les améliorations doivent être gérées comme des projets à phases multiples',
+      'L\'amélioration continue doit être isolée des autres pratiques',
+      'Les fournisseurs externes doivent être exclus des initiatives d\'amélioration'
+    ],
+    correctAnswer: 0,
+    explanation: 'Avoir une équipe dédiée (même petite) permet de maintenir le focus et la momentum de l\'amélioration continue.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX009',
+    question: 'Quel est un bénéfice potentiel de l\'utilisation d\'un outil de gestion des services pour supporter la gestion des incidents ?',
+    options: [
+      'Il peut s\'assurer que la cause des incidents est identifiée dans les délais convenus',
+      'Il peut fournir un appariement automatisé des incidents aux problèmes ou aux erreurs connues',
+      'Il peut s\'assurer que les contrats des fournisseurs sont alignés sur les besoins',
+      'Il peut permettre la résolution et la clôture automatisées d\'incidents complexes'
+    ],
+    correctAnswer: 1,
+    explanation: 'Les outils ITSM peuvent automatiquement associer les incidents aux problèmes connus et suggérer des solutions de contournement.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX010',
+    question: 'Quel rôle soumet des demandes de services ?',
+    options: [
+      'L\'utilisateur ou son représentant autorisé',
+      'Le client ou son représentant autorisé',
+      'Le sponsor ou son représentant autorisé',
+      'Le fournisseur ou son représentant autorisé'
+    ],
+    correctAnswer: 0,
+    explanation: 'Les demandes de services sont soumises par les UTILISATEURS (ou leurs représentants), qui sont ceux qui utilisent le service au quotidien.',
+    difficulty: 'medium',
+    category: 'Concepts fondamentaux'
+  },
+  {
+    id: 'EX011',
+    question: 'Quel principe directeur recommande de prendre en considération les quatre dimensions de la gestion des services ?',
+    options: [
+      'Penser et travailler de façon holistique',
+      'Avancer par itérations avec des retours',
+      'Privilégier la valeur',
+      'Opter pour la simplicité et rester pratique'
+    ],
+    correctAnswer: 0,
+    explanation: 'Le principe "Penser et travailler de façon holistique" exige de considérer toutes les dimensions et leurs interdépendances.',
+    difficulty: 'easy',
+    category: 'Principes directeurs'
+  },
+  {
+    id: 'EX012',
+    question: 'Quelle option est supportée par la pratique de gestion des demandes de services ?',
+    options: [
+      'Une demande d\'autorisation d\'un changement qui pourrait avoir un impact',
+      'Une demande d\'un utilisateur concernant quelque chose qui fait partie de la fourniture normale',
+      'Une demande de restauration du service après une interruption',
+      'Une demande d\'investigation sur la cause de plusieurs incidents'
+    ],
+    correctAnswer: 1,
+    explanation: 'La gestion des demandes de services traite les demandes pré-approuvées faisant partie de la fourniture normale de services.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX013',
+    question: 'Quel principe directeur recommande de collecter les données avant de déterminer ce qui peut être réutilisé ?',
+    options: [
+      'Privilégier la valeur',
+      'Commencer là où vous êtes',
+      'Opter pour la simplicité et rester pratique',
+      'Avancer par itérations avec des retours'
+    ],
+    correctAnswer: 1,
+    explanation: 'Le principe "Commencer là où vous êtes" exige une évaluation objective de l\'existant avant de décider quoi conserver ou changer.',
+    difficulty: 'medium',
+    category: 'Principes directeurs'
+  },
+  {
+    id: 'EX014',
+    question: 'Laquelle des options N\'est habituellement PAS incluse dans la gestion des incidents ?',
+    options: [
+      'Des scripts pour recueillir des informations initiales',
+      'Des procédures formalisées pour enregistrer les incidents',
+      'Des procédures détaillées pour diagnostiquer les incidents',
+      'Le recours à des connaissances spécialisées pour les incidents compliqués'
+    ],
+    correctAnswer: 2,
+    explanation: 'La gestion des incidents vise la restauration rapide, pas le diagnostic détaillé qui relève de la gestion des problèmes.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL',
+    examTip: 'Diagnostic approfondi = gestion des problèmes, PAS incidents'
+  },
+  {
+    id: 'EX015',
+    question: 'Laquelle des options décrit le mieux la nature des principes directeurs ?',
+    options: [
+      'Les principes directeurs peuvent guider une organisation en toutes circonstances',
+      'Chaque principe directeur impose des actions et des décisions spécifiques',
+      'Une organisation choisit et adopte un seul des sept principes directeurs',
+      'Les principes directeurs décrivent les processus que toutes les organisations doivent adopter'
+    ],
+    correctAnswer: 0,
+    explanation: 'Les principes directeurs sont universels et peuvent guider toute organisation dans toute circonstance, mais leur application est flexible.',
+    difficulty: 'medium',
+    category: 'Principes directeurs'
+  },
+  {
+    id: 'EX016',
+    question: 'Quel énoncé sur l\'autorité de changement est CORRECT ?',
+    options: [
+      'Une seule autorité doit être assignée pour autoriser tous les types de changements',
+      'Une autorité de changement doit être assignée pour chaque type et modèle',
+      'Les changements normaux sont pré-autorisés et ne requièrent pas d\'autorité',
+      'Les changements urgents peuvent être implémentés sans autorisation'
+    ],
+    correctAnswer: 1,
+    explanation: 'Différents types de changements peuvent avoir différentes autorités appropriées selon leur risque et complexité.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX017',
+    question: 'Quelle activité de la chaîne de valeur permet de s\'assurer que les personnes comprennent la vision de l\'organisation ?',
+    options: [
+      'Améliorer',
+      'Planifier',
+      'Fournir et soutenir',
+      'Obtenir/construire'
+    ],
+    correctAnswer: 1,
+    explanation: 'L\'activité "Planifier" inclut la communication de la vision, de la stratégie et de la direction de l\'organisation.',
+    difficulty: 'medium',
+    category: 'Système de valeur des services'
+  },
+  {
+    id: 'EX018',
+    question: 'Quel énoncé sur les activités de la chaîne de valeur est CORRECT ?',
+    options: [
+      'Chaque pratique appartient à une activité spécifique',
+      'Une combinaison d\'activités et de pratiques constitue une relation de service',
+      'Les activités constituent un flux de travail unique pour créer de la valeur',
+      'Chaque activité transforme des entrées spécifiques en livrables'
+    ],
+    correctAnswer: 3,
+    explanation: 'Chaque activité de la chaîne de valeur transforme des entrées spécifiques en sorties/livrables qui créent de la valeur.',
+    difficulty: 'hard',
+    category: 'Système de valeur des services'
+  },
+  {
+    id: 'EX019',
+    question: 'Quel est le but de la pratique de gestion des fournisseurs ?',
+    options: [
+      'S\'assurer que les fournisseurs et leurs performances sont gérés de manière appropriée',
+      'Aligner les pratiques et services sur les besoins business évolutifs',
+      'S\'assurer des performances aux niveaux stratégiques et tactiques',
+      'S\'assurer que des informations exactes sur la configuration sont disponibles'
+    ],
+    correctAnswer: 0,
+    explanation: 'La gestion des fournisseurs vise à gérer appropriément les fournisseurs et leurs performances pour supporter la fourniture de services.',
+    difficulty: 'easy',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX020',
+    question: 'Quels sont les deux types de coûts que le consommateur d\'un service doit évaluer ?',
+    options: [
+      'Le prix du service et le coût de la création du service',
+      'Les coûts supprimés par le service et les coûts imposés par le service',
+      'Le coût de la fourniture et le coût de l\'amélioration',
+      'Le coût du logiciel et le coût du matériel'
+    ],
+    correctAnswer: 1,
+    explanation: 'Les consommateurs évaluent les coûts SUPPRIMÉS (ce qu\'ils n\'ont plus à gérer) versus les coûts IMPOSÉS (prix, formation, etc.).',
+    difficulty: 'hard',
+    category: 'Concepts fondamentaux',
+    examTip: 'PIÈGE : Focus sur la perspective du CONSOMMATEUR, pas du fournisseur'
+  },
+  {
+    id: 'EX021',
+    question: 'Quel est un but de la pratique du centre de services ?',
+    options: [
+      'Réduire la probabilité et l\'impact des incidents',
+      'Maximiser le nombre de changements IT réussis',
+      'Capturer la demande de résolution d\'incidents et les demandes de services',
+      'Définir des cibles claires basées sur le business'
+    ],
+    correctAnswer: 2,
+    explanation: 'Le centre de services capture et enregistre toutes les demandes (incidents, demandes de service, questions) comme point d\'entrée unique.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX022',
+    question: 'Comment une organisation doit-elle adopter des méthodes d\'amélioration continue ?',
+    options: [
+      'En utilisant une nouvelle méthode pour chaque amélioration',
+      'En choisissant quelques méthodes clés pour les types d\'améliorations gérées',
+      'En renforçant l\'aptitude à utiliser autant de méthodes que possible',
+      'En choisissant une seule méthode pour toutes les améliorations'
+    ],
+    correctAnswer: 1,
+    explanation: 'Il faut sélectionner quelques méthodes appropriées et les maîtriser plutôt que d\'essayer toutes les méthodes possibles.',
+    difficulty: 'medium',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX023',
+    question: 'Quel concept ITIL décrit la gouvernance ?',
+    options: [
+      'Les sept principes directeurs',
+      'Les quatre dimensions de la gestion des services',
+      'La chaîne de valeur des services',
+      'Le système de valeur des services'
+    ],
+    correctAnswer: 3,
+    explanation: 'La gouvernance est un composant du Système de Valeur des Services (SVS), fournissant direction et contrôle.',
+    difficulty: 'medium',
+    category: 'Système de valeur des services'
+  },
+  {
+    id: 'EX024',
+    question: 'Laquelle est une recommandation de la pratique du centre de services ?',
+    options: [
+      'Les centres de services doivent éviter de recourir à l\'automatisation',
+      'Les centres de services doivent être très techniques',
+      'Les centres de services doivent comprendre l\'organisation dans son ensemble',
+      'Les centres de services doivent être une équipe physique dans un même endroit'
+    ],
+    correctAnswer: 2,
+    explanation: 'Le centre de services doit avoir une compréhension holistique de l\'organisation pour mieux servir les utilisateurs.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX025',
+    question: 'Quel principe directeur recommande d\'organiser le travail en parties plus petites et gérables ?',
+    options: [
+      'Privilégier la valeur',
+      'Commencer là où vous êtes',
+      'Avancer par itération avec des retours',
+      'Collaborer et promouvoir la visibilité'
+    ],
+    correctAnswer: 2,
+    explanation: 'Le principe "Avancer par itération avec des retours" recommande de diviser le travail en petites parties pour obtenir du feedback rapidement.',
+    difficulty: 'easy',
+    category: 'Principes directeurs'
+  },
+  {
+    id: 'EX026',
+    question: 'Que se passe-t-il lorsqu\'une solution de contournement devient permanente pour un problème non résolvable de façon rentable ?',
+    options: [
+      'Une demande de changement est soumise au contrôle des changements',
+      'La gestion des problèmes restaure le service dès que possible',
+      'Le problème conserve l\'état d\'erreur connue',
+      'L\'enregistrement du problème est supprimé'
+    ],
+    correctAnswer: 2,
+    explanation: 'Si un problème ne peut être résolu de façon rentable, il reste documenté comme erreur connue avec son workaround permanent.',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX027',
+    question: 'Quelle est la définition d\'un changement ?',
+    options: [
+      'Ajouter, modifier ou supprimer tout ce qui pourrait avoir un effet sur les services',
+      'S\'assurer que des informations exactes sur la configuration sont disponibles',
+      'Mettre à disposition des fonctionnalités nouvelles ou modifiées',
+      'Déplacer du matériel ou logiciels vers des environnements de production'
+    ],
+    correctAnswer: 0,
+    explanation: 'Un changement est l\'ajout, la modification ou la suppression de tout ce qui pourrait avoir un effet direct ou indirect sur les services.',
+    difficulty: 'easy',
+    category: 'Concepts fondamentaux'
+  },
+  {
+    id: 'EX028',
+    question: 'Quelle est la définition d\'un événement ?',
+    options: [
+      'Tout changement d\'état significatif pour la gestion d\'un service ou CI',
+      'Tout composant qui doit être géré pour fournir un service',
+      'L\'interruption non planifiée d\'un service',
+      'Tout composant avec valeur financière contribuant aux services'
+    ],
+    correctAnswer: 0,
+    explanation: 'Un événement est tout changement d\'état significatif pour la gestion d\'un service ou d\'un élément de configuration (CI).',
+    difficulty: 'medium',
+    category: 'Concepts fondamentaux'
+  },
+  {
+    id: 'EX029',
+    question: 'Quelle option décrit des résultats (outcomes) ?',
+    options: [
+      'Éléments livrables tangibles ou intangibles',
+      'Fonctionnalité offerte par un produit ou service',
+      'Résultats souhaités par une partie prenante',
+      'Configuration des ressources d\'une organisation'
+    ],
+    correctAnswer: 2,
+    explanation: 'Les résultats (outcomes) sont ce que les parties prenantes veulent vraiment atteindre, pas juste des livrables ou des outputs.',
+    difficulty: 'hard',
+    category: 'Concepts fondamentaux'
+  },
+  {
+    id: 'EX030',
+    question: 'Laquelle N\'EST PAS un élément clé de la dimension "information et technologie" ?',
+    options: [
+      'Sécurité et conformité',
+      'Systèmes de communication et bases de connaissances',
+      'Systèmes de gestion du flux de travaux',
+      'Rôles et responsabilités'
+    ],
+    correctAnswer: 3,
+    explanation: 'Les rôles et responsabilités relèvent de la dimension "Organisations et personnes", pas "Information et technologie".',
+    difficulty: 'medium',
+    category: '4 Dimensions'
+  },
+  {
+    id: 'EX031',
+    question: 'Quelles pratiques sont généralement impliquées dans l\'implémentation de la résolution d\'un problème ?',
+    options: [
+      'L\'amélioration continue et la gestion des demandes de services',
+      'La gestion des demandes de services et la gestion des niveaux de service',
+      'La gestion des niveaux de service et l\'habilitation des changements',
+      'L\'amélioration continue et l\'habilitation des changements'
+    ],
+    correctAnswer: 3,
+    explanation: 'La résolution d\'un problème implique généralement l\'amélioration continue (pour l\'analyse) et l\'habilitation des changements (pour implémenter la solution).',
+    difficulty: 'hard',
+    category: 'Pratiques ITIL'
+  },
+  {
+    id: 'EX032',
+    question: 'Quel est un élément clé du principe directeur "opter pour la simplicité et rester pratique" ?',
+    options: [
+      'Essayer de créer une solution pour chaque exception',
+      'Comprendre comment chaque élément contribue à la création de valeur',
+      'Ignorer les objectifs contradictoires des parties prenantes',
+      'Commencer par une solution complexe, puis simplifier'
+    ],
+    correctAnswer: 1,
+    explanation: 'Ce principe exige de comprendre la valeur de chaque élément pour éliminer ce qui n\'apporte pas de valeur.',
+    difficulty: 'hard',
+    category: 'Principes directeurs'
+  },
+  {
+    id: 'EX033',
+    question: 'Que faut-il faire en premier lorsqu\'on applique le principe "privilégier la valeur" ?',
+    options: [
+      'Identifier les résultats facilités par le service',
+      'Identifier tous les fournisseurs et partenaires impliqués',
+      'Déterminer qui est le consommateur du service dans chaque situation',
+      'Déterminer le coût de la fourniture du service'
+    ],
+    correctAnswer: 2,
+    explanation: 'Il faut d\'abord identifier QUI sont les consommateurs/parties prenantes avant de pouvoir comprendre ce qu\'ils valorisent.',
+    difficulty: 'medium',
+    category: 'Principes directeurs'
+  },
+  {
+    id: 'EX034',
+    question: 'Un fournisseur décrit un package incluant laptop, logiciels, licences et support. C\'est un exemple de ?',
+    options: [
+      'Valeur',
+      'Résultat',
+      'Garantie',
+      'Offre de service'
+    ],
+    correctAnswer: 3,
+    explanation: 'Une offre de service est une description formelle d\'un ou plusieurs services, conçue pour répondre aux besoins d\'un groupe de consommateurs.',
+    difficulty: 'medium',
+    category: 'Concepts fondamentaux'
   }
 ];
 
