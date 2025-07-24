@@ -1,6 +1,6 @@
 # 🚀 ITIL v4 Foundation - Guide de Révision Interactif
 
-Site web complet pour préparer et réussir l'examen de certification ITIL v4 Foundation, développé selon les spécifications du [CLAUDE.md](./claude.md).
+Site web complet pour préparer et réussir l'examen de certification ITIL v4 Foundation.
 
 ## ✨ Fonctionnalités Principales
 
