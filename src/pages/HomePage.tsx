@@ -341,9 +341,7 @@ const HomePage: React.FC = () => {
           <h3 className="text-3xl sm:text-4xl font-bold mb-4 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
             Prêt à obtenir votre certification ?
           </h3>
-          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto animate-fadeInUp" style={{animationDelay: '0.4s'}}>
-            Rejoignez les centaines de professionnels qui ont réussi leur ITIL v4 Foundation avec nos outils
-          </p>
+
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto animate-scaleIn" style={{animationDelay: '0.6s'}}>
             <Link 
