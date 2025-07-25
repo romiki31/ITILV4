@@ -62,9 +62,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo et titre */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-              <ITILLogo size={20} className="text-white" />
-            </div>
+              <ITILLogo size={32} />
             <div>
               <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100">ITIL v4</h1>
               <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">Foundation</p>

@@ -186,13 +186,19 @@ src/
 - [Syllabus officiel](https://www.axelos.com/resource-hub/candidate-downloads)
 - [Centres d'examen agréés](https://www.axelos.com/certifications/find-an-exam-provider)
 
-## 📄 Licence
+## 📄 Licence et Propriété Intellectuelle
 
-Ce projet est un **guide d'étude non-officiel** créé à des fins éducatives. 
+### Code Source
+Le **code source** de cette application est distribué sous licence MIT. Vous êtes libre de l'utiliser, le modifier et le distribuer selon les termes de cette licence.
 
-**ITIL®** est une marque déposée d'AXELOS Limited. 
+### Contenu Éducatif
+Le **contenu éducatif** (questions, explications, études de cas) est créé de manière indépendante à des fins pédagogiques uniquement. Ce contenu n'est pas une reproduction du matériel officiel ITIL® et ne peut être utilisé qu'à des fins d'apprentissage personnel.
 
-Ce site n'est pas affilié à AXELOS et ne remplace pas la formation officielle.
+### Marques Déposées
+**ITIL®** est une marque déposée d'AXELOS Limited, utilisée sous licence de PeopleCert. Nous ne sommes pas affiliés à AXELOS Limited, PeopleCert ou à tout organisme officiel de certification ITIL®.
+
+### Avertissement Important
+Ce site constitue un **guide d'étude non-officiel** et ne remplace pas la formation officielle ITIL®. Pour une préparation complète, consultez les ressources officielles AXELOS et PeopleCert.
 
 ---
 

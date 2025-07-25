@@ -15,7 +15,8 @@ import {
   TrendingUp,
   Star,
   Zap,
-  Shield
+  Shield,
+  GraduationCap
 } from 'lucide-react'
 import ITILLogo from '../components/ITILLogo'
 import Header from '../components/Header'
@@ -52,7 +53,7 @@ const HomePage: React.FC = () => {
       id: 'beginner',
       title: 'Parcours Complet',
       description: 'Apprenez ITIL v4 étape par étape avec tous les fondamentaux',
-      icon: ITILLogo,
+      icon: GraduationCap,
       color: 'bg-gradient-to-br from-blue-500 to-blue-600',
       duration: '3-4 semaines',
       level: 'Débutant à Avancé',
@@ -134,10 +135,11 @@ const HomePage: React.FC = () => {
         </div>
         
         {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden" style={{zIndex: 1}}>
+        <div className="absolute inset-x-0 top-0 bottom-0 overflow-hidden" style={{zIndex: 1, height: '150%'}}>
           <div className="absolute -top-40 -right-32 w-80 h-80 bg-blue-400/10 dark:bg-blue-400/5 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-purple-400/10 dark:bg-purple-400/5 rounded-full blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
+          <div className="absolute -bottom-20 -left-32 w-80 h-80 bg-purple-400/10 dark:bg-purple-400/5 rounded-full blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
           <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-green-400/5 dark:bg-green-400/3 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-10 right-1/4 w-72 h-72 bg-blue-300/8 dark:bg-blue-300/4 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 py-8" style={{zIndex: 10}}>
@@ -145,8 +147,8 @@ const HomePage: React.FC = () => {
             {/* Logo animé */}
             <div className="flex justify-center mb-6">
               <div className="relative" style={{zIndex: 20}}>
-                <div className="w-16 h-16 sm:w-18 sm:h-18 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-2xl animate-bounce-gentle animate-glow relative" style={{zIndex: 23}}>
-                  <ITILLogo size={32} className="text-white" />
+                <div className="animate-bounce-gentle animate-glow relative" style={{zIndex: 23}}>
+                  <ITILLogo size={64} className="shadow-2xl" />
                 </div>
                 <div className="absolute -inset-2 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl blur animate-pulse-slow" style={{zIndex: 22}}></div>
                 <div className="absolute -inset-4 bg-gradient-to-br from-blue-500/10 to-purple-600/10 rounded-3xl blur-xl animate-shimmer" style={{zIndex: 21}}></div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import QuizComponent from '../components/QuizComponent'
 import ExamPracticeComponent from '../components/ExamPracticeComponent'
+import CopyrightDisclaimer from '../components/CopyrightDisclaimer'
 import { 
   Play, 
   Target, 
@@ -198,18 +199,21 @@ const QuizPage: React.FC = () => {
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Quiz ITIL v4 Foundation</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Quiz ITIL® v4 Foundation</h1>
         <p className="text-gray-600 dark:text-gray-400">
           Préparez-vous avec de vraies questions d'examen et des explications détaillées
         </p>
       </div>
+
+      {/* Copyright Disclaimer */}
+      <CopyrightDisclaimer className="mb-6" />
 
       {/* Mode alerte */}
       <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mb-8">
         <div className="flex items-start space-x-2">
           <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
           <div className="text-sm text-yellow-800 dark:text-yellow-200">
-            <strong>Important :</strong> Ces questions sont basées sur de vraies questions d'examen ITIL v4 Foundation. 
+            <strong>Important :</strong> Ces questions sont basées sur de vraies questions d'examen ITIL® v4 Foundation. 
             Visez 80% de réussite aux simulations pour être sûr de réussir l'examen réel (seuil : 65%).
           </div>
         </div>
