@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { 
   Search, 
-  Filter, 
   BookOpen, 
   Target, 
   Lightbulb,
   CheckCircle,
-  Clock,
-  Star,
   AlertTriangle,
   Database,
   Settings,
@@ -16,8 +13,7 @@ import {
   Zap,
   Shield,
   ChevronDown,
-  ChevronUp,
-  ExternalLink
+  ChevronUp
 } from 'lucide-react'
 import LearningNavigation from '../components/LearningNavigation'
 import { useAutoScroll } from '../hooks/useAutoScroll'
@@ -460,9 +456,6 @@ const ConceptsPage: React.FC = () => {
     return <span className={`badge ${config.color} w-12 text-center text-xs`}>{config.label}</span>
   }
 
-  const getCategoryLabel = (categoryId: string) => {
-    return categories.find(cat => cat.id === categoryId)?.label || categoryId
-  }
 
   const toggleExpanded = (conceptId: string) => {
     setExpandedConcept(expandedConcept === conceptId ? null : conceptId)
@@ -486,21 +479,6 @@ const ConceptsPage: React.FC = () => {
           <p className="text-gray-600 dark:text-gray-400">
             Maîtrisez tous les concepts essentiels testés dans l'examen ITIL v4 Foundation
           </p>
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            {filteredConcepts.length} concept{filteredConcepts.length > 1 ? 's' : ''}
-          </div>
-          <div className="w-32">
-            <div className="progress-bar">
-              <div 
-                className="progress-fill" 
-                style={{ width: '100%' }} 
-              />
-            </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Complet pour l'examen</div>
-          </div>
         </div>
       </div>
 

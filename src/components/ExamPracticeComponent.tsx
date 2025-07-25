@@ -13,6 +13,8 @@ import {
 } from 'lucide-react'
 import { useAutoScroll } from '../hooks/useAutoScroll'
 import { useExamPracticeProgress } from '../hooks/useExamPracticeProgress'
+import StatsDisplay from './StatsDisplay'
+import ProgressDashboard from './ProgressDashboard'
 import type { 
   ExamPracticeQuestion, 
   ExamPracticeSession,
@@ -36,7 +38,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
   onExit 
 }) => {
   const { scrollToTop } = useAutoScroll({ delay: 150 })
-  const examPracticeProgress = useExamPracticeProgress()
+  const { calculateCurrentStats, ...examPracticeProgress } = useExamPracticeProgress()
   
   // États principaux
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number | null>(null)
@@ -48,6 +50,9 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
   const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
   const [sessionStartTime] = useState<Date>(new Date())
   const [showFinalResults, setShowFinalResults] = useState(false)
+  const [showQuitConfirm, setShowQuitConfirm] = useState(false)
+  const [isResetting, setIsResetting] = useState(false)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
 
   // Chargement des questions déjà vues depuis localStorage
   const getAnsweredQuestions = (): number[] => {
@@ -188,11 +193,38 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
     setShowFinalResults(false)
   }
 
+  // Reset direct avec feedback visuel
+  const handleDirectReset = async () => {
+    setIsResetting(true)
+    examPracticeProgress.resetProgress()
+    // Petit délai pour le feedback visuel
+    await new Promise(resolve => setTimeout(resolve, 500))
+    setIsResetting(false)
+    // Forcer la mise à jour des statistiques sans recharger la page
+    setRefreshTrigger(prev => prev + 1)
+  }
+
+  // Gestion de la confirmation de quit (seulement pendant l'examen)
+  const handleQuitConfirm = () => {
+    setShowQuitConfirm(false)
+    onExit()
+  }
+
+  // Quit direct depuis l'écran de sélection
+  const handleDirectQuit = () => {
+    onExit()
+    scrollToTop()
+  }
+
   const currentQuestion = questions[currentQuestionIndex]
   const currentAnswer = sessionAnswers[sessionAnswers.length - 1]
+  
+  // Calculer les statistiques temps réel
+  const currentStats = calculateCurrentStats(sessionAnswers, questions.length)
 
   // Écran de sélection du nombre de questions
   if (!selectedQuestionCount) {
+    // Recalculer les stats à chaque refreshTrigger (utile après reset)
     const answeredCount = getAnsweredQuestions().length
     const remainingQuestions = EXAM_PRACTICE_STATS.totalQuestions - answeredCount
 
@@ -200,7 +232,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <button 
-            onClick={onExit}
+            onClick={handleDirectQuit}
             className="text-primary-600 hover:text-primary-700 flex items-center mb-4"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
@@ -215,47 +247,14 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
           </p>
         </div>
 
-        {/* Statistiques */}
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6 mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">
-              Progression des questions d'examen blanc
-            </h3>
-            {answeredCount > 0 && (
-              <button
-                onClick={() => {
-                  examPracticeProgress.resetProgress()
-                  setTimeout(() => window.location.reload(), 100)
-                }}
-                className="flex items-center space-x-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors"
-                title="Réinitialiser toutes les questions vues"
-              >
-                <RotateCcw size={14} />
-                <span>Réinitialiser</span>
-              </button>
-            )}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                {EXAM_PRACTICE_STATS.totalQuestions}
-              </div>
-              <div className="text-sm text-blue-800 dark:text-blue-200">Questions totales</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                {answeredCount}
-              </div>
-              <div className="text-sm text-green-800 dark:text-green-200">Déjà vues</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                {remainingQuestions}
-              </div>
-              <div className="text-sm text-orange-800 dark:text-orange-200">Restantes</div>
-            </div>
-          </div>
-        </div>
+        {/* Dashboard de progression ludique */}
+        <ProgressDashboard
+          answeredCount={answeredCount}
+          remainingQuestions={remainingQuestions}
+          progress={examPracticeProgress.progress}
+          isResetting={isResetting}
+          onReset={handleDirectReset}
+        />
 
         {/* Sélection du nombre de questions */}
         <div className="card">
@@ -276,7 +275,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
                   className={`p-4 rounded-lg border-2 transition-all ${
                     isDisabled
                       ? 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
-                      : 'border-primary-200 dark:border-primary-700 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-900 dark:text-gray-100'
+                      : 'border-primary-200 dark:border-primary-700 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/50 hover:text-primary-900 dark:hover:text-gray-900 text-gray-900 dark:text-gray-50'
                   }`}
                 >
                   <div className="text-2xl font-bold">{available}</div>
@@ -293,15 +292,12 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
                 Pour revoir toutes les questions, vous pouvez réinitialiser votre progression.
               </p>
               <button
-                onClick={() => {
-                  examPracticeProgress.resetProgress()
-                  // Recharger après un petit délai pour permettre au hook de se mettre à jour
-                  setTimeout(() => window.location.reload(), 100)
-                }}
-                className="mt-2 flex items-center space-x-2 text-sm text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100 transition-colors"
+                onClick={handleDirectReset}
+                disabled={isResetting}
+                className="mt-2 flex items-center space-x-2 text-sm text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100 transition-colors disabled:opacity-50"
               >
-                <RotateCcw size={14} />
-                <span>Réinitialiser ma progression</span>
+                <RotateCcw size={14} className={isResetting ? 'animate-spin' : ''} />
+                <span>{isResetting ? 'Réinitialisation...' : 'Réinitialiser ma progression'}</span>
               </button>
             </div>
           )}
@@ -312,11 +308,11 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
 
   // Écran de résultats finaux (affiché brièvement)
   if (showFinalResults) {
-    const correctAnswers = sessionAnswers.filter(a => a.isCorrect).length
-    const score = Math.round((correctAnswers / sessionAnswers.length) * 100)
+    const finalStats = calculateCurrentStats(sessionAnswers, questions.length)
+    const score = finalStats.currentScore
 
     return (
-      <div className="max-w-2xl mx-auto text-center">
+      <div className="max-w-3xl mx-auto text-center">
         <div className="card">
           <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 ${
             score >= 80 ? 'bg-green-500' : score >= 65 ? 'bg-yellow-500' : 'bg-orange-500'
@@ -328,21 +324,72 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
             Session terminée !
           </h2>
           
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div>
-              <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {correctAnswers}/{sessionAnswers.length}
+          {/* Statistiques détaillées */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4">
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <CheckCircle size={20} className="text-green-600 dark:text-green-400" />
+                <span className="text-xl font-bold text-green-600 dark:text-green-400">
+                  {finalStats.correctAnswers}
+                </span>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Bonnes réponses</div>
+              <div className="text-sm text-green-800 dark:text-green-200">Bonnes réponses</div>
+              <div className="text-xs text-green-600 dark:text-green-400 mt-1">
+                {Math.round((finalStats.correctAnswers / finalStats.totalAnswered) * 100)}% de réussite
+              </div>
             </div>
-            <div>
-              <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {score >= 65 ? '✅' : '📚'}
+            
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg p-4">
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <X size={20} className="text-red-600 dark:text-red-400" />
+                <span className="text-xl font-bold text-red-600 dark:text-red-400">
+                  {finalStats.incorrectAnswers}
+                </span>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                {score >= 65 ? 'Bien compris' : 'À retravailler'}
+              <div className="text-sm text-red-800 dark:text-red-200">Mauvaises réponses</div>
+              <div className="text-xs text-red-600 dark:text-red-400 mt-1">
+                {Math.round((finalStats.incorrectAnswers / finalStats.totalAnswered) * 100)}% d'erreurs
               </div>
             </div>
+            
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <Target size={20} className="text-blue-600 dark:text-blue-400" />
+                <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                  {finalStats.totalAnswered}
+                </span>
+              </div>
+              <div className="text-sm text-blue-800 dark:text-blue-200">Questions traitées</div>
+              <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                sur {questions.length} demandées
+              </div>
+            </div>
+          </div>
+
+          {/* Évaluation de performance */}
+          <div className={`p-4 rounded-lg mb-6 ${
+            score >= 80 
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700'
+              : score >= 65
+                ? 'bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700'
+                : 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700'
+          }`}>
+            <div className="text-lg font-semibold mb-2">
+              {score >= 80 ? '🎉 Excellent travail !' : score >= 65 ? '👍 Bien joué !' : '📚 Continuez vos efforts !'}
+            </div>
+            <p className={`text-sm ${
+              score >= 80 
+                ? 'text-green-700 dark:text-green-300'
+                : score >= 65
+                  ? 'text-yellow-700 dark:text-yellow-300'
+                  : 'text-orange-700 dark:text-orange-300'
+            }`}>
+              {score >= 80 
+                ? 'Vous maîtrisez très bien ces concepts ITIL v4. Continuez sur cette lancée !'
+                : score >= 65
+                  ? 'Bonne compréhension générale. Quelques révisions vous aideront à consolider.'
+                  : 'Il serait bénéfique de revoir ces concepts avant de passer à de nouveaux sujets.'}
+            </p>
           </div>
 
           <div className="flex gap-3">
@@ -350,10 +397,46 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
               <RotateCcw size={16} className="mr-2" />
               Nouvelle session
             </button>
-            <button onClick={() => { onExit(); scrollToTop(); }} className="btn btn-secondary flex-1">
+            <button onClick={handleDirectQuit} className="btn btn-secondary flex-1">
               <Home size={16} className="mr-2" />
               Menu principal
             </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Modal de confirmation (seulement pour quit pendant l'examen)
+
+  if (showQuitConfirm) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+          <div className="text-center">
+            <div className="w-12 h-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center">
+              <X className="h-6 w-6 text-red-600 dark:text-red-400" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+              Quitter la session ?
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+              Votre progression actuelle sera sauvegardée. Vous pourrez reprendre plus tard.
+            </p>
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowQuitConfirm(false)}
+                className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              >
+                Continuer
+              </button>
+              <button
+                onClick={handleQuitConfirm}
+                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 rounded-md transition-colors"
+              >
+                Quitter
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -367,7 +450,17 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
       <div className="card">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <button onClick={() => { onExit(); scrollToTop(); }} className="btn btn-secondary">
+            <button 
+              onClick={() => {
+                // Confirmation seulement si on est en cours d'examen
+                if (currentQuestionIndex > 0 || selectedAnswer || sessionAnswers.length > 0) {
+                  setShowQuitConfirm(true)
+                } else {
+                  handleDirectQuit()
+                }
+              }} 
+              className="btn btn-secondary"
+            >
               <X size={16} className="mr-2" />
               Quitter
             </button>
@@ -376,8 +469,13 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
             </div>
           </div>
           
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            Mode : Apprentissage progressif
+          <div className="flex items-center space-x-4">
+            {sessionAnswers.length > 0 && (
+              <StatsDisplay stats={currentStats} />
+            )}
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              Mode : Apprentissage progressif
+            </div>
           </div>
         </div>
         

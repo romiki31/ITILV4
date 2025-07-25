@@ -6,17 +6,17 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="text-center space-y-3">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               ITIL v4 Foundation - Guide de révision
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               Outil d'aide à la préparation ITIL v4
             </p>
           </div>
           
           <div className="border-t border-gray-300 dark:border-gray-700 pt-3">
-            <div className="text-xs text-gray-500 dark:text-gray-500 space-y-1 max-w-4xl mx-auto">
-              <p className="font-medium text-gray-600 dark:text-gray-400">Mentions légales et avertissement</p>
+            <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1 max-w-4xl mx-auto">
+              <p className="font-medium text-gray-600 dark:text-gray-300">Mentions légales et avertissement</p>
               <p>
                 <strong>ITIL®</strong> est une marque déposée d'AXELOS Limited. Ce site est un support pédagogique indépendant 
                 non affilié aux organismes officiels. Contenu fourni à des fins éducatives uniquement, sans garantie d'exactitude. 

@@ -56,6 +56,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
   const [results, setResults] = useState<QuizResults | null>(null)
   const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
   const [showWarning, setShowWarning] = useState(false)
+  const [showQuitConfirm, setShowQuitConfirm] = useState(false)
   
   // Hook pour le suivi des examens blancs
   const examWhiteProgress = useExamWhiteProgress()
@@ -236,6 +237,12 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
     setQuestionStartTime(Date.now())
   }
 
+  // Gestion de la confirmation de quit
+  const handleQuitConfirm = () => {
+    setShowQuitConfirm(false)
+    onExit()
+  }
+
   if (showResults && results) {
     const passed = results.score >= 65
 
@@ -262,17 +269,17 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
             <div>
               <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{results.correctAnswers}/{results.totalQuestions}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Bonnes réponses</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Bonnes réponses</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatTime(results.timeSpent)}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Temps passé</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Temps passé</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {Math.round(results.timeSpent / results.totalQuestions)}s
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Temps moyen/question</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Temps moyen/question</div>
             </div>
           </div>
 
@@ -296,7 +303,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                             style={{ width: `${percentage}%` }}
                           />
                         </div>
-                        <span className="text-gray-600 dark:text-gray-400 w-12 text-right">{percentage}%</span>
+                        <span className="text-gray-600 dark:text-gray-300 w-12 text-right">{percentage}%</span>
                       </div>
                     </div>
                   )
@@ -345,9 +352,9 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                             key={optionIndex}
                             className={`p-3 rounded-lg border ${
                               isCorrectAnswer 
-                                ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 text-green-800 dark:text-green-200' 
+                                ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700 text-green-800 dark:text-green-200' 
                                 : isUserAnswer 
-                                  ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200'
+                                  ? 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200'
                                   : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
                             }`}
                           >
@@ -362,7 +369,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
                     </div>
 
                     {/* Explication */}
-                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg">
                       <div className="flex items-start space-x-2">
                         <Lightbulb size={16} className="text-blue-600 dark:text-blue-400 mt-0.5" />
                         <div>
@@ -386,6 +393,42 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
     )
   }
 
+  // Modal de confirmation (seulement pour quit pendant le quiz)
+
+  if (showQuitConfirm) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+          <div className="text-center">
+            <div className="w-12 h-12 mx-auto mb-4 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center">
+              <X className="h-6 w-6 text-red-600 dark:text-red-400" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+              Quitter le quiz ?
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+              Votre progression sera perdue. Voulez-vous vraiment quitter ?
+            </p>
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowQuitConfirm(false)}
+                className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              >
+                Continuer
+              </button>
+              <button
+                onClick={handleQuitConfirm}
+                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 rounded-md transition-colors"
+              >
+                Quitter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (!currentQuestion) {
     return <div className="text-center text-gray-900 dark:text-gray-100">Chargement des questions...</div>
   }
@@ -404,7 +447,17 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
       <div className="card">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <button onClick={onExit} className="btn btn-secondary">
+            <button 
+              onClick={() => {
+                // Confirmation seulement si on a des réponses
+                if (Object.keys(selectedAnswers).length > 0) {
+                  setShowQuitConfirm(true)
+                } else {
+                  onExit()
+                }
+              }} 
+              className="btn btn-secondary"
+            >
               <X size={16} className="mr-2" />
               Quitter
             </button>
@@ -446,46 +499,6 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ mode, category, onComplet
           </div>
         </div>
         
-        {/* Affichage du suivi pour les examens blancs */}
-        {isExamWhiteMode && examWhiteProgress.progress && (
-          <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex space-x-6 text-sm">
-                <div>
-                  <span className="font-medium text-blue-900 dark:text-blue-100">
-                    {(() => {
-                      const baseQuestions = mode === 'exam-simulation' ? 
-                        getExamSimulationQuestions() : getDifficultExamQuestions()
-                      return baseQuestions.length
-                    })()} Questions totales
-                  </span>
-                </div>
-                <div>
-                  <span className="font-medium text-blue-700 dark:text-blue-300">
-                    {examWhiteProgress.progress.totalQuestionsAnswered} Déjà vues
-                  </span>
-                </div>
-                <div>
-                  <span className="font-medium text-green-700 dark:text-green-300">
-                    {(() => {
-                      const baseQuestions = mode === 'exam-simulation' ? 
-                        getExamSimulationQuestions() : getDifficultExamQuestions()
-                      return baseQuestions.length - examWhiteProgress.progress.totalQuestionsAnswered
-                    })()} Restantes
-                  </span>
-                </div>
-              </div>
-              <button
-                onClick={examWhiteProgress.resetProgress}
-                className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
-                title="Réinitialiser les questions vues"
-              >
-                <RotateCcw size={14} />
-                <span>Réinitialiser</span>
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Question */}

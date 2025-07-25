@@ -2,7 +2,12 @@ import { useState, useEffect, useCallback } from 'react'
 import type { 
   ExamPracticeSession, 
   ExamPracticeProgress,
-  ExamPracticeQuestion 
+  ExamPracticeQuestion,
+  ExamPracticeAnswer,
+  ExamPracticeCurrentStats,
+  ExamPracticeGamification,
+  ProgressLevel,
+  ProgressBadge
 } from '@/types'
 import { EXAM_PRACTICE_STATS } from '@/data/examPracticeQuestions'
 
@@ -11,6 +16,28 @@ const STORAGE_KEYS = {
   SESSIONS: 'examPracticeSessions',
   PROGRESS: 'examPracticeProgress'
 }
+
+// Configuration des niveaux de progression
+const PROGRESS_LEVELS: ProgressLevel[] = [
+  { id: 1, name: 'Débutant', minXp: 0, maxXp: 100, color: 'gray', icon: '🌱' },
+  { id: 2, name: 'Apprenti', minXp: 100, maxXp: 300, color: 'green', icon: '📚' },
+  { id: 3, name: 'Intermédiaire', minXp: 300, maxXp: 600, color: 'blue', icon: '⚡' },
+  { id: 4, name: 'Avancé', minXp: 600, maxXp: 1000, color: 'purple', icon: '🎯' },
+  { id: 5, name: 'Expert', minXp: 1000, maxXp: 1500, color: 'orange', icon: '🏆' },
+  { id: 6, name: 'Maître ITIL', minXp: 1500, maxXp: 9999, color: 'red', icon: '👑' }
+]
+
+// Configuration des badges
+const AVAILABLE_BADGES: Omit<ProgressBadge, 'unlockedAt'>[] = [
+  { id: 'first_question', name: 'Premier Pas', description: 'Première question répondue', icon: '🎯', rarity: 'common' },
+  { id: 'perfect_score', name: 'Score Parfait', description: '100% dans une session', icon: '💯', rarity: 'rare' },
+  { id: 'streak_5', name: 'En Série', description: '5 bonnes réponses consécutives', icon: '🔥', rarity: 'common' },
+  { id: 'streak_10', name: 'Expert en Série', description: '10 bonnes réponses consécutives', icon: '⚡', rarity: 'rare' },
+  { id: 'speed_demon', name: 'Rapidité', description: 'Session terminée en moins de 5 min', icon: '💨', rarity: 'epic' },
+  { id: 'marathon', name: 'Marathon', description: '40 questions en une session', icon: '🏃', rarity: 'epic' },
+  { id: 'consistent', name: 'Régularité', description: '7 jours d\'étude consécutifs', icon: '📅', rarity: 'legendary' },
+  { id: 'master', name: 'Maître ITIL', description: 'Toutes les questions maîtrisées', icon: '👑', rarity: 'legendary' }
+]
 
 export const useExamPracticeProgress = () => {
   const [progress, setProgress] = useState<ExamPracticeProgress | null>(null)
@@ -59,6 +86,12 @@ export const useExamPracticeProgress = () => {
         ? new Date(Math.max(...sessions.map((s: ExamPracticeSession) => new Date(s.startTime).getTime())))
         : new Date()
 
+      // Récupérer la gamification existante depuis localStorage
+      const storedProgress = localStorage.getItem(STORAGE_KEYS.PROGRESS)
+      const existingGamification = storedProgress ? JSON.parse(storedProgress).gamification : undefined
+      
+      const gamification = calculateGamification(sessions, totalQuestionsAnswered, existingGamification)
+
       const newProgress: ExamPracticeProgress = {
         questionsAnswered: new Set(answeredQuestions),
         sessionsCompleted: sessions,
@@ -66,7 +99,8 @@ export const useExamPracticeProgress = () => {
         averageScore: Math.round(averageScore),
         weakQuestions,
         strongQuestions,
-        lastSessionDate
+        lastSessionDate,
+        gamification
       }
 
       setProgress(newProgress)
@@ -194,6 +228,111 @@ export const useExamPracticeProgress = () => {
     }
   }, [progress])
 
+  // Calculer les statistiques temps réel d'une session en cours
+  const calculateCurrentStats = useCallback((
+    answers: ExamPracticeAnswer[],
+    totalQuestions: number
+  ): ExamPracticeCurrentStats => {
+    const correctAnswers = answers.filter(answer => answer.isCorrect).length
+    const incorrectAnswers = answers.length - correctAnswers
+    const totalAnswered = answers.length
+    const currentScore = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0
+    const progressPercentage = Math.round((totalAnswered / totalQuestions) * 100)
+
+    return {
+      correctAnswers,
+      incorrectAnswers,
+      totalAnswered,
+      currentScore,
+      progressPercentage
+    }
+  }, [])
+
+  // Calculer l'XP basé sur les performances
+  const calculateXP = useCallback((sessions: ExamPracticeSession[]): number => {
+    return sessions.reduce((total, session) => {
+      let sessionXP = session.correctAnswers * 2 // 2 XP par bonne réponse
+      
+      // Bonus pour les scores élevés
+      if (session.score >= 100) sessionXP += 50
+      else if (session.score >= 90) sessionXP += 30
+      else if (session.score >= 80) sessionXP += 20
+      else if (session.score >= 70) sessionXP += 10
+      
+      // Bonus pour les sessions longues
+      if (session.questionsAnswered >= 40) sessionXP += 25
+      else if (session.questionsAnswered >= 20) sessionXP += 10
+      
+      return total + sessionXP
+    }, 0)
+  }, [])
+
+  // Déterminer le niveau actuel basé sur l'XP
+  const getCurrentLevel = useCallback((xp: number): ProgressLevel => {
+    return PROGRESS_LEVELS.find(level => xp >= level.minXp && xp < level.maxXp) || PROGRESS_LEVELS[0]
+  }, [])
+
+  // Vérifier quels badges sont débloqués
+  const checkUnlockedBadges = useCallback((
+    sessions: ExamPracticeSession[],
+    totalQuestions: number,
+    existingBadges: ProgressBadge[]
+  ): ProgressBadge[] => {
+    const newBadges: ProgressBadge[] = []
+    const existingBadgeIds = new Set(existingBadges.map(b => b.id))
+
+    // Premier Pas
+    if (sessions.length > 0 && !existingBadgeIds.has('first_question')) {
+      newBadges.push({ ...AVAILABLE_BADGES.find(b => b.id === 'first_question')!, unlockedAt: new Date() })
+    }
+
+    // Score Parfait
+    if (sessions.some(s => s.score === 100) && !existingBadgeIds.has('perfect_score')) {
+      newBadges.push({ ...AVAILABLE_BADGES.find(b => b.id === 'perfect_score')!, unlockedAt: new Date() })
+    }
+
+    // Marathon
+    if (sessions.some(s => s.questionsAnswered >= 40) && !existingBadgeIds.has('marathon')) {
+      newBadges.push({ ...AVAILABLE_BADGES.find(b => b.id === 'marathon')!, unlockedAt: new Date() })
+    }
+
+    // Maître ITIL
+    if (totalQuestions === EXAM_PRACTICE_STATS.totalQuestions && !existingBadgeIds.has('master')) {
+      newBadges.push({ ...AVAILABLE_BADGES.find(b => b.id === 'master')!, unlockedAt: new Date() })
+    }
+
+    return newBadges
+  }, [])
+
+  // Calculer la gamification complète
+  const calculateGamification = useCallback((
+    sessions: ExamPracticeSession[],
+    totalQuestions: number,
+    existingGamification?: ExamPracticeGamification
+  ): ExamPracticeGamification => {
+    const xp = calculateXP(sessions)
+    const level = getCurrentLevel(xp)
+    
+    const existingBadges = existingGamification?.badges || []
+    const newBadges = checkUnlockedBadges(sessions, totalQuestions, existingBadges)
+    const allBadges = [...existingBadges, ...newBadges]
+
+    // Calculer le streak (simplifié pour l'exemple)
+    const streak = existingGamification?.streak || 0
+    const maxStreak = Math.max(streak, existingGamification?.maxStreak || 0)
+
+    return {
+      level,
+      xp,
+      badges: allBadges,
+      streak,
+      maxStreak,
+      studyDays: existingGamification?.studyDays || 1,
+      weeklyGoal: 20, // 20 questions par semaine
+      weeklyProgress: Math.min(totalQuestions % 20, 20)
+    }
+  }, [calculateXP, getCurrentLevel, checkUnlockedBadges])
+
   useEffect(() => {
     loadProgress()
   }, [loadProgress])
@@ -206,6 +345,9 @@ export const useExamPracticeProgress = () => {
     resetProgress,
     getRecommendedQuestions,
     getProgressStats,
+    calculateCurrentStats,
+    calculateGamification,
+    getCurrentLevel,
     loadProgress
   }
 }

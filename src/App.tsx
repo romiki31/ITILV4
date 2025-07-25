@@ -15,6 +15,7 @@ import ConceptsPage from './pages/ConceptsPage'
 import DimensionsPage from './pages/DimensionsPage'
 import PrincipesPage from './pages/PrincipesPage'
 import ChaineValeurPage from './pages/ChaineValeurPage'
+import DemoPage from './pages/DemoPage'
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <Routes>
           {/* HomePage sans Layout pour extension pleine largeur */}
           <Route index element={<HomePage />} />
+          {/* DemoPage sans Layout pour extension pleine largeur */}
+          <Route path="demo" element={<DemoPage />} />
           
         <Route path="/" element={<Layout />}>
           {/* Toutes les autres routes utilisent le Layout */}

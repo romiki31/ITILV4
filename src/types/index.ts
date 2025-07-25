@@ -160,6 +160,15 @@ export interface ExamPracticeSession {
   correctAnswers: number
   answers: ExamPracticeAnswer[]
   score: number // pourcentage
+  currentStats?: ExamPracticeCurrentStats
+}
+
+export interface ExamPracticeCurrentStats {
+  correctAnswers: number
+  incorrectAnswers: number
+  totalAnswered: number
+  currentScore: number // pourcentage courant
+  progressPercentage: number // progression dans la session
 }
 
 export interface ExamPracticeAnswer {
@@ -178,6 +187,36 @@ export interface ExamPracticeProgress {
   weakQuestions: number[]
   strongQuestions: number[]
   lastSessionDate: Date
+  gamification?: ExamPracticeGamification
+}
+
+export interface ExamPracticeGamification {
+  level: ProgressLevel
+  xp: number
+  badges: ProgressBadge[]
+  streak: number
+  maxStreak: number
+  studyDays: number
+  weeklyGoal: number
+  weeklyProgress: number
+}
+
+export interface ProgressLevel {
+  id: number
+  name: string
+  minXp: number
+  maxXp: number
+  color: string
+  icon: string
+}
+
+export interface ProgressBadge {
+  id: string
+  name: string
+  description: string
+  icon: string
+  unlockedAt: Date
+  rarity: 'common' | 'rare' | 'epic' | 'legendary'
 }
 
 // Types pour le suivi des examens blancs

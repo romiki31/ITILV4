@@ -1,0 +1,138 @@
+/* Animations pour le dashboard de progression */
+
+/* Animation de fade-in pour les cartes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation de pulse pour les badges */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Animation de progression pour les barres */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+}
+
+/* Animation de brillance pour les éléments interactifs */
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Classes d'animation */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeInUp-delay {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.animate-fadeInUp-delay2 {
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.animate-pulse-soft {
+  animation: pulse 2s infinite;
+}
+
+.animate-progress {
+  animation: progressFill 1s ease-out;
+}
+
+.animate-shine {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shine 1.5s infinite;
+}
+
+/* Effets de hover améliorés */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Animation pour les badges avec effet de déblocage */
+.badge-unlock {
+  animation: pulse 0.6s ease-in-out, fadeInUp 0.6s ease-out;
+  border: 2px solid gold;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Animation pour les compteurs */
+@keyframes countUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-countUp {
+  animation: countUp 0.5s ease-out;
+}
+
+/* Gradient animé pour les barres de progression */
+.progress-gradient {
+  background: linear-gradient(90deg, #3B82F6, #6366F1, #8B5CF6);
+  background-size: 200% 100%;
+  animation: shine 2s infinite;
+}
+
+/* Animation de rotation pour les icônes d'action */
+.rotate-on-hover {
+  transition: transform 0.3s ease;
+}
+
+.rotate-on-hover:hover {
+  transform: rotate(180deg);
+}
+
+/* Animation pour les notifications de niveau */
+@keyframes levelUp {
+  0% {
+    transform: scale(0.5) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-levelUp {
+  animation: levelUp 0.8s ease-out;
+}

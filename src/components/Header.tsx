@@ -23,28 +23,28 @@ const Header: React.FC = () => {
     // Classes statiques pour que Tailwind puisse les détecter
     const colorClasses = {
       fondamentaux: {
-        active: 'bg-fondamentaux-100 text-fondamentaux-700 dark:bg-fondamentaux-900/20 dark:text-fondamentaux-400',
-        hover: 'hover:bg-fondamentaux-50 hover:text-fondamentaux-700 dark:hover:bg-fondamentaux-900/10 dark:hover:text-fondamentaux-400'
+        active: 'bg-fondamentaux-100 text-fondamentaux-700 dark:bg-fondamentaux-900/30 dark:text-fondamentaux-300',
+        hover: 'hover:bg-fondamentaux-50 hover:text-fondamentaux-700 dark:hover:bg-fondamentaux-900/30 dark:hover:text-fondamentaux-200'
       },
       svs: {
-        active: 'bg-svs-100 text-svs-700 dark:bg-svs-900/20 dark:text-svs-400',
-        hover: 'hover:bg-svs-50 hover:text-svs-700 dark:hover:bg-svs-900/10 dark:hover:text-svs-400'
+        active: 'bg-svs-100 text-svs-700 dark:bg-svs-900/30 dark:text-svs-300',
+        hover: 'hover:bg-svs-50 hover:text-svs-700 dark:hover:bg-svs-900/30 dark:hover:text-svs-200'
       },
       pratiques: {
-        active: 'bg-pratiques-100 text-pratiques-700 dark:bg-pratiques-900/20 dark:text-pratiques-400',
-        hover: 'hover:bg-pratiques-50 hover:text-pratiques-700 dark:hover:bg-pratiques-900/10 dark:hover:text-pratiques-400'
+        active: 'bg-pratiques-100 text-pratiques-700 dark:bg-pratiques-900/30 dark:text-pratiques-300',
+        hover: 'hover:bg-pratiques-50 hover:text-pratiques-700 dark:hover:bg-pratiques-900/30 dark:hover:text-pratiques-200'
       },
       etudecas: {
-        active: 'bg-etudecas-100 text-etudecas-700 dark:bg-etudecas-900/20 dark:text-etudecas-400',
-        hover: 'hover:bg-etudecas-50 hover:text-etudecas-700 dark:hover:bg-etudecas-900/10 dark:hover:text-etudecas-400'
+        active: 'bg-etudecas-100 text-etudecas-700 dark:bg-etudecas-900/30 dark:text-etudecas-300',
+        hover: 'hover:bg-etudecas-50 hover:text-etudecas-700 dark:hover:bg-etudecas-900/30 dark:hover:text-etudecas-200'
       },
       revision: {
-        active: 'bg-revision-100 text-revision-700 dark:bg-revision-900/20 dark:text-revision-400',
-        hover: 'hover:bg-revision-50 hover:text-revision-700 dark:hover:bg-revision-900/10 dark:hover:text-revision-400'
+        active: 'bg-revision-100 text-revision-700 dark:bg-revision-900/30 dark:text-revision-300',
+        hover: 'hover:bg-revision-50 hover:text-revision-700 dark:hover:bg-revision-900/30 dark:hover:text-revision-200'
       },
       quiz: {
-        active: 'bg-quiz-100 text-quiz-700 dark:bg-quiz-900/20 dark:text-quiz-400',
-        hover: 'hover:bg-quiz-50 hover:text-quiz-700 dark:hover:bg-quiz-900/10 dark:hover:text-quiz-400'
+        active: 'bg-quiz-100 text-quiz-700 dark:bg-quiz-900/30 dark:text-quiz-300',
+        hover: 'hover:bg-quiz-50 hover:text-quiz-700 dark:hover:bg-quiz-900/30 dark:hover:text-quiz-200'
       }
     }
     
@@ -54,7 +54,7 @@ const Header: React.FC = () => {
       return `${baseClass} ${colorConfig.active}`
     }
     
-    return `${baseClass} text-gray-700 dark:text-gray-300 ${colorConfig.hover}`
+    return `${baseClass} text-gray-700 dark:text-gray-200 ${colorConfig.hover}`
   }
   return (
     <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">

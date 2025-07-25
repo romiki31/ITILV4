@@ -178,15 +178,15 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">{sessionResults.length}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Cartes révisées</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Cartes révisées</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-green-600">{correctAnswers}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Réponses correctes</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Réponses correctes</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-blue-600">{formatTime(totalTime)}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Temps total</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Temps total</div>
             </div>
           </div>
 
@@ -207,7 +207,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Statistiques détaillées</h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <div className="text-gray-600 dark:text-gray-400">Taux de réussite</div>
+              <div className="text-gray-600 dark:text-gray-300">Taux de réussite</div>
               <div className="font-bold text-lg">
                 {sessionResults.length > 0 
                   ? Math.round((correctAnswers / sessionResults.length) * 100) 
@@ -215,17 +215,17 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
               </div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-gray-400">Temps moyen par carte</div>
+              <div className="text-gray-600 dark:text-gray-300">Temps moyen par carte</div>
               <div className="font-bold text-lg">{averageTime}s</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-gray-400">Cartes correctes</div>
+              <div className="text-gray-600 dark:text-gray-300">Cartes correctes</div>
               <div className="font-bold text-lg text-green-600">
                 {sessionResults.filter(r => r.wasCorrect).length}
               </div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-gray-400">À revoir</div>
+              <div className="text-gray-600 dark:text-gray-300">À revoir</div>
               <div className="font-bold text-lg text-red-600">
                 {sessionResults.filter(r => !r.wasCorrect).length}
               </div>
@@ -307,7 +307,7 @@ const FlashcardComponent: React.FC<FlashcardComponentProps> = ({
                   {currentCard.back}
                 </div>
                 {currentCard.examTip && (
-                  <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg">
+                  <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700 rounded-lg">
                     <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">💡 Conseil examen</p>
                     <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-1">{currentCard.examTip}</p>
                   </div>
