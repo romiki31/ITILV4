@@ -36,11 +36,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     const root = window.document.documentElement;
     
-    // Remove previous theme class
-    root.classList.remove('light', 'dark');
-    
-    // Add current theme class
-    root.classList.add(theme);
+    // Optimisation avec requestAnimationFrame pour éviter les blocages
+    requestAnimationFrame(() => {
+      // Remove previous theme class
+      root.classList.remove('light', 'dark');
+      
+      // Add current theme class
+      root.classList.add(theme);
+    });
     
     // Save to localStorage
     localStorage.setItem('theme', theme);
@@ -64,7 +67,21 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    // Respecter les préférences d'accessibilité pour réduire les mouvements
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+      // Transition instantanée si l'utilisateur préfère moins d'animations
+      const root = window.document.documentElement;
+      root.style.transition = 'none';
+      setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+      // Rétablir les transitions après un frame
+      requestAnimationFrame(() => {
+        root.style.transition = '';
+      });
+    } else {
+      setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    }
   };
 
   return (
