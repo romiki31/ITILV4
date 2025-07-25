@@ -556,27 +556,28 @@ const AstucesConseilsPage: React.FC = () => {
 
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full overflow-x-hidden">
+      <div className="container-responsive max-w-5xl">
       {/* En-tête amélioré */}
       <div className="mb-8">
         <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight max-w-4xl mx-auto break-words">
             🏆 Guide Complet : Réussir l'Examen ITIL 4
           </h1>
-          <p className="text-base text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-prose mx-auto leading-relaxed break-words">
             Tout ce qu'il faut savoir pour réussir l'examen et maîtriser les concepts ITIL 4 : 
             préparation, concepts difficiles, pièges fréquents et outils pratiques.
           </p>
         </div>
 
         {/* Navigation modernisée en cards */}
-        <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 ${designSystem.spacing.subsection}`}>
+        <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 ${designSystem.spacing.subsection}`}>
           <div className={`flex items-center justify-center ${designSystem.spacing.element}`}>
             <Navigation className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-3" />
             <h2 className={`text-lg font-semibold ${designSystem.text.primary}`}>Navigation Rapide</h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {sections.map((section) => {
               const Icon = section.icon
               const isActive = activeSection === section.id
@@ -603,19 +604,19 @@ const AstucesConseilsPage: React.FC = () => {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className={`group bg-white dark:bg-gray-900 rounded-lg p-4 border-2 transition-all duration-300 hover:shadow-md min-h-[100px] flex flex-col items-center justify-center text-center ${
+                  className={`group bg-white dark:bg-gray-900 rounded-lg p-4 sm:p-5 border-2 transition-all duration-300 hover:shadow-md min-h-0 h-auto flex flex-col items-center justify-center text-center touch-target ${
                     colorClasses[section.color as keyof typeof colorClasses]
-                  } ${isActive ? 'transform scale-105 shadow-lg' : 'hover:transform hover:scale-102'}`}
+                  } ${isActive ? 'shadow-lg' : 'hover:shadow-md'}`}
                 >
                   <Icon className={`h-8 w-8 mb-2 flex-shrink-0 transition-colors ${
                     iconColors[section.color as keyof typeof iconColors]
                   }`} />
-                  <h3 className={`text-sm font-semibold mb-1 transition-colors ${
+                  <h3 className={`text-xs sm:text-sm font-semibold mb-2 transition-colors leading-tight max-w-full break-words text-center ${
                     isActive ? designSystem.text.primary : designSystem.text.secondary
                   }`}>
                     {section.title}
                   </h3>
-                  <p className={`text-xs leading-tight transition-colors ${
+                  <p className={`text-xs leading-tight transition-colors max-w-full break-words text-center ${
                     isActive ? designSystem.text.secondary : designSystem.text.muted
                   }`}>
                     {section.description}
@@ -631,22 +632,22 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="concepts-difficiles" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <Brain className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Maîtrise des Concepts Difficiles
           </h2>
         </div>
 
         {/* Introduction des concepts difficiles */}
         <div className="bg-indigo-50 dark:bg-indigo-900/15 rounded-xl p-6 border border-indigo-200 dark:border-indigo-700 mb-6">
-          <div className="flex items-start space-x-4">
-            <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-3 flex-shrink-0">
-              <Brain className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+          <div className="flex items-start space-x-3">
+            <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-2 flex-shrink-0">
+              <Brain className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <h3 className="text-lg font-bold text-indigo-900 dark:text-indigo-100 mb-4">
                 🧠 Maîtrise des Concepts ITIL 4 les Plus Difficiles
               </h3>
-              <p className="text-indigo-800 dark:text-indigo-200 text-base">
+              <p className="text-indigo-800 dark:text-indigo-200 text-sm sm:text-base max-w-prose break-words leading-relaxed">
                 Cette section se concentre sur les concepts théoriques les plus piégeants à l'examen. 
                 Chaque concept difficile est décomposé avec des scénarios concrets, des analyses guidées et des exercices pratiques.
               </p>
@@ -667,17 +668,17 @@ const AstucesConseilsPage: React.FC = () => {
             }
 
             return (
-              <div key={concept.id} id={`concept-${concept.id}`} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div key={concept.id} id={`concept-${concept.id}`} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden max-w-full">
                 <div 
-                  className="p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="p-4 sm:p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors touch-target"
                   onClick={() => toggleConcept(concept.id)}
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-4 flex-1">
-                      <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                        <concept.icon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                    <div className="flex items-start space-x-3 flex-1">
+                      <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                        <concept.icon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{concept.title}</h3>
                           <span className={`px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(concept.difficulty)}`}>
@@ -685,9 +686,9 @@ const AstucesConseilsPage: React.FC = () => {
                             {concept.difficulty === 'hard' && '●●● Difficile'}
                           </span>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-400 mb-2">{concept.description}</p>
-                        <p className="text-sm text-red-600 dark:text-red-400">
-                          <AlertTriangle className="inline h-4 w-4 mr-1" />
+                        <p className="text-gray-600 dark:text-gray-400 mb-2 max-w-full break-words leading-relaxed">{concept.description}</p>
+                        <p className="text-sm text-red-600 dark:text-red-400 max-w-full break-words">
+                          <AlertTriangle className="inline h-4 w-4 mr-1 flex-shrink-0" />
                           <strong>Pourquoi c'est difficile :</strong> {concept.pourquoiDifficile}
                         </p>
                       </div>
@@ -699,7 +700,7 @@ const AstucesConseilsPage: React.FC = () => {
                 {isExpanded && (
                   <div className="border-t border-gray-200 dark:border-gray-700">
                     {/* Scénarios pédagogiques */}
-                    <div className="p-6 space-y-6">
+                    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                       <h4 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-4">
                         📚 Scénarios pédagogiques
                       </h4>
@@ -802,11 +803,11 @@ const AstucesConseilsPage: React.FC = () => {
 
         {/* Conseil final méthodologique */}
         <div className="bg-gradient-to-r from-indigo-50 to-cyan-50 dark:from-indigo-900/10 dark:to-cyan-900/10 rounded-xl p-6 border border-indigo-200 dark:border-indigo-800">
-          <div className="flex items-start space-x-4">
-            <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-3 flex-shrink-0">
-              <Lightbulb className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+          <div className="flex items-start space-x-3">
+            <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-2 flex-shrink-0">
+              <Lightbulb className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <h3 className="text-lg font-bold text-indigo-900 dark:text-indigo-100 mb-4">
                 💡 Conseil Final : Comment Aborder ces Concepts à l'Examen
               </h3>
@@ -830,32 +831,34 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="pieges-erreurs" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Pièges et Erreurs Fréquentes
           </h2>
         </div>
 
         {/* Conseil anti-piège amélioré */}
         <div className={`${designSystem.gradients.warning} rounded-xl p-6 border ${designSystem.colors.warning.split(' ').find(c => c.includes('border'))} ${designSystem.spacing.subsection}`}>
-          <div className="flex items-start space-x-4">
-            <div className="bg-amber-100 dark:bg-amber-900/30 rounded-full p-3 flex-shrink-0">
-              <Shield className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+          <div className="flex items-start space-x-3">
+            <div className="bg-amber-100 dark:bg-amber-900/30 rounded-full p-2 flex-shrink-0">
+              <Shield className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-bold ${designSystem.text.primary} mb-4 flex items-center">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-bold ${designSystem.text.primary} mb-4">
                 🚨 Stratégie Anti-Piège Universelle
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <p className={`${designSystem.text.primary} text-base font-medium`}>
                   <strong>Règle d'or :</strong> Méfiez-vous des mots absolus !
                 </p>
-                <p className={`${designSystem.text.secondary}`}>
-                  Quand vous voyez <code className="bg-amber-200 dark:bg-amber-800 px-2 py-1 rounded text-sm font-mono">TOUJOURS</code>, 
-                  <code className="bg-amber-200 dark:bg-amber-800 px-2 py-1 rounded text-sm font-mono mx-1">JAMAIS</code>, 
-                  <code className="bg-amber-200 dark:bg-amber-800 px-2 py-1 rounded text-sm font-mono mx-1">TOUS</code>, 
-                  <code className="bg-amber-200 dark:bg-amber-800 px-2 py-1 rounded text-sm font-mono mx-1">AUCUN</code> 
-                  → soyez ULTRA vigilant ! ITIL 4 prône la flexibilité et l'adaptation contextuelle.
+                <p className={`${designSystem.text.secondary} max-w-full break-words leading-relaxed`}>
+                  Quand vous voyez ces mots dans une question, soyez ULTRA vigilant ! ITIL 4 prône la flexibilité et l'adaptation contextuelle.
                 </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-amber-200 dark:bg-amber-800 px-3 py-2 rounded-lg text-sm font-bold text-amber-900 dark:text-amber-100">TOUJOURS</span>
+                  <span className="bg-amber-200 dark:bg-amber-800 px-3 py-2 rounded-lg text-sm font-bold text-amber-900 dark:text-amber-100">JAMAIS</span>
+                  <span className="bg-amber-200 dark:bg-amber-800 px-3 py-2 rounded-lg text-sm font-bold text-amber-900 dark:text-amber-100">TOUS</span>
+                  <span className="bg-amber-200 dark:bg-amber-800 px-3 py-2 rounded-lg text-sm font-bold text-amber-900 dark:text-amber-100">AUCUN</span>
+                </div>
                 <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-amber-300 dark:border-amber-600">
                   <p className={`${designSystem.text.secondary} text-sm`}>
                     💡 <strong>Astuce :</strong> Dans 80% des cas, une affirmation avec un mot absolu est un piège.
@@ -889,9 +892,9 @@ const AstucesConseilsPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-full">
                   {theme.pieges.map((piege, idx) => (
-                    <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
+                    <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
                       <div className="mb-4">
                         <div className="flex items-start justify-between mb-3">
                           <h4 className={`text-base font-bold ${designSystem.text.primary} flex-1`}>
@@ -909,7 +912,7 @@ const AstucesConseilsPage: React.FC = () => {
                       <div className="space-y-4">
                         <div className={`${designSystem.colors.success} rounded-lg p-4 border`}>
                           <div className="flex items-start space-x-2">
-                            <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+                            <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-1 flex-shrink-0" />
                             <div>
                               <p className="font-semibold text-emerald-800 dark:text-emerald-200 mb-1">✅ Réalité</p>
                               <p className="text-sm text-emerald-700 dark:text-emerald-300">{piege.realite}</p>
@@ -919,7 +922,7 @@ const AstucesConseilsPage: React.FC = () => {
                         
                         <div className={`${designSystem.colors.primary} rounded-lg p-4 border`}>
                           <div className="flex items-start space-x-2">
-                            <Lightbulb className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
+                            <Lightbulb className="h-4 w-4 text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0" />
                             <div>
                               <p className="font-semibold text-indigo-800 dark:text-indigo-200 mb-1">💡 Astuce mémorisation</p>
                               <p className="text-sm text-indigo-700 dark:text-indigo-300">{piege.astuce}</p>
@@ -940,7 +943,7 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="preparation" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <Award className="h-8 w-8 text-indigo-600 dark:text-indigo-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Préparation à l'Examen
           </h2>
         </div>
@@ -951,7 +954,7 @@ const AstucesConseilsPage: React.FC = () => {
             <Clock className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-3" />
             Format Officiel de l'Examen
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {Object.entries(formatExamen).map(([key, value]) => (
               <div key={key} className={`${designSystem.gradients.primary} rounded-lg p-4 border border-indigo-200 dark:border-indigo-700 hover:shadow-md transition-shadow`}>
                 <dt className={`text-sm font-medium text-indigo-700 dark:text-indigo-300 capitalize mb-2`}>
@@ -969,7 +972,7 @@ const AstucesConseilsPage: React.FC = () => {
             <BarChart3 className="h-6 w-6 text-primary-600 mr-2" />
             Répartition Stratégique des Questions
           </h3>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             {repartitionQuestions.map((item, index) => (
               <div key={index} className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start mb-3">
@@ -999,7 +1002,7 @@ const AstucesConseilsPage: React.FC = () => {
           <h3 className={`text-xl font-bold ${designSystem.text.primary} mb-6 text-center`}>
             🎯 Stratégies d'Examen Gagnantes
           </h3>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {strategiesExamen.map((strategie, index) => {
               const Icon = strategie.icon
               const colorClass = designSystem.colors[strategie.color as keyof typeof designSystem.colors]
@@ -1007,16 +1010,16 @@ const AstucesConseilsPage: React.FC = () => {
               
               return (
                 <div key={index} className={`${gradientClass} rounded-xl border p-6 hover:shadow-lg transition-all duration-300 ${colorClass.split(' ')[2]} ${colorClass.split(' ')[3]}`}>
-                  <div className="flex items-start space-x-4 mb-4">
-                    <div className={`${strategie.color === 'primary' ? 'bg-indigo-100 dark:bg-indigo-900/30' : strategie.color === 'success' ? 'bg-emerald-100 dark:bg-emerald-900/30' : strategie.color === 'warning' ? 'bg-amber-100 dark:bg-amber-900/30' : 'bg-red-100 dark:bg-red-900/30'} rounded-full p-3 flex-shrink-0`}>
-                      <Icon className={`h-6 w-6 ${strategie.color === 'primary' ? 'text-indigo-600 dark:text-indigo-400' : strategie.color === 'success' ? 'text-emerald-600 dark:text-emerald-400' : strategie.color === 'warning' ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'}`} />
+                  <div className="flex items-start space-x-3 mb-4">
+                    <div className={`${strategie.color === 'primary' ? 'bg-indigo-100 dark:bg-indigo-900/30' : strategie.color === 'success' ? 'bg-emerald-100 dark:bg-emerald-900/30' : strategie.color === 'warning' ? 'bg-amber-100 dark:bg-amber-900/30' : 'bg-red-100 dark:bg-red-900/30'} rounded-full p-2 flex-shrink-0`}>
+                      <Icon className={`h-5 w-5 ${strategie.color === 'primary' ? 'text-indigo-600 dark:text-indigo-400' : strategie.color === 'success' ? 'text-emerald-600 dark:text-emerald-400' : strategie.color === 'warning' ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'}`} />
                     </div>
                     <h4 className={`text-lg font-bold ${designSystem.text.primary} flex-1`}>{strategie.titre}</h4>
                   </div>
                   <ul className="space-y-3">
                     {strategie.techniques.map((technique, idx) => (
-                      <li key={idx} className="flex items-start space-x-3">
-                        <CheckCircle className={`h-5 w-5 ${strategie.color === 'primary' ? 'text-indigo-600 dark:text-indigo-400' : strategie.color === 'success' ? 'text-emerald-600 dark:text-emerald-400' : strategie.color === 'warning' ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'} mt-0.5 flex-shrink-0`} />
+                      <li key={idx} className="flex items-start space-x-2">
+                        <CheckCircle className={`h-4 w-4 ${strategie.color === 'primary' ? 'text-indigo-600 dark:text-indigo-400' : strategie.color === 'success' ? 'text-emerald-600 dark:text-emerald-400' : strategie.color === 'warning' ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'} mt-1 flex-shrink-0`} />
                         <span className={`${designSystem.text.secondary} text-sm`}>{technique}</span>
                       </li>
                     ))}
@@ -1035,17 +1038,17 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="roles-responsabilites" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <Users className="h-6 w-6 text-purple-600 dark:text-purple-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Rôles et Responsabilités ITIL 4
           </h2>
         </div>
 
         <div className="bg-purple-50 dark:bg-purple-900/15 rounded-xl p-6 border border-purple-200 dark:border-purple-700 mb-6">
-          <div className="flex items-start space-x-4">
-            <div className="bg-purple-100 dark:bg-purple-900/30 rounded-full p-3 flex-shrink-0">
-              <Users className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+          <div className="flex items-start space-x-3">
+            <div className="bg-purple-100 dark:bg-purple-900/30 rounded-full p-2 flex-shrink-0">
+              <Users className="h-5 w-5 text-purple-600 dark:text-purple-400" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <h3 className="text-lg font-bold text-purple-900 dark:text-purple-100 mb-4">
                 🎭 Qui fait quoi ? Les malentendus sur les rôles et pouvoirs
               </h3>
@@ -1059,7 +1062,7 @@ const AstucesConseilsPage: React.FC = () => {
 
         <div className="space-y-6">
           {rolesResponsabilites.map((role, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
               <div className="mb-4">
                 <div className="flex items-start justify-between mb-3">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex-1">
@@ -1124,17 +1127,17 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="chaine-valeur" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <ArrowRight className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Chaîne de Valeur des Services (CVS)
           </h2>
         </div>
 
         <div className="bg-emerald-50 dark:bg-emerald-900/15 rounded-xl p-6 border border-emerald-200 dark:border-emerald-700 mb-6">
-          <div className="flex items-start space-x-4">
-            <div className="bg-emerald-100 dark:bg-emerald-900/30 rounded-full p-3 flex-shrink-0">
-              <ArrowRight className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+          <div className="flex items-start space-x-3">
+            <div className="bg-emerald-100 dark:bg-emerald-900/30 rounded-full p-2 flex-shrink-0">
+              <ArrowRight className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <h3 className="text-lg font-bold text-emerald-900 dark:text-emerald-100 mb-4">
                 🔄 La flexibilité de la CVS, source de nombreuses erreurs
               </h3>
@@ -1148,7 +1151,7 @@ const AstucesConseilsPage: React.FC = () => {
 
         <div className="space-y-6">
           {chaineValeurFlux.map((concept, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
               <div className="mb-4">
                 <div className="flex items-start justify-between mb-3">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex-1">
@@ -1214,7 +1217,7 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="questions-simulations" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <HelpCircle className="h-8 w-8 text-indigo-600 dark:text-indigo-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Questions Types et Simulations
           </h2>
         </div>
@@ -1245,12 +1248,12 @@ const AstucesConseilsPage: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">{q.question}</h3>
               </div>
               
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="space-y-4 mb-6">
                   {q.options.map((option, idx) => (
                     <div 
                       key={idx}
-                      className={`p-4 rounded-lg border transition-all ${
+                      className={`p-3 sm:p-4 rounded-lg border transition-all touch-target ${
                         idx === q.reponse 
                           ? 'border-green-400 dark:border-green-400 bg-green-50 dark:bg-green-900/30 shadow-sm' 
                           : 'border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600'
@@ -1300,12 +1303,12 @@ const AstucesConseilsPage: React.FC = () => {
       <section id="ressources-outils" className={designSystem.spacing.section}>
         <div className={`flex items-center ${designSystem.spacing.element}`}>
           <BookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mr-3" />
-          <h2 className={`text-2xl font-bold ${designSystem.text.primary}`}>
+          <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold ${designSystem.text.primary} max-w-full break-words`}>
             Ressources et Outils de Préparation
           </h2>
         </div>
 
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ${designSystem.spacing.subsection}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-full ${designSystem.spacing.subsection}`}>
           {outilsRessources.map((outil, index) => {
             const Icon = outil.icon
             const colors = [
@@ -1318,7 +1321,7 @@ const AstucesConseilsPage: React.FC = () => {
             
             return (
               <Link key={index} to={outil.lien} className="group">
-                <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-all duration-300 h-full min-h-[260px] flex flex-col`}>
+                <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-all duration-300 h-full min-h-0 flex flex-col touch-target max-w-full overflow-hidden`}>
                   <div className={`bg-gradient-to-r ${color.bg} rounded-lg p-4 w-fit mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                     <Icon className="h-6 w-6 text-white" />
                   </div>
@@ -1332,10 +1335,10 @@ const AstucesConseilsPage: React.FC = () => {
                     )}
                   </div>
                   
-                  <h3 className={`text-lg font-bold ${designSystem.text.primary} mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors`}>
+                  <h3 className={`text-base sm:text-lg font-bold ${designSystem.text.primary} mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors max-w-full break-words leading-tight`}>
                     {outil.titre}
                   </h3>
-                  <p className={`${designSystem.text.secondary} mb-6 flex-1 text-sm`}>{outil.description}</p>
+                  <p className={`${designSystem.text.secondary} mb-6 flex-1 text-sm max-w-full break-words leading-relaxed`}>{outil.description}</p>
                   
                   <div className="flex items-center text-indigo-600 dark:text-indigo-400 text-base font-semibold group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors">
                     <span>Explorer maintenant</span>
@@ -1353,7 +1356,7 @@ const AstucesConseilsPage: React.FC = () => {
             🎆 Progression Recommandée pour la Réussite
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {[
               { num: '1', title: 'Étude', desc: 'Hub d\'apprentissage complet', time: '2-3 semaines' },
               { num: '2', title: 'Mémorisation', desc: 'Flashcards quotidiennes', time: '15 min/jour' },
@@ -1384,16 +1387,16 @@ const AstucesConseilsPage: React.FC = () => {
           <h3 className={`text-2xl font-bold ${designSystem.text.primary} mb-4`}>
             ✅ Checklist Finale de Réussite
           </h3>
-          <p className={`${designSystem.text.secondary} text-base max-w-3xl mx-auto`}>
+          <p className={`${designSystem.text.secondary} text-sm sm:text-base max-w-prose mx-auto break-words leading-relaxed`}>
             Vérifiez que vous maîtrisez tous ces éléments avant de passer l'examen officiel
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="flex items-center mb-6">
-              <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-3 mr-4">
-                <BookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+              <div className="bg-indigo-100 dark:bg-indigo-900/30 rounded-full p-2 mr-3">
+                <BookOpen className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
               </div>
               <h4 className={`text-lg font-bold ${designSystem.text.primary}`}>
                 📚 Maîtrise Théorique
@@ -1407,8 +1410,8 @@ const AstucesConseilsPage: React.FC = () => {
                 "CVS flexible : 6 activités combinables librement",
                 "15 pratiques : objectifs et distinctions clés"
               ].map((item, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-emerald-50 dark:bg-emerald-900/10 rounded-lg border border-emerald-200 dark:border-emerald-800">
-                  <CheckCircle className="h-6 w-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+                <div key={index} className="flex items-start space-x-2 p-3 bg-emerald-50 dark:bg-emerald-900/10 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                  <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-1" />
                   <span className={`${designSystem.text.secondary} text-sm font-medium`}>{item}</span>
                 </div>
               ))}
@@ -1417,10 +1420,10 @@ const AstucesConseilsPage: React.FC = () => {
           
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 lg:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="flex items-center mb-6">
-              <div className="bg-amber-100 dark:bg-amber-900/30 rounded-full p-3 mr-4">
-                <Target className="h-8 w-8 text-amber-600 dark:text-amber-400" />
+              <div className="bg-amber-100 dark:bg-amber-900/30 rounded-full p-2 mr-3">
+                <Target className="h-5 w-5 text-amber-600 dark:text-amber-400" />
               </div>
-              <h4 className={`text-xl lg:text-2xl font-bold ${designSystem.text.primary}`}>
+              <h4 className={`text-lg font-bold ${designSystem.text.primary}`}>
                 🎯 Préparation Pratique
               </h4>
             </div>
@@ -1432,8 +1435,8 @@ const AstucesConseilsPage: React.FC = () => {
                 "Simulation d'examen : 1 réussie à 70%+ minimum",
                 "Stratégies d'examen : 4 techniques maîtrisées"
               ].map((item, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-amber-50 dark:bg-amber-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
-                  <CheckCircle className="h-6 w-6 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                <div key={index} className="flex items-start space-x-2 p-3 bg-amber-50 dark:bg-amber-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <CheckCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-1" />
                   <span className={`${designSystem.text.secondary} text-sm font-medium`}>{item}</span>
                 </div>
               ))}
@@ -1447,12 +1450,13 @@ const AstucesConseilsPage: React.FC = () => {
             <h5 className={`text-2xl lg:text-3xl font-bold ${designSystem.text.primary} mb-4`}>
               🎆 Vous êtes Prêt(e) pour la Réussite !
             </h5>
-            <p className={`${designSystem.text.secondary} text-lg lg:text-xl`}>
+            <p className={`${designSystem.text.secondary} text-sm sm:text-base lg:text-lg max-w-prose mx-auto break-words leading-relaxed`}>
               Avec cette préparation complète, vous avez toutes les clés pour obtenir votre certification ITIL 4 Foundation. 
               <strong className={designSystem.text.primary}>Faites-vous confiance et montrez votre expertise !</strong>
             </p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )
