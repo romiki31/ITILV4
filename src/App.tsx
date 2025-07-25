@@ -21,8 +21,11 @@ function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Routes>
-        <Route path="/" element={<Layout />}>
+          {/* HomePage sans Layout pour extension pleine largeur */}
           <Route index element={<HomePage />} />
+          
+        <Route path="/" element={<Layout />}>
+          {/* Toutes les autres routes utilisent le Layout */}
           
           {/* Hub d'apprentissage */}
           <Route path="learn">

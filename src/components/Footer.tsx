@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
               ITIL v4 Foundation - Guide de révision
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
-              Support de cours pour la classe
+              Outil d'aide à la préparation ITIL v4
             </p>
           </div>
           
@@ -33,8 +33,7 @@ const Footer: React.FC = () => {
                 des examens ITIL. Toute reproduction ou distribution non autorisée est interdite.
               </p>
               <p className="pt-2">
-                © {new Date().getFullYear()} - Support de formation ITIL v4. 
-                Tous droits réservés. Usage strictement pédagogique.
+                © {new Date().getFullYear()} - Développé par Romain Danielant pour faciliter l'apprentissage ITIL v4.
               </p>
             </div>
           </div>

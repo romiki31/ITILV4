@@ -18,6 +18,9 @@ import {
   Shield
 } from 'lucide-react'
 import ITILLogo from '../components/ITILLogo'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import BackToTop from '../components/BackToTop'
 
 const HomePage: React.FC = () => {
   const statsCards = [
@@ -114,7 +117,9 @@ const HomePage: React.FC = () => {
 
 
   return (
-    <div className="smooth-page-gradient -mx-4 sm:-mx-6 lg:-mx-8 -mt-8 min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Header />
+      <div className="smooth-page-gradient min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
         {/* Floating Particles */}
@@ -361,6 +366,10 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+      </div>
+      
+      <Footer />
+      <BackToTop />
     </div>
   )
 }
