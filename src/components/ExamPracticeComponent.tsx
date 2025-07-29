@@ -229,7 +229,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
     const remainingQuestions = EXAM_PRACTICE_STATS.totalQuestions - answeredCount
 
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="mb-8">
           <button 
             onClick={handleDirectQuit}
@@ -262,7 +262,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
             Combien de questions souhaitez-vous étudier ?
           </h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
             {QUESTION_COUNT_OPTIONS.map(count => {
               const available = Math.min(count, remainingQuestions)
               const isDisabled = available === 0
@@ -312,7 +312,7 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
     const score = finalStats.currentScore
 
     return (
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-3xl mx-auto text-center px-4 sm:px-6">
         <div className="card">
           <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 ${
             score >= 80 ? 'bg-green-500' : score >= 65 ? 'bg-yellow-500' : 'bg-orange-500'
@@ -445,11 +445,11 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
 
   // Interface principale de question
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 px-4 sm:px-6">
       {/* Header avec progression */}
       <div className="card">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+          <div className="flex items-center space-x-4 min-w-0">
             <button 
               onClick={() => {
                 // Confirmation seulement si on est en cours d'examen
@@ -459,21 +459,22 @@ const ExamPracticeComponent: React.FC<ExamPracticeComponentProps> = ({
                   handleDirectQuit()
                 }
               }} 
-              className="btn btn-secondary"
+              className="btn btn-secondary flex-shrink-0"
             >
               <X size={16} className="mr-2" />
-              Quitter
+              <span className="hidden sm:inline">Quitter</span>
+              <span className="sm:hidden">Quit</span>
             </button>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-600 dark:text-gray-400 truncate">
               Question {currentQuestionIndex + 1} sur {questions.length}
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
             {sessionAnswers.length > 0 && (
-              <StatsDisplay stats={currentStats} />
+              <StatsDisplay stats={currentStats} className="sm:order-1" />
             )}
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 sm:order-2">
               Mode : Apprentissage progressif
             </div>
           </div>
